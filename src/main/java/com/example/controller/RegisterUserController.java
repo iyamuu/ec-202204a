@@ -16,7 +16,7 @@ public class RegisterUserController {
 	
 	@PostMapping("/insert")
 	public String insert() {
-		System.out.println("hey");
+		// TODO:商品一覧ページが出来たら、そこに飛ばす
 		return "redirect:/user/sighup";
 	}
 }
