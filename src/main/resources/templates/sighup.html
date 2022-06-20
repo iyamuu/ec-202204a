@@ -20,7 +20,7 @@
             rel="stylesheet"
         />
         <!-- Custom CSS -->
-        <link rel="stylesheet" th:href="@{/css/login.css}" />
+        <link rel="stylesheet" th:href="@{/css/sighup.css}" />
         <title>らくらくアロハ</title>
     </head>
 
@@ -146,12 +146,12 @@
         </header>
 
         <main>
-            <div class="login-form">
-                <section class="login-section">ログイン入力画面</section>
+            <div class="register-form">
+                <section class="register-section">ユーザー情報入力画面</section>
                 <br />
-                <div class="login-input">
-                    <form>
-                        <div class="login-input-content">
+                <div class="register-input">
+                    <form th:action="@{/user/insert}" method="post">
+                        <div class="register-input-content">
                             <div class="mb-3">
                                 <label
                                     for="exampleInputEmail1"
