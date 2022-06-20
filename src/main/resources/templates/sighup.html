@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,7 +20,7 @@
             rel="stylesheet"
         />
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="../static/css/login.css" />
+        <link rel="stylesheet" th:href="@{/css/login.css}" />
         <title>らくらくアロハ</title>
     </head>
 
@@ -45,7 +45,7 @@
                     <!-- Navbar brand -->
                     <a class="navbar-brand mt-2 mt-lg-0" href="#">
                         <img
-                            src="../static/img_aloha/header_logo.png"
+                            th:src="@{/img_aloha/header_logo.png}"
                             class="bg-light"
                             height="15"
                             alt="Rakuraku aloha Logo"
