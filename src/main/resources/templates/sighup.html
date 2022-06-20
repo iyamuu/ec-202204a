@@ -130,11 +130,14 @@
                                         >注文履歴</a
                                     >
                                 </li>
-                                <li>
-                                    <a class="dropdown-item" href="#"
-                                        >ログアウト</a
+                                <li th:if="${session.user}">
+                                    <a class="dropdown-item" th:href="@{/auth/logout}"
+                                      >ログアウト</a
                                     >
-                                </li>
+                                  </li>
+                                  <li th:unless="${session.user}">
+                                    <a class="dropdown-item" th:href="@{/auth/login}">ログイン</a>
+                                  </li>
                             </ul>
                         </div>
                     </div>

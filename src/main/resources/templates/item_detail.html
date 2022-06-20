@@ -1,293 +1,498 @@
 <!DOCTYPE html>
 <html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/css/item_detail.css" />
+    <title>らくらくアロハ</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-  <!-- MDB -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css" rel="stylesheet" />
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="../static/css/item_detail.css">
-  <title>らくらくアロハ</title>
-</head>
-
-<body>
-  <header class="fixed-top">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-info">
-      <!-- Container wrapper -->
-      <div class="container-fluid">
-        <!-- Toggle button -->
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-          data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation">
-          <i class="fas fa-bars"></i>
-
-        </button>
-        <!-- Navbar brand -->
-        <a class="navbar-brand mt-2 mt-lg-0" href="item_list.html">
-          <img src="../static/img_aloha/header_logo.png" class="bg-light" height="15" alt="Rakuraku aloha Logo"
-            loading="lazy" />
-        </a>
-
-        <!-- Collapsible wrapper -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-          <!-- Left links -->
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="item_list.html">ホーム</a>
-            </li>
-            <li class="nav-item">
-              <!-- Search Form-->
-              <form class="d-flex input-group w-auto">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                  aria-describedby="search-addon" />
-                <span class="input-group-text border-0" id="search-addon">
-                  <i class="fas fa-search"></i>
-                </span>
-              </form>
-            </li>
-          </ul>
-          <!-- Left links -->
-        </div>
-        <!-- Collapsible wrapper -->
-
-        <!-- Right elements -->
-        <div class="d-flex align-items-center">
-
-          <!-- Icon -->
-          <a class="text-reset me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button"
-            data-mdb-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="badge rounded-pill badge-notification bg-danger">1</span>
+  <body>
+    <header class="fixed-top">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-info">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+          <!-- Toggle button -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <!-- Navbar brand -->
+          <a class="navbar-brand mt-2 mt-lg-0" href="item_list.html">
+            <img
+              src="../static/img_aloha/header_logo.png"
+              class="bg-light"
+              height="15"
+              alt="Rakuraku aloha Logo"
+              loading="lazy"
+            />
           </a>
 
-          <!-- Avatar -->
-          <div class="dropdown">
-            <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
-              role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-              <i class="fa-solid fa-circle-user"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-              <li>
-                <a class="dropdown-item" href="#">マイページ</a>
+          <!-- Collapsible wrapper -->
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="item_list.html">ホーム</a>
               </li>
-              <li>
-                <a class="dropdown-item" href="#">注文履歴</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">ログアウト</a>
+              <li class="nav-item">
+                <!-- Search Form-->
+                <form class="d-flex input-group w-auto">
+                  <input
+                    type="search"
+                    class="form-control rounded"
+                    placeholder="Search"
+                    aria-label="Search"
+                    aria-describedby="search-addon"
+                  />
+                  <span class="input-group-text border-0" id="search-addon">
+                    <i class="fas fa-search"></i>
+                  </span>
+                </form>
               </li>
             </ul>
+            <!-- Left links -->
           </div>
-        </div>
-        <!-- Right elements -->
-      </div>
-      <!-- Container wrapper -->
-    </nav>
-    <!-- Navbar -->
-  </header>
+          <!-- Collapsible wrapper -->
 
-  <main>
-    <section>
-      <div class="container">
-        <br><br>
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <br>
-        <br>
-        <h2>Hawaiianパラダイス</h2>
-        <br>
-        <div class="d-flex align-items-center">
-          <div class="flex-shrink-0">
-            <img src="../static/img_aloha/10.jpg" class="img-thumbnail" id="detail-img" alt="...">
-          </div>
-          <div class="flex-grow-1 ms-3">
-            ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。 </div>
-        </div>
-      </div>
-    </section>
-    <br>
-    <section>
-      <div class="container">
-        <form id="order-form" action="cart_list.html">
-          <h4>サイズ</h4>
-          <br>
-          <p>（税抜価格/円）</p>
-          <div class="btn-group">
-            <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" />
-            <label class="btn btn-outline-success" for="option1">Mサイズ:2160円</label>
+          <!-- Right elements -->
+          <div class="d-flex align-items-center">
+            <!-- Icon -->
+            <a
+              class="text-reset me-3 dropdown-toggle hidden-arrow"
+              href="#"
+              id="navbarDropdownMenuLink"
+              role="button"
+              data-mdb-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fas fa-shopping-cart"></i>
+              <span class="badge rounded-pill badge-notification bg-danger"
+                >1</span
+              >
+            </a>
 
-            <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" />
-            <label class="btn btn-outline-danger" for="option2">Lサイズ:3380円</label>
-          </div>
-          <br>
-          <br>
-          <br>
-          <h4>トッピング</h4>
-          <br>
-          <p>М:200円(税抜)/個, L:300円(税抜)/個</p>
-          <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck1">ハワイアンソルト</label>
-              </div>
-
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck2">ハワイアンマヨネーズ</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck3">ハワイアントマト</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck4">ブルーチーズ</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck5">ハワイアンチョコレート</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck6">アンチョビ</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck7" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck7">エビ</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck8" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck8">ガーリックスライス</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck9" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck9">トロピカルフルーツ</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck10" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck10">ハワイ産はちみつ</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck11" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck11">ココナッツ</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck12" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck12">マンゴー</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck13" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck13">パイナップル</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck14" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck14">もち</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck15" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck15">コーヒー</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck16" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck16">スプライト</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck17" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck17">ジンジャエール</label>
-              </div>
-              <div class="col mx-auto">
-                <input type="checkbox" class="btn-check" id="btncheck18" autocomplete="off">
-                <label class="btn btn-outline-info" for="btncheck18">コーラ</label>
-              </div>
+            <!-- Avatar -->
+            <div class="dropdown">
+              <a
+                class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                href="#"
+                id="navbarDropdownMenuAvatar"
+                role="button"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fa-solid fa-circle-user"></i>
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdownMenuAvatar"
+              >
+                <li>
+                  <a class="dropdown-item" href="#">マイページ</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">注文履歴</a>
+                </li>
+                <li th:if="${session.user}">
+                  <a class="dropdown-item" th:href="@{/auth/logout}"
+                    >ログアウト</a
+                  >
+                </li>
+                <li th:unless="${session.user}">
+                  <a class="dropdown-item" th:href="@{/auth/login}">ログイン</a>
+                </li>
+              </ul>
             </div>
           </div>
-          <br>
-          <br>
-          <br>
-          <h4>数量</h4>
-          <br>
-          <div class="form-floating">
-            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-              <span id="textExample2" class="form-text">数量を選択してください</span>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-            <label for="floatingSelect">数量</label>
-          </div>
-          <br>
-          
-          <button class="btn btn-outline-secondary">カートに入れる</button>
-        </form>
-      </div>
-
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="text-center text-lg-start bg-light text-muted">
-
-    <!-- Section: Links  -->
-    <section class="">
-      <div class="container text-center text-md-start mt-5">
-        <br>
-        <!-- Grid row -->
-        <div class="row mt-3">
-
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-            <!-- Content -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              <i class="fas fa-gem me-3"></i>らくらくアロハ
-            </h6>
-            <p>
-              真心を込めて美味しい商品をお届けします
-            </p>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              Contact
-            </h6>
-            <p><i class="fas fa-home me-3"></i> 東京都渋谷区千駄ヶ谷</p>
-            <p>
-              <i class="fas fa-envelope me-3"></i>
-              rakuraku-aloha@gmail.com
-            </p>
-            <p><i class="fas fa-phone me-3"></i> 0120-000-111</p>
-          </div>
-          <!-- Grid column -->
+          <!-- Right elements -->
         </div>
-        <!-- Grid row -->
+        <!-- Container wrapper -->
+      </nav>
+      <!-- Navbar -->
+    </header>
+
+    <main>
+      <section>
+        <div class="container">
+          <br /><br />
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 25%"
+              aria-valuenow="25"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+          <br />
+          <br />
+          <h2>Hawaiianパラダイス</h2>
+          <br />
+          <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+              <img
+                src="../static/img_aloha/10.jpg"
+                class="img-thumbnail"
+                id="detail-img"
+                alt="..."
+              />
+            </div>
+            <div class="flex-grow-1 ms-3">
+              ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
+            </div>
+          </div>
+        </div>
+      </section>
+      <br />
+      <section>
+        <div class="container">
+          <form id="order-form" action="cart_list.html">
+            <h4>サイズ</h4>
+            <br />
+            <p>（税抜価格/円）</p>
+            <div class="btn-group">
+              <input
+                type="radio"
+                class="btn-check"
+                name="options"
+                id="option1"
+                autocomplete="off"
+              />
+              <label class="btn btn-outline-success" for="option1"
+                >Mサイズ:2160円</label
+              >
+
+              <input
+                type="radio"
+                class="btn-check"
+                name="options"
+                id="option2"
+                autocomplete="off"
+              />
+              <label class="btn btn-outline-danger" for="option2"
+                >Lサイズ:3380円</label
+              >
+            </div>
+            <br />
+            <br />
+            <br />
+            <h4>トッピング</h4>
+            <br />
+            <p>М:200円(税抜)/個, L:300円(税抜)/個</p>
+            <div
+              class="btn-group"
+              role="group"
+              aria-label="Basic checkbox toggle button group"
+            >
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck1"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck1"
+                    >ハワイアンソルト</label
+                  >
+                </div>
+
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck2"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck2"
+                    >ハワイアンマヨネーズ</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck3"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck3"
+                    >ハワイアントマト</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck4"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck4"
+                    >ブルーチーズ</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck5"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck5"
+                    >ハワイアンチョコレート</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck6"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck6"
+                    >アンチョビ</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck7"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck7"
+                    >エビ</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck8"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck8"
+                    >ガーリックスライス</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck9"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck9"
+                    >トロピカルフルーツ</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck10"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck10"
+                    >ハワイ産はちみつ</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck11"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck11"
+                    >ココナッツ</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck12"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck12"
+                    >マンゴー</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck13"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck13"
+                    >パイナップル</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck14"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck14"
+                    >もち</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck15"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck15"
+                    >コーヒー</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck16"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck16"
+                    >スプライト</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck17"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck17"
+                    >ジンジャエール</label
+                  >
+                </div>
+                <div class="col mx-auto">
+                  <input
+                    type="checkbox"
+                    class="btn-check"
+                    id="btncheck18"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-outline-info" for="btncheck18"
+                    >コーラ</label
+                  >
+                </div>
+              </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <h4>数量</h4>
+            <br />
+            <div class="form-floating">
+              <select
+                class="form-select"
+                id="floatingSelect"
+                aria-label="Floating label select example"
+              >
+                <span id="textExample2" class="form-text"
+                  >数量を選択してください</span
+                >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+              <label for="floatingSelect">数量</label>
+            </div>
+            <br />
+
+            <button class="btn btn-outline-secondary">カートに入れる</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-lg-start bg-light text-muted">
+      <!-- Section: Links  -->
+      <section class="">
+        <div class="container text-center text-md-start mt-5">
+          <br />
+          <!-- Grid row -->
+          <div class="row mt-3">
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+              <!-- Content -->
+              <h6 class="text-uppercase fw-bold mb-4">
+                <i class="fas fa-gem me-3"></i>らくらくアロハ
+              </h6>
+              <p>真心を込めて美味しい商品をお届けします</p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+              <!-- Links -->
+              <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+              <p><i class="fas fa-home me-3"></i> 東京都渋谷区千駄ヶ谷</p>
+              <p>
+                <i class="fas fa-envelope me-3"></i>
+                rakuraku-aloha@gmail.com
+              </p>
+              <p><i class="fas fa-phone me-3"></i> 0120-000-111</p>
+            </div>
+            <!-- Grid column -->
+          </div>
+          <!-- Grid row -->
+        </div>
+      </section>
+      <!-- Section: Links  -->
+
+      <!-- Copyright -->
+      <div
+        class="text-center p-4"
+        style="background-color: rgba(0, 0, 0, 0.05)"
+      >
+        © 2021 Copyright:
+        <a class="text-reset fw-bold" href="#">らくらくアロハ</a>
       </div>
-    </section>
-    <!-- Section: Links  -->
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
 
-    <!-- Copyright -->
-    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-      © 2021 Copyright:
-      <a class="text-reset fw-bold" href="#">らくらくアロハ</a>
-    </div>
-    <!-- Copyright -->
-  </footer>
-  <!-- Footer -->
-
-  <!-- MDB -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"></script>
-</body>
-
+    <!-- MDB -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"
+    ></script>
+  </body>
 </html>
