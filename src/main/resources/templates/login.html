@@ -149,6 +149,7 @@
             <div class="login-form">
                 <section class="login-section">ログイン入力画面</section>
                 <br />
+                <div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
                 <div class="login-input">
                     <form action="item_list.html" th:action="@{/auth/login}" method="post" th:object="${loginUserForm}">
                         <div class="login-input-content">
@@ -166,9 +167,6 @@
                                     aria-describedby="emailHelp"
                                     th:field="*{email}"
                                 />
-                                <div id="emailHelp" class="form-text">
-                                    ここはメアドの制限を書くぞ
-                                </div>
                             </div>
                             <div class="mb-3">
                                 <label

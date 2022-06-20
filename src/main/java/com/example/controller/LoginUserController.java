@@ -4,6 +4,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,11 +54,33 @@ public class LoginUserController {
 	 * @return 商品一覧ページ
 	 */
 	@PostMapping("/login")
-	public String login(LoginUserForm form) {
+	public String login(LoginUserForm form, Model model) {
 		
 		User user = loginUserService.login(form.getEmail(), form.getPassword());
+		if(user == null) {
+			model.addAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
+			return toLogin();
+		}
+		
 		session.setAttribute("user", user);
 		
+		// Todo
+		// とりあえず動く形でリスト画面にフォーワード
+		// pushするときはリダイレクトに書き換える
+		return "item_list";
+//		return "redirect:/items/list";
+	}
+	
+	/**
+	 * ログアウトする.
+	 * 
+	 * @return 商品一覧画面
+	 */
+	@GetMapping("/logout")
+	public String logout() {
+		
+		session.invalidate();
+		// Todo
 		// とりあえず動く形でリスト画面にフォーワード
 		// pushするときはリダイレクトに書き換える
 		return "item_list";
