@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,7 +20,7 @@
             rel="stylesheet"
         />
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="../static/css/login.css" />
+        <link rel="stylesheet" th:href="@{/css/login.css}" />
         <title>らくらくアロハ</title>
     </head>
 
@@ -45,7 +45,7 @@
                     <!-- Navbar brand -->
                     <a class="navbar-brand mt-2 mt-lg-0" href="#">
                         <img
-                            src="../static/img_aloha/header_logo.png"
+                            th:src="@{/img_aloha/header_logo.png}"
                             class="bg-light"
                             height="15"
                             alt="Rakuraku aloha Logo"
@@ -150,7 +150,7 @@
                 <section class="login-section">ログイン入力画面</section>
                 <br />
                 <div class="login-input">
-                    <form>
+                    <form action="item_list.html" th:action="@{/auth/login}" method="post" th:object="${loginUserForm}">
                         <div class="login-input-content">
                             <div class="mb-3">
                                 <label
@@ -160,9 +160,11 @@
                                 >
                                 <input
                                     type="email"
+                                    name="email"
                                     class="form-control"
                                     id="exampleInputEmail1"
                                     aria-describedby="emailHelp"
+                                    th:field="*{email}"
                                 />
                                 <div id="emailHelp" class="form-text">
                                     ここはメアドの制限を書くぞ
@@ -176,8 +178,10 @@
                                 >
                                 <input
                                     type="password"
+                                    name="password"
                                     class="form-control"
                                     id="exampleInputPassword1"
+                                    th:field="*{password}"
                                 />
                             </div>
                         </div>
