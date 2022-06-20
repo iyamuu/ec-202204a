@@ -14,7 +14,8 @@ $(function() {
                 $("#address").val(data.items[0].components.join(""));
             })
             .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("正しい情報を得られませんでした");
+				// ここのエラー処理を考える
+                // alert("正しい情報を得られませんでした");
                 console.log("XMLHttpRequest : " + XMLHttpRequest);
                 console.log("textStatus : " + textStatus);
                 console.log("errorThrown : " + errorThrown);
