@@ -17,8 +17,7 @@ public class RegisterUserForm {
 	private String password;
 	@NotBlank(message = "確認用パスワードを入力してください")
 	private String confirmPassword;
-	@NotBlank(message = "郵便番号を入力してください")
-	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$")
+	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message="xxx-xxxxの形式で郵便番号を入力してください")
 	private String zipcode;
 	@NotBlank(message = "住所を入力してください")
 	private String address;
