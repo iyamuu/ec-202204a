@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+body {
+    padding-top: 70px;
+}
+
+#order-form {
+    text-align: center;
+}
