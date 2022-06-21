@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+body {
+    padding-top: 70px;
+}
+
+.register-form {
+    padding: 0 30px;
+}
+
+.register-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: medium solid blue;
+}
+
+.register-input-content {
+    padding-bottom: 20px;
+}
+
+.button-link {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-around;
+    justify-content: space-between;
+}

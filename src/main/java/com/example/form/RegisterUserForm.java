@@ -1,41 +1,40 @@
-package com.example.domain;
+package com.example.form;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
- * ユーザードメイン.
+ * ユーザー登録フォームクラス.
  * 
  * @author takato.tomizawa
  *
  */
-public class User {
+public class RegisterUserForm {
 
-	/** ユーザーID */
-	private Integer id;
 	/** 名前 */
+	@NotBlank(message = "名前を入力して下さい")
 	private String name;
 	/** メールアドレス */
+	@NotBlank(message = "メールアドレスを入力してください")
+	@Email(message = "メールアドレスの形式が不正です")
 	private String email;
 	/** パスワード */
+	@NotBlank(message = "パスワードを入力してください")
+	@Size(min = 8, max = 16, message = "パスワードは８文字以上１６文字以内で設定してください")
 	private String password;
+	/** 確認用パスワード */
+	@NotBlank(message = "確認用パスワードを入力してください")
+	private String confirmPassword;
 	/** 郵便番号 */
+	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message="xxx-xxxxの形式で郵便番号を入力してください")
 	private String zipcode;
+	@NotBlank(message = "住所を入力してください")
 	/** 住所 */
 	private String address;
 	/** 電話番号 */
 	private String telephone;
-
-	/**
-	 * @return the id
-	 */
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the name
@@ -77,6 +76,20 @@ public class User {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * @return the confirmPassword
+	 */
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	/**
+	 * @param confirmPassword the confirmPassword to set
+	 */
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	/**
@@ -123,8 +136,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", zipcode="
-				+ zipcode + ", address=" + address + ", telephone=" + telephone + "]";
+		return "RegisterUserForm [name=" + name + ", email=" + email + ", password=" + password + ", confirmPassword="
+				+ confirmPassword + ", zipcode=" + zipcode + ", address=" + address + ", telephone=" + telephone + "]";
 	}
 
 }
