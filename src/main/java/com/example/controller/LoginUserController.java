@@ -28,15 +28,20 @@ public class LoginUserController {
 
 	@Autowired
 	private LoginUserService loginUserService;
-	
+
 	@Autowired
 	private HttpSession session;
-	
+
+	/**
+	 * フォームオブジェクトをリクエストスコープに格納する
+	 * 
+	 * @return ログインフォーム
+	 */
 	@ModelAttribute
 	private LoginUserForm setUpForm() {
 		return new LoginUserForm();
 	}
-	
+
 	/**
 	 * ログイン画面を表示する.
 	 * 
@@ -44,9 +49,16 @@ public class LoginUserController {
 	 */
 	@GetMapping("/login")
 	public String toLogin() {
+		if (session.getAttribute("user") != null) {
+			// Todo
+			// とりあえず動く形でリスト画面にフォーワード
+			// pushするときはリダイレクトに書き換える
+			return "item_list";
+//			return "redirect:/items/list";
+		}
 		return "login";
 	}
-	
+
 	/**
 	 * ログインする.
 	 * 
@@ -55,22 +67,22 @@ public class LoginUserController {
 	 */
 	@PostMapping("/login")
 	public String login(LoginUserForm form, Model model) {
-		
+
 		User user = loginUserService.login(form.getEmail(), form.getPassword());
-		if(user == null) {
+		if (user == null) {
 			model.addAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
 			return toLogin();
 		}
-		
+
 		session.setAttribute("user", user);
-		
+
 		// Todo
 		// とりあえず動く形でリスト画面にフォーワード
 		// pushするときはリダイレクトに書き換える
 		return "item_list";
 //		return "redirect:/items/list";
 	}
-	
+
 	/**
 	 * ログアウトする.
 	 * 
@@ -78,7 +90,7 @@ public class LoginUserController {
 	 */
 	@GetMapping("/logout")
 	public String logout() {
-		
+
 		session.invalidate();
 		// Todo
 		// とりあえず動く形でリスト画面にフォーワード
