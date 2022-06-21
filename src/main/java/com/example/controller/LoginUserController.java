@@ -23,7 +23,7 @@ import com.example.service.LoginUserService;
  *
  */
 @Controller
-@RequestMapping("/auth")
+@RequestMapping("/user")
 public class LoginUserController {
 
 	@Autowired
