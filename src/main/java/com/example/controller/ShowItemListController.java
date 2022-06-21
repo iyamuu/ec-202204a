@@ -27,6 +27,7 @@ public class ShowItemListController {
 	 * 商品一覧画面を表示.
 	 * 
 	 * @param model	モデル
+	 * @param sort	並び順の設定
 	 * @return		商品一覧画面
 	 */
 	@RequestMapping("/list")

@@ -28,6 +28,7 @@ public class ShowItemListService {
 	/**
 	 * 商品一覧情報を取得.
 	 * 
+	 * @param sort 並び順の設定
 	 * @return 商品一覧情報
 	 */
 	public List<Item> showList(String sort) {
@@ -45,8 +46,8 @@ public class ShowItemListService {
 	/**
 	 * 検索した商品一覧情報.
 	 * 
-	 * @param name	検索する商品名
-	 * @return		検索した商品一覧
+	 * @param name 検索する商品名
+	 * @return 検索した商品一覧
 	 */
 	public List<Item> search(String name) {
 		List<Item> itemList = itemRepository.findByName(name);
