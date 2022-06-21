@@ -24,15 +24,32 @@ public class ShowItemListService {
 
 	@Autowired
 	ToppingRepository toppingRepository;
-	
+
 	/**
 	 * 商品一覧情報を取得.
 	 * 
-	 * @return　商品一覧情報
+	 * @return 商品一覧情報
 	 */
 	public List<Item> showList() {
 
 		List<Item> itemList = itemRepository.findAll();
+		List<Topping> toppingList = toppingRepository.findAll();
+
+		for (Item item : itemList) {
+			item.setToppingList(toppingList);
+		}
+
+		return itemList;
+	}
+
+	/**
+	 * 検索した商品一覧情報.
+	 * 
+	 * @param name	検索する商品名
+	 * @return		検索した商品一覧
+	 */
+	public List<Item> search(String name) {
+		List<Item> itemList = itemRepository.findByName(name);
 		List<Topping> toppingList = toppingRepository.findAll();
 
 		for (Item item : itemList) {
