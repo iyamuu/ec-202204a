@@ -82,9 +82,14 @@
                             <li>
                                 <a class="dropdown-item" href="#">注文履歴</a>
                             </li>
-                            <li>
-                                <a class="dropdown-item" href="#">ログアウト</a>
-                            </li>
+                            <li th:if="${session.user}">
+                                <a class="dropdown-item" th:href="@{/auth/logout}"
+                                  >ログアウト</a
+                                >
+                              </li>
+                              <li th:unless="${session.user}">
+                                <a class="dropdown-item" th:href="@{/auth/login}">ログイン</a>
+                              </li>
                         </ul>
                     </div>
                 </div>
