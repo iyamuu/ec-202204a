@@ -131,12 +131,12 @@
                                     >
                                 </li>
                                 <li th:if="${session.user}">
-                                    <a class="dropdown-item" th:href="@{/auth/logout}"
+                                    <a class="dropdown-item" th:href="@{/user/logout}"
                                       >ログアウト</a
                                     >
                                   </li>
                                   <li th:unless="${session.user}">
-                                    <a class="dropdown-item" th:href="@{/auth/login}">ログイン</a>
+                                    <a class="dropdown-item" th:href="@{/user/login}">ログイン</a>
                                   </li>
                             </ul>
                         </div>
