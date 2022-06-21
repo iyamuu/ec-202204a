@@ -16,6 +16,8 @@ public class Order {
 	private Integer id;
 	/** ユーザーID */
 	private Integer userId;
+	/** 注文ステータス */
+	private Integer status;
 	/** 合計金額 */
 	private Integer totalPrice;
 	/** 注文日時 */
@@ -53,6 +55,14 @@ public class Order {
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public Integer getTotalPrice() {
@@ -145,10 +155,11 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", userId=" + userId + ", totalPrice=" + totalPrice + ", destinationName="
-				+ destinationName + ", destinationEmail=" + destinationEmail + ", destinationZipCode="
-				+ destinationZipCode + ", destinationAddress=" + destinationAddress + ", destinationTel="
-				+ destinationTel + ", paymentMethod=" + paymentMethod + "]";
+		return "Order [id=" + id + ", userId=" + userId + ", status=" + status + ", totalPrice=" + totalPrice
+				+ ", orderDate=" + orderDate + ", destinationName=" + destinationName + ", destinationEmail="
+				+ destinationEmail + ", destinationZipCode=" + destinationZipCode + ", destinationAddress="
+				+ destinationAddress + ", destinationTel=" + destinationTel + ", deliveryTime=" + deliveryTime
+				+ ", paymentMethod=" + paymentMethod + ", user=" + user + ", orderItemList=" + orderItemList + "]";
 	}
 
 }
