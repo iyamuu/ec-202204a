@@ -41,9 +41,16 @@
             <i class="fas fa-bars"></i>
           </button>
           <!-- Navbar brand -->
-          <a class="navbar-brand mt-2 mt-lg-0" href="item_list.html">
+
+          <a
+            class="navbar-brand mt-2 mt-lg-0"
+            href="item_list.html"
+            th:href="@{/items/list}"
+          >
             <img
               src="../static/img_aloha/header_logo.png"
+              th:src="@{/img_aloha/header_logo.png}"
+              p
               class="bg-light"
               height="15"
               alt="Rakuraku aloha Logo"
@@ -117,6 +124,7 @@
                 <li>
                   <a class="dropdown-item" href="#">注文履歴</a>
                 </li>
+
                 <li th:if="${session.user}">
                   <a class="dropdown-item" th:href="@{/auth/logout}"
                     >ログアウト</a
@@ -173,7 +181,7 @@
               <!-- Single item -->
               <div class="carousel-item active d-flex justify-content-center">
                 <img
-                  src="../static/img_aloha/1.jpg"
+                  th:src="@{/img_aloha/1.jpg}"
                   class="d-block w-50"
                   alt="Sunset Over the City"
                 />
@@ -187,7 +195,7 @@
 
               <!-- Single item -->
               <div class="carousel-item d-flex justify-content-center">
-                <img src="../static/img_aloha/2.jpg" class="d-block w-50" />
+                <img th:src="@{/img_aloha/2.jpg}" class="d-block w-50" />
                 <div class="carousel-caption d-none d-md-block">
                   <h5>おすすめ商品２</h5>
                   <p>美味しくないはずが無い。So delicious!</p>
@@ -196,7 +204,8 @@
 
               <!-- Single item -->
               <div class="carousel-item d-flex justify-content-center">
-                <img src="../static/img_aloha/3.jpg" class="d-block w-50" />
+                <img th:src="@{/img_aloha/3.jpg}" class="d-block w-50" />
+
                 <div class="carousel-caption d-none d-md-block">
                   <h5>おすすめ商品３</h5>
                   <p>これはキマる。やっべえぞ。</p>
@@ -252,351 +261,40 @@
       <section>
         <div class="container">
           <div class="row row-cols-1 row-cols-md-3 g-4">
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
+            <div
+              class="col mx-auto"
+              style="width: 18rem"
+              th:each="item : ${itemList}"
+            >
               <div class="card text-center" style="width: 18rem">
                 <img
                   src="../static/img_aloha/10.jpg"
                   class="card-img-top"
                   alt="..."
+                  th:src="@{'/img_aloha/'}+${item.imagePath}"
                 />
                 <div class="card-body">
-                  <h5 class="card-title">Hawaiianパラダイス</h5>
-                  <p class="card-text">
-                    ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-                  </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/2.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">アサイーボウル</h5>
-                  <p class="card-text">
-                    ブラジル発祥のデザートで、アメリカ合衆国のハワイ州で人気が出てよく知られるようになった商品です。アサイーのスムージーをボウルに盛りつけ、グラノーラなどのシリアル食品やバナナやリンゴやイチゴなど好みの果物をのせて蜂蜜をかけて供する。朝食とされることもある。
-                  </p>
-                  <p class="card-text">M:1490円, L:2570円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/3.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">ハワイアンマルゲリータピザ</h5>
-                  <p class="card-text">
-                    ハワイで取れたフレッシュトマトと野菜、チーズをふんだんに使って作られたマルゲリータピザです。隠し味として中にパイナップルやマンゴーも入っています。
-                  </p>
-                  <p class="card-text">M:1490円, L:2570円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/4.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">
-                    カメハメハベーカリーの焼きたてマラサダ
+                  <h5 class="card-title" th:text="${item.name}">
+                    Hawaiianパラダイス
                   </h5>
-                  <p class="card-text">
-                    ハワイの定番おやつといえば、やっぱりマラサダ。なかでも、カメハメハベーカリーのマラサダは、行列必至
-                    の人気ぶりです。
-                  </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/5.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Ray'sのフリフリチキン</h5>
-                  <p class="card-text">
+                  <p class="card-text" th:text="${item.description}">
                     ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
                   </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/6.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">マツモトシェーブアイス</h5>
-                  <p class="card-text">
-                    ノースショア名物の鶏肉を丸焼きにしたフリフリチキンです。現地では土日しか食べられないものを暖かい状態でお届けします。
+                  <p
+                    class="card-text"
+                    th:text="'M:'+${item.priceM}+'円, L:'+ ${item.priceL}+'円'"
+                  >
+                    M:2160円, L:3380円
                   </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
+
+                  <a
+                    th:href="@{'/items/detail?id='}+${item.id}"
+                    class="btn btn-light"
+                    >注文</a
+                  >
                 </div>
               </div>
             </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/7.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Hawaiianパラダイス</h5>
-                  <p class="card-text">
-                    ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-                  </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/8.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Hawaiianパラダイス</h5>
-                  <p class="card-text">
-                    ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-                  </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/9.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Hawaiianパラダイス</h5>
-                  <p class="card-text">
-                    ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-                  </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/1.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Hawaiianパラダイス</h5>
-                  <p class="card-text">
-                    ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-                  </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/11.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Hawaiianパラダイス</h5>
-                  <p class="card-text">
-                    ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-                  </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/12.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Hawaiianパラダイス</h5>
-                  <p class="card-text">
-                    ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-                  </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/13.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Hawaiianパラダイス</h5>
-                  <p class="card-text">
-                    ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-                  </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/14.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Hawaiianパラダイス</h5>
-                  <p class="card-text">
-                    ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-                  </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/15.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Hawaiianパラダイス</h5>
-                  <p class="card-text">
-                    ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-                  </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/16.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Hawaiianパラダイス</h5>
-                  <p class="card-text">
-                    ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-                  </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/17.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Hawaiianパラダイス</h5>
-                  <p class="card-text">
-                    ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-                  </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
-            <!-- 1個のitem start -->
-            <div class="col mx-auto" style="width: 18rem">
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/18.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Hawaiianパラダイス</h5>
-                  <p class="card-text">
-                    ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-                  </p>
-                  <p class="card-text">M:2160円, L:3380円</p>
-                  <a href="item_detail.html" class="btn btn-light">注文</a>
-                </div>
-              </div>
-            </div>
-            <!-- item end -->
           </div>
         </div>
       </section>
@@ -626,8 +324,7 @@
               <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
               <p><i class="fas fa-home me-3"></i> 東京都渋谷区千駄ヶ谷</p>
               <p>
-                <i class="fas fa-envelope me-3"></i>
-                rakuraku-aloha@gmail.com
+                <i class="fas fa-envelope me-3"></i> rakuraku-aloha@gmail.com
               </p>
               <p><i class="fas fa-phone me-3"></i> 0120-000-111</p>
             </div>
