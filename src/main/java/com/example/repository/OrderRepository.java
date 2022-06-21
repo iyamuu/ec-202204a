@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -155,6 +156,44 @@ public class OrderRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("status", status);
 		List<Order> orderList = template.query(sql, param, ORDER_ITEM_TOPPING_EXTRACTER);
 		return orderList;
+	}
+	
+	/**
+	 * 
+	 * ordersテーブルにデータを挿入します.
+	 * 
+	 * @param order 注文
+	 */
+	public void InsertOrder(Order order) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
+		String sql = "insert into order_items (user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method) "
+				+ "values(:userId, :status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode, :destinationAddress, :destinationTel, :deliveryTime, :paymentMethod);";
+		template.update(sql, param);
+	}
+	
+	/**
+	 * 
+	 * orderitemsテーブルにデータを挿入します.
+	 * 
+	 * @param orderItem 注文商品
+	 */
+	public void InsertOrderItem(OrderItem orderItem) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(orderItem);
+		String sql = "insert into order_items (item_id, order_id, quantity, size) values(:itemId, :orderId, :quantity, :size)";
+		template.update(sql, param);
+	}
+	
+	/**
+	 * 
+	 * ordertoppingsテーブルにデータを挿入します.
+	 * 
+	 * 
+	 * @param orderTopping　注文商品のトッピング
+	 */
+	public void InsertOrderTopping(OrderTopping orderTopping) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(orderTopping);
+		String sql = "insert into order_toppings (topping_id, order_item_id) values (:toppingId, :orderItemId)";
+		template.update(sql, param);
 	}
 	
 
