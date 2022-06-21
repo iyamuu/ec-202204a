@@ -24,11 +24,11 @@ public class ShowItemListService {
 
 	@Autowired
 	ToppingRepository toppingRepository;
-
+	
 	/**
 	 * 商品一覧情報を取得.
 	 * 
-	 * @return
+	 * @return　商品一覧情報
 	 */
 	public List<Item> showList() {
 
@@ -38,8 +38,6 @@ public class ShowItemListService {
 		for (Item item : itemList) {
 			item.setToppingList(toppingList);
 		}
-
-		System.out.println(itemList);
 
 		return itemList;
 	}
