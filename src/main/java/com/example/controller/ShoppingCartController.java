@@ -11,6 +11,13 @@ import com.example.domain.Order;
 import com.example.domain.User;
 import com.example.service.ShoppingCartService;
 
+/**
+ * 
+ * ShoppingCartのコントローラ.
+ * 
+ * @author takuya.matsura
+ *
+ */
 @Controller
 @RequestMapping("/cart")
 public class ShoppingCartController {
@@ -23,6 +30,13 @@ public class ShoppingCartController {
 	@Autowired
 	private HttpSession session;
 	
+	/**
+	 * 
+	 * ショッピングカートを表示する.
+	 * 
+	 * @param model　リクエストスコープ
+	 * @return　カート画面
+	 */
 	@RequestMapping("/show")
 	public String showCart(Model model) {
 		User user = (User) session.getAttribute("user");
