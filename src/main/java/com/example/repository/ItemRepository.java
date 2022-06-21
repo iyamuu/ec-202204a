@@ -11,6 +11,12 @@ import org.springframework.stereotype.Repository;
 
 import com.example.domain.Item;
 
+/**
+ * 商品情報を操作するリポジトリ.
+ * 
+ * @author kohei.yamamura
+ *
+ */
 @Repository
 public class ItemRepository {
 	private static final RowMapper<Item> ITEM_ROW_MAPPER = (rs, i) -> {
@@ -40,11 +46,17 @@ public class ItemRepository {
 		return itemList;
 	}
 	
+	/**
+	 * 商品名から曖昧検索.
+	 * 
+	 * @param name	商品名
+	 * @return		検索結果
+	 */
 	public List<Item> findByName(String name){
 		String sql = " SELECT id, name, description, price_m, price_l, image_path, deleted FROM items WHERE name LIKE :name ORDER BY price_m; ";
-		name = "" + name +"";
+		name = "%" + name +"%";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", name);
-		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
+		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return itemList;
 	}
 
