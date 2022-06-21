@@ -11,6 +11,12 @@ import org.springframework.stereotype.Repository;
 
 import com.example.domain.Item;
 
+/**
+ * 商品情報を操作するリポジトリ.
+ * 
+ * @author kohei.yamamura
+ *
+ */
 @Repository
 public class ItemRepository {
 	private static final RowMapper<Item> ITEM_ROW_MAPPER = (rs, i) -> {
