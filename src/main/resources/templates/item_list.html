@@ -272,8 +272,14 @@
       <section>
         <div class="container">
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a class="btn btn-outline-dark mb-4">値段の安い順</a>
-            <a class="btn btn-outline-dark mb-4">値段の高い順</a>
+            <a class="btn btn-outline-dark mb-4" th:href="@{/items/list}"
+              >値段の安い順</a
+            >
+            <a
+              class="btn btn-outline-dark mb-4"
+              th:href="@{/items/list?sort=DESC}"
+              >値段の高い順</a
+            >
           </div>
           <div class="row row-cols-1 row-cols-md-3 g-4">
             <div

@@ -40,8 +40,13 @@ public class ItemRepository {
 	 * 
 	 * @return 全ての商品情報
 	 */
-	public List<Item> findAll() {
-		String sql = " SELECT id, name, description, price_m, price_l, image_path, deleted FROM items ORDER BY price_m; ";
+	public List<Item> findAll(String sort) {
+		System.out.println("引数の中身" + sort);
+		
+		String sql = " SELECT id, name, description, price_m, price_l, image_path, deleted FROM items ORDER BY price_m";
+		if(sort != null && sort.equals("DESC")) {
+			sql = sql + " DESC";
+		}
 		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
 		return itemList;
 	}

@@ -30,10 +30,8 @@ public class ShowItemListController {
 	 * @return		商品一覧画面
 	 */
 	@RequestMapping("/list")
-	public String list(Model model) {
-
-		List<Item> itemList = showItemListService.showList();
-
+	public String list(Model model, String sort) {
+		List<Item> itemList = showItemListService.showList(sort);			
 		model.addAttribute("itemList", itemList);
 
 		return "item_list";
@@ -52,7 +50,7 @@ public class ShowItemListController {
 		List<Item> itemList = showItemListService.search(search_name);
 
 		if (itemList.size() == 0) {
-			itemList = showItemListService.showList();
+			itemList = showItemListService.showList("ASK");
 			model.addAttribute("no_item", "該当する商品がありません");
 		}
 		

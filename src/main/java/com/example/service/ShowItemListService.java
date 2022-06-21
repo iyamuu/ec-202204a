@@ -30,9 +30,9 @@ public class ShowItemListService {
 	 * 
 	 * @return 商品一覧情報
 	 */
-	public List<Item> showList() {
+	public List<Item> showList(String sort) {
 
-		List<Item> itemList = itemRepository.findAll();
+		List<Item> itemList = itemRepository.findAll(sort);
 		List<Topping> toppingList = toppingRepository.findAll();
 
 		for (Item item : itemList) {
