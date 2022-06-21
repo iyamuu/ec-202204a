@@ -99,7 +99,7 @@ public class OrderItem {
 		return orderToppingList;
 	}
 
-	public void setToppingList(List<OrderTopping> orderToppingList) {
+	public void setOrderToppingList(List<OrderTopping> orderToppingList) {
 		this.orderToppingList = orderToppingList;
 	}
 
