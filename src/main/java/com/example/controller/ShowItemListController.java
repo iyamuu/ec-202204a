@@ -46,16 +46,17 @@ public class ShowItemListController {
 	 * @return				検索画面
 	 */
 	@RequestMapping("/search")
-	public String search(String search_name, Model model) {
+	public String search(String search_name, String sort, Model model) {
 
-		List<Item> itemList = showItemListService.search(search_name);
+		List<Item> itemList = showItemListService.search(search_name, sort);
 
 		if (itemList.size() == 0) {
-			itemList = showItemListService.showList("ASK");
+			itemList = showItemListService.showList(sort);
 			model.addAttribute("no_item", "該当する商品がありません");
 		}
 		
 		model.addAttribute("itemList", itemList);
+		model.addAttribute("search_name", search_name);
 
 		return "item_search";
 	}
