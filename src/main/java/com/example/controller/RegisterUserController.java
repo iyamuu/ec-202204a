@@ -39,9 +39,9 @@ public class RegisterUserController {
 	 * @param model リクエストスコープ
 	 * @return ユーザー登録画面
 	 */
-	@GetMapping("/sighup")
+	@GetMapping("/signup")
 	public String toInsert(Model model) {
-		return "sighup"; 
+		return "signup"; 
 	}
 	
 	/**
@@ -64,6 +64,6 @@ public class RegisterUserController {
 		service.insert(user);
 		
 		// TODO:商品一覧ページが出来たら、そこに飛ばす
-		return "redirect:/user/sighup";
+		return "redirect:/user/signup";
 	}
 }
