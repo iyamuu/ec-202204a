@@ -38,10 +38,15 @@ public class ItemRepository {
 	/**
 	 * 全検索.
 	 * 
+	 * @param sort 並び順の設定
 	 * @return 全ての商品情報
 	 */
-	public List<Item> findAll() {
-		String sql = " SELECT id, name, description, price_m, price_l, image_path, deleted FROM items ORDER BY price_m; ";
+	public List<Item> findAll(String sort) {
+		
+		String sql = " SELECT id, name, description, price_m, price_l, image_path, deleted FROM items ORDER BY price_m";
+		if(sort != null && sort.equals("DESC")) {
+			sql = sql + " DESC";
+		}
 		List<Item> itemList = template.query(sql, ITEM_ROW_MAPPER);
 		return itemList;
 	}
@@ -50,12 +55,16 @@ public class ItemRepository {
 	 * 商品名から曖昧検索.
 	 * 
 	 * @param name	商品名
+	 * @param sort	並び順の設定
 	 * @return		検索結果
 	 */
-	public List<Item> findByName(String name){
-		String sql = " SELECT id, name, description, price_m, price_l, image_path, deleted FROM items WHERE name LIKE :name ORDER BY price_m; ";
+	public List<Item> findByName(String name, String sort){
+		String sql = " SELECT id, name, description, price_m, price_l, image_path, deleted FROM items WHERE name LIKE :name ORDER BY price_m";
 		name = "%" + name +"%";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", name);
+		if(sort != null && sort.equals("DESC")) {
+			sql = sql + " DESC";
+		}
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return itemList;
 	}
