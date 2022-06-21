@@ -15,6 +15,12 @@ import com.example.domain.User;
 import com.example.form.RegisterUserForm;
 import com.example.service.RegisterUserService;
 
+/**
+ * ユーザー登録機能のコントローラー.
+ * 
+ * @author takato.tomizawa
+ *
+ */
 @Controller
 @RequestMapping("/user")
 public class RegisterUserController {
@@ -27,11 +33,25 @@ public class RegisterUserController {
 	@Autowired
 	private RegisterUserService service;
 
+	/**
+	 * ユーザー登録画面を表示するルーティング.
+	 * 
+	 * @param model リクエストスコープ
+	 * @return ユーザー登録画面
+	 */
 	@GetMapping("/sighup")
 	public String toInsert(Model model) {
 		return "sighup"; 
 	}
 	
+	/**
+	 * ユーザー登録処理をするルーティング.
+	 * 
+	 * @param form ユーザー登録フォーム
+	 * @param result バリデーション結果
+	 * @param model リクエストスコープ
+	 * @return リダイレクト
+	 */
 	@PostMapping("/insert")
 	public String insert(@Validated RegisterUserForm form, BindingResult result, Model model) {
 		

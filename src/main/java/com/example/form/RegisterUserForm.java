@@ -5,22 +5,35 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/**
+ * ユーザー登録フォームクラス.
+ * 
+ * @author takato.tomizawa
+ *
+ */
 public class RegisterUserForm {
 
+	/** 名前 */
 	@NotBlank(message = "名前を入力して下さい")
 	private String name;
+	/** メールアドレス */
 	@NotBlank(message = "メールアドレスを入力してください")
 	@Email(message = "メールアドレスの形式が不正です")
 	private String email;
+	/** パスワード */
 	@NotBlank(message = "パスワードを入力してください")
 	@Size(min = 8, max = 16, message = "パスワードは８文字以上１６文字以内で設定してください")
 	private String password;
+	/** 確認用パスワード */
 	@NotBlank(message = "確認用パスワードを入力してください")
 	private String confirmPassword;
+	/** 郵便番号 */
 	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message="xxx-xxxxの形式で郵便番号を入力してください")
 	private String zipcode;
 	@NotBlank(message = "住所を入力してください")
+	/** 住所 */
 	private String address;
+	/** 電話番号 */
 	private String telephone;
 
 	/**
