@@ -64,6 +64,6 @@ public class RegisterUserController {
 		service.insert(user);
 		
 		// TODO:商品一覧ページが出来たら、そこに飛ばす
-		return "redirect:/user/signup";
+		return "redirect:/user/login";
 	}
 }
