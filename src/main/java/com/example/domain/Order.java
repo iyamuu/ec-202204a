@@ -40,6 +40,32 @@ public class Order {
 	private User user;
 	/** 注文商品一覧 */
 	private List<OrderItem> orderItemList;
+	
+	/**
+	 * 
+	 * 消費税を計算する.
+	 *
+	 * @return 消費税
+	 */
+	public int getTax() {
+		return (int) (totalPrice * 0.1);
+	}
+	
+	/**
+	 * 
+	 * OrderItemドメインから税抜合計金額を計算する.
+	 * 
+	 * @return 税抜合計金額
+	 */
+	public int getCalcTotalPrice() {
+		int totalPriceWithoutTax = 0;
+		
+		for (OrderItem orderItem : orderItemList) {
+			totalPriceWithoutTax += orderItem.getSubTotal();
+		}
+		
+		return totalPriceWithoutTax;	
+	}
 
 	public Integer getId() {
 		return id;
