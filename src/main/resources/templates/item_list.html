@@ -41,6 +41,7 @@
             <i class="fas fa-bars"></i>
           </button>
           <!-- Navbar brand -->
+
           <a
             class="navbar-brand mt-2 mt-lg-0"
             href="item_list.html"
@@ -49,6 +50,7 @@
             <img
               src="../static/img_aloha/header_logo.png"
               th:src="@{/img_aloha/header_logo.png}"
+              p
               class="bg-light"
               height="15"
               alt="Rakuraku aloha Logo"
@@ -116,8 +118,13 @@
                 class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="navbarDropdownMenuAvatar"
               >
-                <li><a class="dropdown-item" href="#">マイページ</a></li>
-                <li><a class="dropdown-item" href="#">注文履歴</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">マイページ</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">注文履歴</a>
+                </li>
+
                 <li th:if="${session.user}">
                   <a class="dropdown-item" th:href="@{/auth/logout}"
                     >ログアウト</a
@@ -198,6 +205,7 @@
               <!-- Single item -->
               <div class="carousel-item d-flex justify-content-center">
                 <img th:src="@{/img_aloha/3.jpg}" class="d-block w-50" />
+
                 <div class="carousel-caption d-none d-md-block">
                   <h5>おすすめ商品３</h5>
                   <p>これはキマる。やっべえぞ。</p>
@@ -278,8 +286,12 @@
                   >
                     M:2160円, L:3380円
                   </p>
-                  
-                  <a th:href="@{'/items/detail?id='}+${item.id}" class="btn btn-light">注文</a>
+
+                  <a
+                    th:href="@{'/items/detail?id='}+${item.id}"
+                    class="btn btn-light"
+                    >注文</a
+                  >
                 </div>
               </div>
             </div>
