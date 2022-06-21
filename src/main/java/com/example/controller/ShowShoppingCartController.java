@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Order;
 import com.example.domain.User;
-import com.example.service.ShoppingCartService;
+import com.example.service.ShowShoppingCartService;
 
 /**
  * 
@@ -20,12 +20,12 @@ import com.example.service.ShoppingCartService;
  */
 @Controller
 @RequestMapping("/cart")
-public class ShoppingCartController {
+public class ShowShoppingCartController {
 	
 	private static int nullUserId = 0;
 	
 	@Autowired
-	private ShoppingCartService shoppingCartService;
+	private ShowShoppingCartService shoppingCartService;
 	
 	@Autowired
 	private HttpSession session;

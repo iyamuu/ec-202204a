@@ -16,7 +16,7 @@ import com.example.repository.OrderRepository;
  */
 @Service
 @Transactional
-public class ShoppingCartService {
+public class ShowShoppingCartService {
 	
 	@Autowired
 	private OrderRepository orderRepository;
