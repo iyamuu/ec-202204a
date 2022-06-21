@@ -137,9 +137,18 @@
                                         >注文履歴</a
                                     >
                                 </li>
-                                <li>
-                                    <a class="dropdown-item" href="#"
+                                <li th:if="${session.user}">
+                                    <a
+                                        class="dropdown-item"
+                                        th:href="@{/user/logout}"
                                         >ログアウト</a
+                                    >
+                                </li>
+                                <li th:unless="${session.user}">
+                                    <a
+                                        class="dropdown-item"
+                                        th:href="@{/user/login}"
+                                        >ログイン</a
                                     >
                                 </li>
                             </ul>
@@ -243,19 +252,20 @@
                             <div class="row row-cols-1 row-cols-md-3 g-4">
                                 <div
                                     class="col mx-auto"
-                                    th:each="topping, count : ${item.toppingList}"
+                                    th:each="topping, status : ${item.toppingList}"
                                 >
                                     <input
                                         type="checkbox"
                                         class="btn-check"
                                         id="btncheck1"
-                                        th:id="btncheck + ${count}"
+                                        th:id="btncheck + ${status.count}"
                                         autocomplete="off"
                                     />
                                     <label
                                         class="btn btn-outline-info"
                                         th:text="${topping.name}"
                                         for="btncheck1"
+                                        th:for="btncheck + ${status.count}"
                                         >ハワイアンソルト</label
                                     >
                                 </div>

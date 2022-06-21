@@ -20,7 +20,7 @@
             rel="stylesheet"
         />
         <!-- Custom CSS -->
-        <link rel="stylesheet" th:href="@{/css/sighup.css}" />
+        <link rel="stylesheet" th:href="@{/css/signup.css}" />
         <title>らくらくアロハ</title>
     </head>
 
@@ -130,11 +130,14 @@
                                         >注文履歴</a
                                     >
                                 </li>
-                                <li>
-                                    <a class="dropdown-item" href="#"
-                                        >ログアウト</a
+                                <li th:if="${session.user}">
+                                    <a class="dropdown-item" th:href="@{/user/logout}"
+                                      >ログアウト</a
                                     >
-                                </li>
+                                  </li>
+                                  <li th:unless="${session.user}">
+                                    <a class="dropdown-item" th:href="@{/user/login}">ログイン</a>
+                                  </li>
                             </ul>
                         </div>
                     </div>
