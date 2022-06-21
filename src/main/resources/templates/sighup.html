@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,7 +20,7 @@
             rel="stylesheet"
         />
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="../static/css/login.css" />
+        <link rel="stylesheet" th:href="@{/css/sighup.css}" />
         <title>らくらくアロハ</title>
     </head>
 
@@ -45,7 +45,7 @@
                     <!-- Navbar brand -->
                     <a class="navbar-brand mt-2 mt-lg-0" href="#">
                         <img
-                            src="../static/img_aloha/header_logo.png"
+                            th:src="@{/img_aloha/header_logo.png}"
                             class="bg-light"
                             height="15"
                             alt="Rakuraku aloha Logo"
@@ -146,45 +146,47 @@
         </header>
 
         <main>
-            <div class="login-form">
-                <section class="login-section">ログイン入力画面</section>
+            <div class="register-form">
+                <section class="register-section">ユーザー情報入力画面</section>
                 <br />
-                <div class="login-input">
-                    <form>
-                        <div class="login-input-content">
+                <div class="register-input">
+                    <form th:action="@{/user/insert}" method="post" th:object="${registerUserForm}">
+                        <div class="register-input-content">
                             <div class="mb-3">
                                 <label
-                                    for="exampleInputEmail1"
+                                    for="name"
                                     class="form-label"
                                     >名前：</label
                                 >
+                                <div th:errors="*{name}" style="color:red">エラー！</div>
                                 <input
-                                    type="email"
+                                    type="text"
+                                    name="name"
                                     class="form-control"
-                                    id="exampleInputEmail1"
-                                    aria-describedby="emailHelp"
+                                    id="name"
+                                    th:field="*{name}"
                                 />
-                                <!-- <div id="emailHelp" class="form-text">
-                                    ここは名前の制限を書くぞ
-                                </div> -->
                             </div>
 
                             <hr>
 
                             <div class="mb-3">
                                 <label
-                                    for="exampleInputEmail1"
+                                    for="email"
                                     class="form-label"
                                     >メールアドレス：</label
                                 >
+                                <div th:errors="*{email}" style="color:red">エラー！</div>
                                 <input
                                     type="email"
+                                    name="email"
                                     class="form-control"
-                                    id="exampleInputEmail1"
+                                    id="email"
                                     aria-describedby="emailHelp"
+                                    th:field="*{email}"
                                 />
                                 <div id="emailHelp" class="form-text">
-                                    ここはメアドの制限を書くぞ
+                                    ex) taro@sample.com
                                 </div>
                             </div>
 
@@ -192,79 +194,99 @@
 
                             <div class="mb-3">
                                 <label
-                                    for="exampleInputPassword1"
+                                    for="password"
                                     class="form-label"
                                     >パスワード：</label
                                 >
+                                <div th:errors="*{password}" style="color:red">エラー！</div>
                                 <input
                                     type="password"
+                                    name="password"
                                     class="form-control"
-                                    id="exampleInputPassword1"
+                                    id="password"
+                                    th:field="*{password}"
                                 />
                             </div>
 
                             <hr>
+                            
+                            <div class="mb-3">
+                                <label
+                                    for="confirmPassword"
+                                    class="form-label"
+                                    >確認用パスワード：</label
+                                >
+                                <div th:errors="*{confirmPassword}" style="color:red">エラー！</div>
+                                <input
+                                    type="password"
+                                    name="confirmPassword"
+                                    class="form-control"
+                                    id="confirmPassword"
+                                    th:field="*{confirmPassword}"
+                                />
+                            </div>
+                            
+                            <hr>
 
                             <div class="mb-3">
                                 <label
-                                    for="exampleInputEmail1"
+                                    for="zipcode"
                                     class="form-label"
                                     >郵便番号：</label
                                 >
+                                <div th:errors="*{zipcode}" style="color:red">エラー！</div>
                                 <input
-                                    type="email"
+                                    type="text"
+                                    name="zipcode"
                                     class="form-control"
-                                    id="exampleInputEmail1"
-                                    aria-describedby="emailHelp"
+                                    id="zipcode"
+                                    th:field="*{zipcode}"
                                 />
-                                <div id="emailHelp" class="form-text">
-                                    ここにボタンを作る
-                                </div>
                             </div>
 
                             <hr>
 
                             <div class="mb-3">
                                 <label
-                                    for="exampleInputEmail1"
+                                    for="address"
                                     class="form-label"
                                     >住所：</label
                                 >
+                                <div th:errors="*{address}" style="color:red">エラー！</div>
                                 <input
-                                    type="email"
+                                    type="text"
+                                    name="address"
                                     class="form-control"
-                                    id="exampleInputEmail1"
-                                    aria-describedby="emailHelp"
+                                    id="address"
+                                    th:field="*{address}"
                                 />
-                                <!-- <div id="emailHelp" class="form-text">
-                                    ここはパスワードの制限を書くぞ
-                                </div> -->
                             </div>
 
                             <hr>
 
                             <div class="mb-3">
                                 <label
-                                    for="exampleInputEmail1"
+                                    for="telephone"
                                     class="form-label"
                                     >電話番号：</label
                                 >
+                                <div th:errors="*{telephone}" style="color:red">エラー！</div>
                                 <input
-                                    type="email"
+                                    type="text"
+                                    name="telephone"
                                     class="form-control"
-                                    id="exampleInputEmail1"
-                                    aria-describedby="emailHelp"
+                                    id="telephone"
+                                    th:field="*{telephone}"
                                 />
-                                <div id="emailHelp" class="form-text">
-                                    ここは電話番号の制限を書くぞ
-                                </div>
                             </div>
                             <hr>
                         </div>
                         <div class="button-link">
-                            <button type="button" class="btn btn-outline-secondary" onclick="location.href='login.html'">
-                                    ログイン画面へ
-                                </a>
+                            <a class="btn btn-outline-secondary" th:href="@{/user/login}">
+                            	ログイン画面へ
+                            </a>
+                            <button type="reset" class="btn btn-outline-info">
+                            	入力画面のクリア
                             </button>
                             <button type="submit" class="btn btn-primary">
                                 ユーザー登録
@@ -335,5 +357,7 @@
             type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"
         ></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/get_address.js}"></script>
     </body>
 </html>
