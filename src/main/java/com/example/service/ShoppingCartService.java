@@ -35,7 +35,6 @@ public class ShoppingCartService {
 		} catch (IndexOutOfBoundsException e) {
 			order = null;
 		}
-		
 		return order;
 	}
 

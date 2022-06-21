@@ -29,10 +29,18 @@ public class ShoppingCartController {
 		if (user == null) {
 			user = new User();
 			user.setId(decrementNullUserId());
+			session.setAttribute("user", user);
 			System.out.println("userid" + user.getId());
 		}
 		Order order = shoppingCartService.showCart(user.getId());
 		model.addAttribute("order", order);
+		try {
+			model.addAttribute("tax", order.getTax());
+			model.addAttribute("totalPrice", order.getCalcTotalPrice());
+		} catch (NullPointerException e) {
+			model.addAttribute("tax", 0);
+			model.addAttribute("totalPrice", 0);
+		}
 		return "cart_list.html";
 	}
 	
