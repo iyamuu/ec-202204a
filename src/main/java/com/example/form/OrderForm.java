@@ -36,19 +36,14 @@ public class OrderForm {
 	/** 支払方法 */
 	private Integer paymentMethod;
 	/** カード番号(数字14桁-16桁) */
-	@Pattern(regexp = "^[0-9]{14,16}$", message = "クレジットカード番号を正しく入力してください")
 	private String cardNumber;
 	/** カード有効期限(月)(数字2桁) */
-	@Pattern(regexp = "^[0-9]{2}$", message="有効期限(月)を入力してください")
 	private String cardExpMonth;
 	/** カード有効期限(年)(数字4桁) */
-	@Pattern(regexp = "^[0-9]{2}$", message="有効期限(年)を入力してください")
 	private String cardExpYear;
-	@Pattern(regexp = "^[0-9]{3,4}$", message = "セキュリティーコードを正しく入力してください")
 	/** セキュリティコード(数字3桁-4桁) */
 	private String cardCvv;
 	/** カード名義人名 */
-	@NotBlank(message = "カード名義を入力してください")
 	private String cardName;
 	
 	public String getCardNumber() {
