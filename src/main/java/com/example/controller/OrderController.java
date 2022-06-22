@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.domain.Order;
 import com.example.domain.User;
@@ -80,6 +83,13 @@ public class OrderController {
 	@PostMapping("/update")
 	public String update(@Validated OrderForm form, BindingResult result, Model model) throws ParseException {
 		Timestamp formDeliveryTime = null;
+		
+		System.out.println(form.toString());
+		
+		String url = "http://153.127.48.168:8080/sample-credit-card-web-api/credit-card/payment";
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, null, String.class);
+
 		
 		if(!form.getDeliveryTime().equals("")) {
 			formDeliveryTime = transformStringToTimestamp(form.getDeliveryTime());
