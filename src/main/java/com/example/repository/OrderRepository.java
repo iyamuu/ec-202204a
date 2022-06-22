@@ -107,7 +107,6 @@ public class OrderRepository {
 				orderTopping.setId(rs.getInt("ot_id"));
 				orderTopping.setToppingId(rs.getInt("topping_id"));
 				orderTopping.setOrderItemId(rs.getInt("order_item_id"));
-				
 				Topping topping = new Topping();
 				orderTopping.setTopping(topping);
 				topping.setId(rs.getInt("t_id"));
@@ -159,6 +158,17 @@ public class OrderRepository {
 	}
 	
 	/**
+	 * ordersテーブルのデータを更新します.
+	 * 
+	 * @param order 注文
+	 */
+	public void update(Order order) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
+		String updateSql = "UPDATE orders SET user_id=:userId, status=:status, total_price=:totalPrice, order_date=:orderDate, destination_name=:destinationName, destination_email=:destinationEmail, destination_zipcode=:destinationZipCode, destination_address=:destinationAddress, destination_tel=:destinationTel, delivery_time=:deliveryTime, payment_method=:paymentMethod WHERE id=:id";
+        template.update(updateSql, param);
+  }
+
+	/**
 	 * 
 	 * ordersテーブルにデータを挿入します.
 	 * 
@@ -195,8 +205,8 @@ public class OrderRepository {
 		String sql = "insert into order_toppings (topping_id, order_item_id) values (:toppingId, :orderItemId)";
 		template.update(sql, param);
 	}
-	
-	/*
+
+	/**
 	 * カートに追加していた商品を削除します.
 	 * 
 	 * @param orderItemId カートに追加された商品のid 
