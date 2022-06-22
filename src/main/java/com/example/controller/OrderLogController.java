@@ -37,12 +37,7 @@ public class OrderLogController {
 			return "redirect:/user/login";
 		}
 		
-		
 		List<Order> orderList = orderHistoryService.showOrderHistory(userId);
-		for(Order order: orderList) {
-			System.out.println(order.toString());
-		}
-		System.out.println("ユーザーid" + userId);
 		model.addAttribute("orderList", orderList);
 		
 		return "order_log";
