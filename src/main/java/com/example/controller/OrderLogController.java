@@ -34,7 +34,7 @@ public class OrderLogController {
 		
 		// ログインしていなかったらログイン画面にリダイレクト
 		if(userId == null) {
-			return "redirect:/user/toLogin";
+			return "redirect:/user/login";
 		}
 		
 		List<Order> orderList = orderHistoryService.showOrderHistory(userId);

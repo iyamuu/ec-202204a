@@ -196,7 +196,7 @@ public class OrderRepository {
 		template.update(sql, param);
 	}
 	
-
+	/*
 	 * カートに追加していた商品を削除します.
 	 * 
 	 * @param orderItemId カートに追加された商品のid 
