@@ -2,10 +2,12 @@
 
 $(function() {
 	$('.item-content').paginathing({//親要素のclassを記述
-		perPage: 4,//1ページあたりの表示件数
-		prevText:'<',//1つ前のページへ移動するボタンのテキスト
-		nextText:'>',//1つ次のページへ移動するボタンのテキスト
-		firstText:'最初へ',
-		lastText:'最後へ',
+		perPage: 6,//1ページあたりの表示件数
+		containerClass: 'pagination-container d-flex justify-content-center', // extend default container class
+		ulClass: 'pagination', // extend default ul class
+		liClass: 'page btn btn-outline-primary', // extend li class
+		prevNext: false, // enable previous and next button
+		firstLast: false,
 	})
+
 });
