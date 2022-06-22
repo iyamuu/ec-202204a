@@ -1,5 +1,17 @@
 @charset "UTF-8";
 
 body {
-    padding-top: 70px;
+  padding-top: 49.6px;
+}
+
+.pagination-container {
+  margin-top: 20px;
+}
+
+.btn-outline-primary.active {
+  background-color: #1266f1;
+}
+
+.btn-outline-primary.active > a {
+  color: white;
 }

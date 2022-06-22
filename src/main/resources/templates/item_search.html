@@ -121,7 +121,7 @@
 		<br />
 		<section>
 			<div class="container">
-				<div class="row row-cols-1 row-cols-md-3 g-4">
+				<div class="row row-cols-1 row-cols-md-3 g-4 item-content">
 					<div class="col mx-auto" style="width: 18rem"
 						th:each="item : ${itemList}">
 						<div class="card text-center" style="width: 18rem">
@@ -197,5 +197,11 @@
 	<!-- MDB -->
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"></script>
+
+	<!-- paginathing  -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script th:src="@{/js/script.js}"></script>
+	<script th:src="@{/js/paginathing.min.js}"></script>
 </body>
 </html>
