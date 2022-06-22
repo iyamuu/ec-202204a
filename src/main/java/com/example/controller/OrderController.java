@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Order;
+import com.example.domain.User;
 import com.example.form.OrderForm;
 import com.example.service.OrderService;
 
@@ -39,6 +42,9 @@ public class OrderController {
 	
 	@Autowired
 	private OrderService service;
+	
+	@Autowired
+	private HttpSession session;
 
 	/**
 	 * 注文確認画面を表示するルーティング.
@@ -48,8 +54,9 @@ public class OrderController {
 	 * @return　注文確認画面
 	 */
 	@GetMapping("/confirm")
-	public String showOrder(Integer orderId, Model model) {
-		Order order = service.showOrder(orderId);
+	public String showOrder(Model model) {
+		User user = (User) session.getAttribute("user");
+		Order order = service.showOrder(user.getId());
 		model.addAttribute("order", order);
 		try {
 			model.addAttribute("tax", order.getTax());
@@ -84,18 +91,35 @@ public class OrderController {
 		}
 		
 		if(result.hasErrors()) {
-			return showOrder(form.getOrderId(), model);
+			return showOrder(model);
 		}
 		
 		Order order = new Order();
 		BeanUtils.copyProperties(form, order);
 		order.setDeliveryTime(formDeliveryTime);
 		
-		service.update(order);
-		// TODO: 注文完了画面へリンクを変更する
-		return "redirect:/ex-202204a/";
+		User user = (User) session.getAttribute("user");
+		service.update(user.getId(), order);
+		return "redirect:/order/finished";
 	}
 	
+	/**
+	 * 注文完了画面のルーティング.
+	 * 
+	 * @return 注文完了画面
+	 */
+	@GetMapping("/finished")
+	public String finished() {
+		return "/order_finished";
+	}
+	
+	/**
+	 * StringからTimestampへの型変更.
+	 * 
+	 * @param strDeliveryTime String型の年月日時分
+	 * @return Timestamp型の年月日時分
+	 * @throws ParseException
+	 */
 	private Timestamp transformStringToTimestamp(String strDeliveryTime) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		Date date = sdf.parse(strDeliveryTime.replace("T", " "));
@@ -105,6 +129,12 @@ public class OrderController {
 		return formDeliveryTime;
 	}
 			
+	/**
+	 * 配達日時が注文時刻より3時間前か後かを判別する.
+	 * 
+	 * @param formDeliveryTime
+	 * @return 3時間より前だとtrue(そうでなければfalse)を返す
+	 */
 	private boolean canDelivery(Timestamp formDeliveryTime) {
 		LocalDateTime now = LocalDateTime.now();
 		Timestamp compareTime = Timestamp.valueOf(now.plusHours(3));
