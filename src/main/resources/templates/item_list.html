@@ -1,397 +1,266 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Font Awesome -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- MDB -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="../static/css/item_list.css"
-      th:href="@{/css/item_list.css}"
-    />
-    <title>らくらくアロハ</title>
-  </head>
 
-  <body>
-    <header class="fixed-top">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-info">
-        <!-- Container wrapper -->
-        <div class="container-fluid">
-          <!-- Toggle button -->
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-mdb-toggle="collapse"
-            data-mdb-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
-          <!-- Navbar brand -->
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <!-- MDB -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../static/css/item_list.css" th:href="@{/css/item_list.css}" />
+  <title>らくらくアロハ</title>
+</head>
 
-          <a
-            class="navbar-brand mt-2 mt-lg-0"
-            href="item_list.html"
-            th:href="@{/items/list}"
-          >
-            <img
-              src="../static/img_aloha/rakurakuaroha_logo2.png"
-              th:src="@{/img_aloha/rakurakuaroha_logo2.png}"
-              class="bg-light"
-              height="25"
-              alt="Rakuraku aloha Logo"
-              loading="lazy"
-            />
+<body>
+  <header class="fixed-top">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+      <!-- Container wrapper -->
+      <div class="container-fluid">
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+          data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <!-- Navbar brand -->
+
+        <a class="navbar-brand mt-2 mt-lg-0" href="item_list.html" th:href="@{/items/list}">
+          <img src="../static/img_aloha/rakurakuaroha_logo2.png" th:src="@{/img_aloha/rakurakuaroha_logo2.png}"
+            class="bg-light" height="25" alt="Rakuraku aloha Logo" loading="lazy" />
+        </a>
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Left links -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="item_list.html" th:href="@{/items/list}">ホーム</a>
+            </li>
+            <li class="nav-item">
+              <!-- Search Form-->
+              <form class="d-flex input-group w-auto" th:action="@{'/items/search'}" method="get">
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                  aria-describedby="search-addon" name="search_name" autocomplete="on" list="itemlist" />
+
+                <datalist id="itemlist">
+                  <option th:each="item : ${itemList}" th:value="${item.name}" value="アサイーボウル"></option>
+                </datalist>
+                <span class="input-group-text border-0" id="search-addon">
+                  <button style="border: none" class="bg-info">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </span>
+              </form>
+            </li>
+          </ul>
+          <!-- Left links -->
+        </div>
+        <!-- Collapsible wrapper -->
+
+        <!-- Right elements -->
+        <div class="d-flex align-items-center">
+          <!-- Icon -->
+          <a class="text-reset me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button"
+            data-mdb-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="badge rounded-pill badge-notification bg-danger">1</span>
           </a>
 
-          <!-- Collapsible wrapper -->
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left links -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="item_list.html"
-                  th:href="@{/items/list}"
-                  >ホーム</a
-                >
-              </li>
-              <li class="nav-item">
-                <!-- Search Form-->
-                <form
-                  class="d-flex input-group w-auto"
-                  th:action="@{'/items/search'}"
-                  method="get"
-                >
-                  <input
-                    type="search"
-                    class="form-control rounded"
-                    placeholder="Search"
-                    aria-label="Search"
-                    aria-describedby="search-addon"
-                    name="search_name"
-                    autocomplete="on"
-                    list="itemlist"
-                  />
-
-                  <datalist id="itemlist">
-                    <option
-                      th:each="item : ${itemList}"
-                      th:value="${item.name}"
-                      value="アサイーボウル"
-                    ></option>
-                  </datalist>
-                  <span class="input-group-text border-0" id="search-addon">
-                    <button style="border: none" class="bg-info">
-                      <i class="fas fa-search"></i>
-                    </button>
-                  </span>
+          <!-- Avatar -->
+          <div class="dropdown">
+            <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
+              role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-circle-user"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+              <li><a class="dropdown-item" href="#">マイページ</a></li>
+              <li>
+                <form th:action="@{/log}" method="post">
+                  <input th:if="${session.user}" type="hidden" th:value="${session.user.id}" name="userId" />
+                  <button class="dropdown-item">注文履歴</button>
                 </form>
               </li>
+              <li>
+                <span sec:authorize="isAuthenticated()"><a class="dropdown-item"
+                    th:href="@{/user/logout}">ログアウト</a></span>
+                <span sec:authorize="!isAuthenticated()"><a class="dropdown-item"
+                    th:href="@{/user/login}">ログイン</a></span>
+              </li>
             </ul>
-            <!-- Left links -->
-          </div>
-          <!-- Collapsible wrapper -->
-
-          <!-- Right elements -->
-          <div class="d-flex align-items-center">
-            <!-- Icon -->
-            <a
-              class="text-reset me-3 dropdown-toggle hidden-arrow"
-              href="#"
-              id="navbarDropdownMenuLink"
-              role="button"
-              data-mdb-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="fas fa-shopping-cart"></i>
-              <span class="badge rounded-pill badge-notification bg-danger"
-                >1</span
-              >
-            </a>
-
-            <!-- Avatar -->
-            <div class="dropdown">
-              <a
-                class="dropdown-toggle d-flex align-items-center hidden-arrow"
-                href="#"
-                id="navbarDropdownMenuAvatar"
-                role="button"
-                data-mdb-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i class="fa-solid fa-circle-user"></i>
-              </a>
-              <ul
-                class="dropdown-menu dropdown-menu-end"
-                aria-labelledby="navbarDropdownMenuAvatar"
-              >
-                <li><a class="dropdown-item" href="#">マイページ</a></li>
-                <li>
-                  <form th:action="@{/log}" method="post">
-                    <input
-                      th:if="${session.user}"
-                      type="hidden"
-                      th:value="${session.user.id}"
-                      name="userId"
-                    />
-                    <button class="dropdown-item">注文履歴</button>
-                  </form>
-                </li>
-                <li>
-                	<span sec:authorize="isAuthenticated()"><a class="dropdown-item" th:href="@{/user/logout}">ログアウト</a></span>
-                    <span sec:authorize="!isAuthenticated()"><a class="dropdown-item" th:href="@{/user/login}">ログイン</a></span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!-- Right elements -->
-        </div>
-        <!-- Container wrapper -->
-      </nav>
-      <!-- Navbar -->
-    </header>
-    <main>
-      <section>
-        <div class="container">
-          <!-- Carousel wrapper -->
-          <div
-            id="carouselMaterialStyle"
-            class="carousel slide carousel-fade"
-            data-mdb-ride="carousel"
-          >
-            <!-- Indicators -->
-            <div class="carousel-indicators">
-              <button
-                type="button"
-                data-mdb-target="#carouselMaterialStyle"
-                data-mdb-slide-to="0"
-                class="active"
-                aria-current="true"
-                aria-label="Slide 1"
-              ></button>
-              <button
-                type="button"
-                data-mdb-target="#carouselMaterialStyle"
-                data-mdb-slide-to="1"
-                aria-label="Slide 2"
-              ></button>
-              <button
-                type="button"
-                data-mdb-target="#carouselMaterialStyle"
-                data-mdb-slide-to="2"
-                aria-label="Slide 3"
-              ></button>
-            </div>
-
-            <!-- Inner -->
-            <div class="carousel-inner rounded-5 shadow-4-strong">
-              <!-- Single item -->
-              <div class="carousel-item active d-flex justify-content-center">
-                <img
-                  th:src="@{/img_aloha/1.jpg}"
-                  class="d-block w-50"
-                  alt="Sunset Over the City"
-                />
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>おすすめ商品１</h5>
-                  <p>
-                    これはめちゃくちゃ美味しい。だからそう、これは美味しい。
-                  </p>
-                </div>
-              </div>
-
-              <!-- Single item -->
-              <div class="carousel-item d-flex justify-content-center">
-                <img th:src="@{/img_aloha/2.jpg}" class="d-block w-50" />
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>おすすめ商品２</h5>
-                  <p>美味しくないはずが無い。So delicious!</p>
-                </div>
-              </div>
-
-              <!-- Single item -->
-              <div class="carousel-item d-flex justify-content-center">
-                <img th:src="@{/img_aloha/3.jpg}" class="d-block w-50" />
-
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>おすすめ商品３</h5>
-                  <p>これはキマる。やっべえぞ。</p>
-                </div>
-              </div>
-            </div>
-            <!-- Inner -->
-
-            <!-- Controls -->
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-mdb-target="#carouselMaterialStyle"
-              data-mdb-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-mdb-target="#carouselMaterialStyle"
-              data-mdb-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-          <!-- Carousel wrapper -->
-        </div>
-      </section>
-      <br />
-      <section>
-        <div class="container">
-          <div style="text-align: center">
-            <br />
-            <h2>美味しいハワイアン料理</h2>
-            <br />
-            <p>美味しいハワイアン料理はいかがですか？</p>
-            <p>
-              ハワイで採れた新鮮な野菜を使用したさまざまな料理を取り揃えています
-            </p>
           </div>
         </div>
-      </section>
-      <br />
-      <section>
-        <div class="container">
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a class="btn btn-outline-dark mb-4" th:href="@{/items/list}"
-              >値段の安い順</a
-            >
-            <a
-              class="btn btn-outline-dark mb-4"
-              th:href="@{/items/list?sort=DESC}"
-              >値段の高い順</a
-            >
-          </div>
-          <div class="row row-cols-1 row-cols-md-3 g-4 item-content">
-            <div
-              class="col mx-auto"
-              style="width: 18rem"
-              th:each="item : ${itemList}"
-            >
-              <div class="card text-center" style="width: 18rem">
-                <img
-                  src="../static/img_aloha/10.jpg"
-                  class="card-img-top"
-                  alt="..."
-                  th:src="@{'/img_aloha/'}+${item.imagePath}"
-                />
-                <div class="card-body">
-                  <h5 class="card-title" th:text="${item.name}">
-                    Hawaiianパラダイス
-                  </h5>
-                  <p class="card-text" th:text="${item.description}">
-                    ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
-                  </p>
-                  <p
-                    class="card-text"
-                    th:text="'M:'+${item.priceM}+'円, L:'+ ${item.priceL}+'円'"
-                  >
-                    M:2160円, L:3380円
-                  </p>
-
-                  <a
-                    th:href="@{'/items/detail?id='}+${item.id}"
-                    class="btn btn-light"
-                    >注文</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="text-center text-lg-start bg-light text-muted">
-      <!-- Section: Links  -->
-      <section class="">
-        <div class="container text-center text-md-start mt-5">
-          <br />
-          <!-- Grid row -->
-          <div class="row mt-3">
-            <!-- Grid column -->
-            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-              <!-- Content -->
-              <h6 class="text-uppercase fw-bold mb-4">
-                <i class="fas fa-gem me-3"></i>らくらくアロハ
-              </h6>
-              <p>真心を込めて美味しい商品をお届けします</p>
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-              <!-- Links -->
-              <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-              <p><i class="fas fa-home me-3"></i> 東京都渋谷区千駄ヶ谷</p>
-              <p>
-                <i class="fas fa-envelope me-3"></i> rakuraku-aloha@gmail.com
-              </p>
-              <p><i class="fas fa-phone me-3"></i> 0120-000-111</p>
-            </div>
-            <!-- Grid column -->
-          </div>
-          <!-- Grid row -->
-        </div>
-      </section>
-      <!-- Section: Links  -->
-
-      <!-- Copyright -->
-      <div
-        class="text-center p-4"
-        style="background-color: rgba(0, 0, 0, 0.05)"
-      >
-        © 2021 Copyright:
-        <a class="text-reset fw-bold" href="#">らくらくアロハ</a>
+        <!-- Right elements -->
       </div>
-      <!-- Copyright -->
-    </footer>
-    <!-- Footer -->
+      <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+  </header>
+  <main>
+    <section>
+      <div class="container">
+        <!-- Carousel wrapper -->
+        <div id="carouselMaterialStyle" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+          <!-- Indicators -->
+          <div class="carousel-indicators">
+            <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="1"
+              aria-label="Slide 2"></button>
+            <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="2"
+              aria-label="Slide 3"></button>
+          </div>
 
-    <!-- MDB -->
-    <script
-      type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"
-    ></script>
+          <!-- Inner -->
+          <div class="carousel-inner rounded-5 shadow-4-strong">
+            <!-- Single item -->
+            <div class="carousel-item active d-flex justify-content-center">
+              <img th:src="@{/img_aloha/1.jpg}" class="d-block w-50" alt="Sunset Over the City" />
+              <div class="carousel-caption d-none d-md-block">
+                <h5>おすすめ商品１</h5>
+                <p>
+                  これはめちゃくちゃ美味しい。だからそう、これは美味しい。
+                </p>
+              </div>
+            </div>
 
-    <!-- paginathing  -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script th:src="@{/js/script.js}"></script>
-    <script th:src="@{/js/paginathing.min.js}"></script>
-  </body>
+            <!-- Single item -->
+            <div class="carousel-item d-flex justify-content-center">
+              <img th:src="@{/img_aloha/2.jpg}" class="d-block w-50" />
+              <div class="carousel-caption d-none d-md-block">
+                <h5>おすすめ商品２</h5>
+                <p>美味しくないはずが無い。So delicious!</p>
+              </div>
+            </div>
+
+            <!-- Single item -->
+            <div class="carousel-item d-flex justify-content-center">
+              <img th:src="@{/img_aloha/3.jpg}" class="d-block w-50" />
+
+              <div class="carousel-caption d-none d-md-block">
+                <h5>おすすめ商品３</h5>
+                <p>これはキマる。やっべえぞ。</p>
+              </div>
+            </div>
+          </div>
+          <!-- Inner -->
+
+          <!-- Controls -->
+          <button class="carousel-control-prev" type="button" data-mdb-target="#carouselMaterialStyle"
+            data-mdb-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-mdb-target="#carouselMaterialStyle"
+            data-mdb-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <!-- Carousel wrapper -->
+      </div>
+    </section>
+    <br />
+    <section>
+      <div class="container">
+        <div style="text-align: center">
+          <br />
+          <h2>美味しいハワイアン料理</h2>
+          <br />
+          <p>美味しいハワイアン料理はいかがですか？</p>
+          <p>
+            ハワイで採れた新鮮な野菜を使用したさまざまな料理を取り揃えています
+          </p>
+        </div>
+      </div>
+    </section>
+    <br />
+    <section>
+      <div class="container">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <a class="btn btn-outline-dark mb-4" th:href="@{/items/list}">値段の安い順</a>
+          <a class="btn btn-outline-dark mb-4" th:href="@{/items/list?sort=DESC}">値段の高い順</a>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4 item-content">
+          <div class="col mx-auto" style="width: 18rem" th:each="item : ${itemList}">
+            <div class="card text-center" style="width: 18rem">
+              <img src="../static/img_aloha_resize/10.jpg" class="card-img-top" alt="..."
+                th:src="@{'/img_aloha/'}+${item.imagePath}" />
+              <div class="card-body">
+                <h5 class="card-title" th:text="${item.name}">
+                  Hawaiianパラダイス
+                </h5>
+                <p class="card-text" th:text="${item.description}">
+                  ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。
+                </p>
+                <p class="card-text" th:text="'M:'+${item.priceM}+'円, L:'+ ${item.priceL}+'円'">
+                  M:2160円, L:3380円
+                </p>
+
+                <a th:href="@{'/items/detail?id='}+${item.id}" class="btn btn-light">注文</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-lg-start bg-light text-muted">
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <br />
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>らくらくアロハ
+            </h6>
+            <p>真心を込めて美味しい商品をお届けします</p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            <p><i class="fas fa-home me-3"></i> 東京都渋谷区千駄ヶ谷</p>
+            <p>
+              <i class="fas fa-envelope me-3"></i> rakuraku-aloha@gmail.com
+            </p>
+            <p><i class="fas fa-phone me-3"></i> 0120-000-111</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05)">
+      © 2021 Copyright:
+      <a class="text-reset fw-bold" href="#">らくらくアロハ</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+
+  <!-- MDB -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"></script>
+
+  <!-- paginathing  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script th:src="@{/js/script.js}"></script>
+  <script th:src="@{/js/paginathing.min.js}"></script>
+</body>
+
 </html>
