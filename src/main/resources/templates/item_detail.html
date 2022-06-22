@@ -209,7 +209,13 @@
             <br />
             <section>
                 <div class="container">
-                    <form id="order-form" action="cart_list.html">
+                    <form
+                        id="order-form"
+                        action="cart_list.html"
+                        method="post"
+                        th:action="@{/cart/insert}"
+                        th:object="${insertShoppingCartForm}"
+                    >
                         <h4>サイズ</h4>
                         <br />
                         <p>（税抜価格/円）</p>
@@ -217,9 +223,11 @@
                             <input
                                 type="radio"
                                 class="btn-check"
-                                name="options"
+                                name="size"
                                 id="option1"
                                 autocomplete="off"
+                                value="M"
+                                th:field="*{size}"
                             />
                             <label class="btn btn-outline-success" for="option1"
                                 >Mサイズ:
@@ -229,9 +237,11 @@
                             <input
                                 type="radio"
                                 class="btn-check"
-                                name="options"
+                                name="size"
                                 id="option2"
                                 autocomplete="off"
+                                value="L"
+                                th:field="*{size}"
                             />
                             <label class="btn btn-outline-danger" for="option2"
                                 >Lサイズ:
@@ -258,14 +268,16 @@
                                         type="checkbox"
                                         class="btn-check"
                                         id="btncheck1"
-                                        th:id="btncheck + ${status.count}"
+                                        th:id="btncheck + ${topping.id}"
+                                        name="toppingList"
+                                        th:value="${topping.id}"
                                         autocomplete="off"
                                     />
                                     <label
                                         class="btn btn-outline-info"
                                         th:text="${topping.name}"
                                         for="btncheck1"
-                                        th:for="btncheck + ${status.count}"
+                                        th:for="btncheck + ${topping.id}"
                                         >ハワイアンソルト</label
                                     >
                                 </div>
@@ -281,6 +293,7 @@
                                 class="form-select"
                                 id="floatingSelect"
                                 aria-label="Floating label select example"
+                                th:field="*{quantity}"
                             >
                                 <span id="textExample2" class="form-text"
                                     >数量を選択してください</span
@@ -299,6 +312,11 @@
                                 <option value="12">12</option>
                             </select>
                             <label for="floatingSelect">数量</label>
+                            <input
+                                type="hidden"
+                                name="itemId"
+                                th:value="${item.id}"
+                            />
                         </div>
                         <br />
 
