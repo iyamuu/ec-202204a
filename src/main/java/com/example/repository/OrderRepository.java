@@ -123,7 +123,7 @@ public class OrderRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 	
-	public List<Order> findById(Integer orderId) {
+	public List<Order> findByUserIdAndStatus(Integer userId, Integer status) {
 		String sql = "select "
 				+ "	o.id as o_id, user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method, "
 				+ "	u.id as u_id, u.name as u_name, email, password, zipcode, address, telephone, "
@@ -137,8 +137,8 @@ public class OrderRepository {
 				+ "	left join items as i on i.id=item_id "
 				+ "	left join order_toppings as ot on oi.id=ot.order_item_id "
 				+ "	left join toppings as t on t.id= ot.topping_id "
-				+ "where o_id=:orderId";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("orderId", orderId);
+				+ "where user_id=:userId and status=:status";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("status", status);
 		List<Order> orderList = template.query(sql, param, ORDER_ITEM_TOPPING_EXTRACTER);
 		return orderList;
 	}
@@ -146,10 +146,7 @@ public class OrderRepository {
 	
 	public void save(Order order) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
-		System.out.println(param);
-		
-		
-//		String updateSql = "UPDATE orders SET   WHERE id=:id";
-//        template.update(updateSql, param);
+		String updateSql = "UPDATE orders SET user_id=:userId, status=:status, total_price=:totalPrice, order_date=:orderDate, destination_name=:destinationName, destination_email=:destinationEmail, destination_zipcode=:destinationZipCode, destination_address=:destinationAddress, destination_tel=:destinationTel, delivery_time=:deliveryTime, payment_method=:paymentMethod WHERE id=:id";
+        template.update(updateSql, param);
 	}
 }
