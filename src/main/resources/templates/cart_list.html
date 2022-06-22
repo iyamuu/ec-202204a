@@ -136,7 +136,7 @@
                                         <li>数量：<span th:text="${orderItem.quantity}">1</span>個</li>
                                         <li>トッピング：
                                             <ul>
-                                                <li th:each="orderTopping : orderItem.orderorderToppingList" th:text="${orderTopping.topping}">エビ</li>
+                                                <li th:each="orderTopping : ${orderItem.orderToppingList}" th:text="${orderTopping.topping.name}">エビ</li>
                                             </ul>
                                         </li>
                                     </ul>
