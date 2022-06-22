@@ -107,9 +107,9 @@ public class OrderRepository {
 				orderTopping.setId(rs.getInt("ot_id"));
 				orderTopping.setToppingId(rs.getInt("topping_id"));
 				orderTopping.setOrderItemId(rs.getInt("order_item_id"));
-				orderTopping.setTopping(new Topping());
 				
 				Topping topping = new Topping();
+				orderTopping.setTopping(topping);
 				topping.setId(rs.getInt("t_id"));
 				topping.setName(rs.getString("t_name"));
 				topping.setPriceM(rs.getInt("t_price_m"));
@@ -166,8 +166,8 @@ public class OrderRepository {
 	 */
 	public void InsertOrder(Order order) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
-		String sql = "insert into order_items (user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method) "
-				+ "values(:userId, :status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipcode, :destinationAddress, :destinationTel, :deliveryTime, :paymentMethod);";
+		String sql = "insert into orders (user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method) "
+				+ "values(:userId, :status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipCode, :destinationAddress, :destinationTel, :deliveryTime, :paymentMethod);";
 		template.update(sql, param);
 	}
 	
