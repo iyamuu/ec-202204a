@@ -292,25 +292,114 @@
                          <hr>
                          
                          <div class="mb-3">
-                             <div th:errors="*{paymentMethod}" style="color:red">エラー！</div>
+                          <div th:errors="*{paymentMethod}" style="color:red">エラー！</div>
                              <label
                                  for="deliveryTime"
                                  class="form-label"
                                  >支払い方法：</label
                              >
                              <div class="form-check">
-					  <input class="form-check-input" type="radio" name="paymentMethod" id="flexRadioDefault1" value="1"/>
-					  <label class="form-check-label" for="flexRadioDefault1"> 代金引換 </label>
-					</div>
-					
-					<div class="form-check">
-					  <input class="form-check-input" type="radio" name="paymentMethod" id="flexRadioDefault2" value="2"/>
-					  <label class="form-check-label" for="flexRadioDefault2"> クレジットカード決済 </label>
-					</div>
-                         </div>
-                         
-                         <hr>
-                     </div>
+                              <input class="form-check-input" type="radio" name="paymentMethod" id="flexRadioDefault1" value="1"/>
+                              <label class="form-check-label" for="flexRadioDefault1"> 代金引換 </label>
+                            </div>
+                            
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="paymentMethod" id="flexRadioDefault2" value="2"/>
+                              <label class="form-check-label" for="flexRadioDefault2"> クレジットカード決済 </label>
+                            </div>
+                          </div>
+                          </div>
+                          <hr>
+                          <div id="car-input">
+
+                          <h3>クレジットカード情報</h3>
+                          <div class="mb-3">
+                            <label
+                                for="cardNumber"
+                                class="form-label"
+                                >クレジットカード番号：</label
+                            >
+                            <div th:errors="*{cardNumber}" style="color:red">エラー！</div>
+                            <input
+                                type="text"
+                                name="cardNumber"
+                                class="form-control"
+                                id="cardNumber"
+                                th:field="*{cardNumber}"
+                            />
+                        </div>
+                        
+                        <hr>
+                          <div class="mb-3">
+                            <label
+                                for="cardExpMonth"
+                                class="form-label"
+                                >カード有効期限(月)：</label
+                            >
+                            <div th:errors="*{cardExpMonth}" style="color:red">エラー！</div>
+                            <input
+                                type="text"
+                                name="cardExpMonth"
+                                class="form-control"
+                                id="cardExpMonth"
+                                th:field="*{cardExpMonth}"
+                            />
+                        </div>
+                        
+                        <hr>
+                          <div class="mb-3">
+                            <label
+                                for="cardExpYear"
+                                class="form-label"
+                                >カード有効期限(年)：</label
+                            >
+                            <div th:errors="*{cardExpYear}" style="color:red">エラー！</div>
+                            <input
+                                type="text"
+                                name="cardExpYear"
+                                class="form-control"
+                                id="cardExpYear"
+                                th:field="*{cardExpYear}"
+                            />
+                        </div>
+                        
+                        <hr>
+                          <div class="mb-3">
+                            <label
+                                for="cardCvv"
+                                class="form-label"
+                                >セキュリティーコード：</label
+                            >
+                            <div th:errors="*{cardCvv}" style="color:red">エラー！</div>
+                            <input
+                                type="text"
+                                name="cardCvv"
+                                class="form-control"
+                                id="cardCvv"
+                                th:field="*{cardCvv}"
+                            />
+                        </div>
+                        
+                        <hr>
+                          <div class="mb-3">
+                            <label
+                                for="cardName"
+                                class="form-label"
+                                >カード名義：</label
+                            >
+                            <div th:errors="*{cardName}" style="color:red">エラー！</div>
+                            <input
+                                type="text"
+                                name="cardName"
+                                class="form-control"
+                                id="cardName"
+                                th:field="*{cardName}"
+                            />
+                        </div>
+                        
+                        <hr>
+                      </div>
+
                      <div class="button-link">
                          <a class="btn btn-outline-secondary" th:href="@{/order/confirm}">
                          	ショッピングカート画面へ

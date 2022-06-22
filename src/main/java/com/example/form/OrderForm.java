@@ -35,6 +35,62 @@ public class OrderForm {
 	private String deliveryTime;
 	/** 支払方法 */
 	private Integer paymentMethod;
+	/** カード番号(数字14桁-16桁) */
+	@Pattern(regexp = "^[0-9]{14,16}$", message = "クレジットカード番号を正しく入力してください")
+	private String cardNumber;
+	/** カード有効期限(月)(数字2桁) */
+	@Pattern(regexp = "^[0-9]{2}$", message="有効期限(月)を入力してください")
+	private String cardExpMonth;
+	/** カード有効期限(年)(数字4桁) */
+	@Pattern(regexp = "^[0-9]{2}$", message="有効期限(年)を入力してください")
+	private String cardExpYear;
+	@Pattern(regexp = "^[0-9]{3,4}$", message = "セキュリティーコードを正しく入力してください")
+	/** セキュリティコード(数字3桁-4桁) */
+	private String cardCvv;
+	/** カード名義人名 */
+	@NotBlank(message = "カード名義を入力してください")
+	private String cardName;
+	
+	public String getCardNumber() {
+		return cardNumber;
+	}
+
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+
+	public String getCardExpMonth() {
+		return cardExpMonth;
+	}
+
+	public void setCardExpMonth(String cardExpMonth) {
+		this.cardExpMonth = cardExpMonth;
+	}
+
+	public String getCardExpYear() {
+		return cardExpYear;
+	}
+
+	public void setCardExpYear(String cardExpYear) {
+		this.cardExpYear = cardExpYear;
+	}
+
+	public String getCardCvv() {
+		return cardCvv;
+	}
+
+	public void setCardCvv(String cardCvv) {
+		this.cardCvv = cardCvv;
+	}
+
+	public String getCardName() {
+		return cardName;
+	}
+
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
+	}
+
 
 	/**
 	 * @return the orderId
@@ -153,7 +209,9 @@ public class OrderForm {
 		return "OrderForm [orderId=" + orderId + ", destinationName=" + destinationName + ", destinationEmail="
 				+ destinationEmail + ", destinationZipCode=" + destinationZipCode + ", destinationAddress="
 				+ destinationAddress + ", destinationTel=" + destinationTel + ", deliveryTime=" + deliveryTime
-				+ ", paymentMethod=" + paymentMethod + "]";
+				+ ", paymentMethod=" + paymentMethod + ", cardNumber=" + cardNumber + ", cardExpMonth=" + cardExpMonth
+				+ ", cardExpYear=" + cardExpYear + ", cardCvv=" + cardCvv + ", cardName=" + cardName + "]";
 	}
+
 
 }
