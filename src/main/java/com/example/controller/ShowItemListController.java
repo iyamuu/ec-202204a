@@ -57,6 +57,10 @@ public class ShowItemListController {
 		
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("search_name", search_name);
+		
+		// オートコンプリート用の全商品情報取得
+		List<Item> allItemList = showItemListService.showList(null);			
+		model.addAttribute("allItemList", allItemList);
 
 		return "item_search";
 	}
