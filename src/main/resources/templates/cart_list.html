@@ -163,7 +163,7 @@
                             class="d-flex justify-content-start btn btn-outline-secondary">お買い物を続ける</a>
                     </div>
                     
-                    <div>
+                    <div th:if="${order}">
                         <form action="order_confirm.html" th:action="@{/order/confirm}" >
                             <button class="btn btn-secondary" id="order-button">注文に進む</button>
                         </form>
