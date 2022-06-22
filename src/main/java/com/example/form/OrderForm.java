@@ -23,7 +23,7 @@ public class OrderForm {
 	private String destinationEmail;
 	/** 宛先郵便番号 */
 	@Pattern(regexp = "^[0-9]{3}-[0-9]{4}$", message = "郵便番号はxxx-xxxxの形式で入力してください")
-	private String destinationZipcode;
+	private String destinationZipCode;
 	/** 宛先住所 */
 	@NotBlank(message = "住所を入力してください")
 	private String destinationAddress;
@@ -81,15 +81,15 @@ public class OrderForm {
 	/**
 	 * @return the destinationZipcode
 	 */
-	public String getDestinationZipcode() {
-		return destinationZipcode;
+	public String getDestinationZipCode() {
+		return destinationZipCode;
 	}
 
 	/**
 	 * @param destinationZipcode the destinationZipcode to set
 	 */
-	public void setDestinationZipcode(String destinationZipcode) {
-		this.destinationZipcode = destinationZipcode;
+	public void setDestinationZipCode(String destinationZipCode) {
+		this.destinationZipCode = destinationZipCode;
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class OrderForm {
 	@Override
 	public String toString() {
 		return "OrderForm [orderId=" + orderId + ", destinationName=" + destinationName + ", destinationEmail="
-				+ destinationEmail + ", destinationZipcode=" + destinationZipcode + ", destinationAddress="
+				+ destinationEmail + ", destinationZipCode=" + destinationZipCode + ", destinationAddress="
 				+ destinationAddress + ", destinationTel=" + destinationTel + ", deliveryTime=" + deliveryTime
 				+ ", paymentMethod=" + paymentMethod + "]";
 	}
