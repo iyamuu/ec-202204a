@@ -19,6 +19,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="../static/css/item_list.css"
+      th:href="@{/css/item_list.css}"
+    />
     <title>らくらくアロハ</title>
   </head>
 
@@ -50,7 +55,6 @@
             <img
               src="../static/img_aloha/header_logo.png"
               th:src="@{/img_aloha/header_logo.png}"
-              p
               class="bg-light"
               height="15"
               alt="Rakuraku aloha Logo"
@@ -84,7 +88,17 @@
                     aria-label="Search"
                     aria-describedby="search-addon"
                     name="search_name"
+                    autocomplete="on"
+                    list="itemlist"
                   />
+
+                  <datalist id="itemlist">
+                    <option
+                      th:each="item : ${itemList}"
+                      th:value="${item.name}"
+                      value="アサイーボウル"
+                    ></option>
+                  </datalist>
                   <span class="input-group-text border-0" id="search-addon">
                     <button style="border: none" class="bg-info">
                       <i class="fas fa-search"></i>
@@ -130,12 +144,8 @@
                 class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="navbarDropdownMenuAvatar"
               >
-                <li>
-                  <a class="dropdown-item" href="#">マイページ</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">注文履歴</a>
-                </li>
+                <li><a class="dropdown-item" href="#">マイページ</a></li>
+                <li><a class="dropdown-item" href="#">注文履歴</a></li>
 
                 <li th:if="${session.user}">
                   <a class="dropdown-item" th:href="@{/user/logout}"
@@ -154,10 +164,9 @@
       </nav>
       <!-- Navbar -->
     </header>
-
     <main>
       <section>
-        <div clss="container">
+        <div class="container">
           <!-- Carousel wrapper -->
           <div
             id="carouselMaterialStyle"
@@ -272,7 +281,17 @@
       <br />
       <section>
         <div class="container">
-          <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-outline-dark mb-4" th:href="@{/items/list}"
+              >値段の安い順</a
+            >
+            <a
+              class="btn btn-outline-dark mb-4"
+              th:href="@{/items/list?sort=DESC}"
+              >値段の高い順</a
+            >
+          </div>
+          <div class="row row-cols-1 row-cols-md-3 g-4 item-content">
             <div
               class="col mx-auto"
               style="width: 18rem"
@@ -364,5 +383,10 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"
     ></script>
+
+    <!-- paginathing  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+    <script th:src="@{/js/paginathing.min.js}"></script>
   </body>
 </html>

@@ -197,4 +197,13 @@ public class OrderRepository {
 	}
 	
 
+	 * カートに追加していた商品を削除します.
+	 * 
+	 * @param orderItemId カートに追加された商品のid 
+	 */
+	public void deleteById(Integer orderItemId) {
+		String sql = "DELETE FROM order_items where id = :id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", orderItemId);
+		template.update(sql, param);
+	}
 }

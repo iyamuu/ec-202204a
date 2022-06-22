@@ -27,13 +27,12 @@ public class ShowItemListController {
 	 * 商品一覧画面を表示.
 	 * 
 	 * @param model	モデル
+	 * @param sort	並び順の設定
 	 * @return		商品一覧画面
 	 */
 	@RequestMapping("/list")
-	public String list(Model model) {
-
-		List<Item> itemList = showItemListService.showList();
-
+	public String list(Model model, String sort) {
+		List<Item> itemList = showItemListService.showList(sort);			
 		model.addAttribute("itemList", itemList);
 
 		return "item_list";
@@ -47,16 +46,21 @@ public class ShowItemListController {
 	 * @return				検索画面
 	 */
 	@RequestMapping("/search")
-	public String search(String search_name, Model model) {
+	public String search(String search_name, String sort, Model model) {
 
-		List<Item> itemList = showItemListService.search(search_name);
+		List<Item> itemList = showItemListService.search(search_name, sort);
 
 		if (itemList.size() == 0) {
-			itemList = showItemListService.showList();
+			itemList = showItemListService.showList(sort);
 			model.addAttribute("no_item", "該当する商品がありません");
 		}
 		
 		model.addAttribute("itemList", itemList);
+		model.addAttribute("search_name", search_name);
+		
+		// オートコンプリート用の全商品情報取得
+		List<Item> allItemList = showItemListService.showList(null);			
+		model.addAttribute("allItemList", allItemList);
 
 		return "item_search";
 	}
