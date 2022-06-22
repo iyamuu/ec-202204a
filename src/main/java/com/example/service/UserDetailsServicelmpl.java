@@ -15,6 +15,12 @@ import com.example.domain.LoginUser;
 import com.example.domain.User;
 import com.example.repository.UserRepository;
 
+/**
+ * ログイン後のメンバー情報に権限情報を付与するサービスクラス.
+ * 
+ * @author takato.tomizawa
+ *
+ */
 @Service
 public class UserDetailsServicelmpl implements UserDetailsService {
 

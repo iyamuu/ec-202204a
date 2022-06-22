@@ -4,6 +4,12 @@ import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 
+/**
+ * 対象ドメインに権限情報が付与されたクラス.
+ * 
+ * @author takato.tomizawa
+ *
+ */
 public class LoginUser extends org.springframework.security.core.userdetails.User {
 
 	private static final long serialVersionUID = 1L;
