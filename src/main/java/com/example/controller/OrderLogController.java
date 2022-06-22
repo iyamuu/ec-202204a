@@ -32,11 +32,13 @@ public class OrderLogController {
 	@RequestMapping("")
 	public String index(Integer userId, Model model) {
 		
-//		List<Order> orderList = orderHistoryService.showOrderHistory(userId);
-		List<Order> orderList = orderHistoryService.showOrderHistory(1);
-		for(Order order : orderList) {
-			System.out.println(order.toString());
+		// ログインしていなかったらログイン画面にリダイレクト
+		if(userId == null) {
+			return "redirect:/user/toLogin";
 		}
+		
+		List<Order> orderList = orderHistoryService.showOrderHistory(userId);
+		System.out.println("ユーザーid" + userId);
 		model.addAttribute("orderList", orderList);
 		
 		return "order_log";
