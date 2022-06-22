@@ -38,9 +38,33 @@ public class UserRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 	
+	/**
+	 * メールアドレスとパスワードからユーザーを検索.
+	 * 
+	 * @param email メールアドレス
+	 * @param password パスワード
+	 * @return ユーザー情報（当てはまらなかったらnull）
+	 */
 	public User findByEmailAndPassword(String email, String password) {
 		String sql = "SELECT id, name, email, password, zipcode, address, telephone FROM users WHERE email = :email AND password = :password";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email).addValue("password", password);
+		
+		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
+		if(userList.size() == 0) {
+			return null;
+		}
+		return userList.get(0);
+	}
+	
+	/**
+	 * メールアドレスからユーザーを検索.
+	 * 
+	 * @param email メールアドレス
+	 * @return ユーザー情報（当てはまらなかったらnull）
+	 */
+	public User findByEmail(String email) {
+		String sql = "SELECT id, name, email, password, zipcode, address, telephone FROM users WHERE email = :email";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
 		
 		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
 		if(userList.size() == 0) {
