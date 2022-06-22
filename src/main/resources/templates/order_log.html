@@ -23,30 +23,23 @@
 			<div class="container-fluid">
 				<!-- Toggle button -->
 				<button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-					data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
+					data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
 					<i class="fas fa-bars"></i>
 
 				</button>
 				<!-- Navbar brand -->
-				<a class="navbar-brand mt-2 mt-lg-0" href="item_list.html"> <img th:src="@{/img_aloha/header_logo.png}"
+				<a class="navbar-brand mt-2 mt-lg-0" href="item_list.html" th:href="@{/items/list}">
+					<img src="../static/img_aloha/header_logo.png" th:src="@{/img_aloha/header_logo.png}"
 						class="bg-light" height="15" alt="Rakuraku aloha Logo" loading="lazy" />
 				</a>
 
 				<!-- Collapsible wrapper -->
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-
 					<!-- Left links -->
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link" href="item_list.html">ホーム</a></li>
 						<li class="nav-item">
-							<!-- Search Form-->
-							<form class="d-flex input-group w-auto">
-								<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-									aria-describedby="search-addon" /> <span class="input-group-text border-0" id="search-addon"> <i
-										class="fas fa-search"></i>
-								</span>
-							</form>
+							<a class="nav-link" href="item_list.html" th:href="@{/items/list}">ホーム</a>
 						</li>
 					</ul>
 					<!-- Left links -->
@@ -57,21 +50,33 @@
 				<div class="d-flex align-items-center">
 
 					<!-- Icon -->
-					<a class="text-reset me-3 dropdown-toggle hidden-arrow" href="cart_list.html" id="navbarDropdownMenuLink"
-						role="button" data-mdb-toggle="dropdown" aria-expanded="false"> <i class="fas fa-shopping-cart"></i> <span
+					<a class="text-reset me-3 dropdown-toggle hidden-arrow" href="cart_list.html"
+						id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false"> <i
+							class="fas fa-shopping-cart"></i> <span
 							class="badge rounded-pill badge-notification bg-danger">1</span>
 					</a>
 
 					<!-- Avatar -->
 					<div class="dropdown">
-						<a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
-							role="button" data-mdb-toggle="dropdown" aria-expanded="false"> <i class="fa-solid fa-circle-user"></i>
+						<a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
+							id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown"
+							aria-expanded="false"> <i class="fa-solid fa-circle-user"></i>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
 							<li><a class="dropdown-item" href="#">マイページ</a></li>
-							<li><a class="dropdown-item" href="order_log.html">注文履歴</a>
+							<li>
+								<form th:action="@{/log}" method="post">
+									<input th:if="${session.user}" type="hidden" th:value="${session.user.id}"
+										name="userId" />
+									<button class="dropdown-item">注文履歴</button>
+								</form>
 							</li>
-							<li><a class="dropdown-item" href="#">ログアウト</a></li>
+							<li th:if="${session.user}">
+								<a class="dropdown-item" th:href="@{/user/logout}">ログアウト</a>
+							</li>
+							<li th:unless="${session.user}">
+								<a class="dropdown-item" th:href="@{/user/login}">ログイン</a>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -94,16 +99,18 @@
 				<div class="accordion" id="accordionExample">
 					<div class="accordion-item" th:each="order : ${orderList}">
 						<h2 class="accordion-header" th:id="'heading' + ${order.id}">
-							<button class="accordion-button" type="button" data-mdb-toggle="collapse" th:data-mdb-target="'#collapse' + ${order.id}"
-								aria-expanded="true" th:aria-controls="'collapse' + ${order.id}">
+							<button class="accordion-button" type="button" data-mdb-toggle="collapse"
+								th:data-mdb-target="'#collapse' + ${order.id}" aria-expanded="true"
+								th:aria-controls="'collapse' + ${order.id}">
 								<!-- 2022年04月22日15:00 -->
-								<span th:text="${#dates.format(order.deliveryTime, 'yyyy年MM月dd日HH時mm分')}">2022年04月22日15:00</span>
+								<span
+									th:text="${#dates.format(order.deliveryTime, 'yyyy年MM月dd日HH時mm分')}">2022年04月22日15:00</span>
 								に配達の注文
 								<!-- <span th:text="${order.orderItemList}"></span> -->
 							</button>
 						</h2>
-						<div th:id="'collapse' + ${order.id}" class="accordion-collapse collapse show" th:aria-labelledby="'heading' + ${order.id}"
-							data-mdb-parent="#accordionExample">
+						<div th:id="'collapse' + ${order.id}" class="accordion-collapse collapse show"
+							th:aria-labelledby="'heading' + ${order.id}" data-mdb-parent="#accordionExample">
 							<div class="accordion-body">
 								<h4>
 									合計金額：
@@ -115,14 +122,17 @@
 								</p>
 								<p>お届け先：
 									<span th:text="${order.destinationName}">山田太郎</span>
-									様</p>
+									様
+								</p>
 								<div class="row flex-row flex-nowrap overflow-auto">
 									<!-- 1個のitem start -->
-									<div th:each="orderItem : ${order.orderItemList}" class="col mx-auto" style="width: 18rem;">
+									<div th:each="orderItem : ${order.orderItemList}" class="col mx-auto"
+										style="width: 18rem;">
 										<div class="card text-center" style="width: 18rem;">
 											<img th:src="@{/img_aloha/10.jpg}" class="card-img-top" alt="...">
 											<div class="card-body">
-												<h5 class="card-title" th:text="${orderItem.item.name}">Hawaiianパラダイス</h5>
+												<h5 class="card-title" th:text="${orderItem.item.name}">Hawaiianパラダイス
+												</h5>
 												<p class="card-text">
 												<ul>
 													<li>サイズ：
@@ -130,10 +140,12 @@
 													</li>
 													<li>数量：
 														<span th:text="${orderItem.quantity}">1</span>
-														個</li>
+														個
+													</li>
 													<li>トッピング：
 														<ul>
-															<li th:each="topping : ${orderItem.orderToppingList}">エビ</li>
+															<li th:each="topping : ${orderItem.orderToppingList}">エビ
+															</li>
 														</ul>
 													</li>
 												</ul>
