@@ -47,7 +47,7 @@
                         <i class="fas fa-bars"></i>
                     </button>
                     <!-- Navbar brand -->
-                    <a class="navbar-brand mt-2 mt-lg-0" href="item_list.html">
+                    <a class="navbar-brand mt-2 mt-lg-0" href="item_list.html" th:href="@{/items/list}">
                         <img
                             src="../static/img_aloha/header_logo.png"
                             th:src="@{/img_aloha/header_logo.png}"
@@ -66,7 +66,10 @@
                         <!-- Left links -->
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" href="item_list.html"
+                                <a
+                                    class="nav-link"
+                                    href="item_list.html"
+                                    th:href="@{/items/list}"
                                     >ホーム</a
                                 >
                             </li>
@@ -97,11 +100,10 @@
                     <div class="d-flex align-items-center">
                         <!-- Icon -->
                         <a
-                            class="text-reset me-3 dropdown-toggle hidden-arrow"
-                            href="#"
+                            class="text-reset me-3"
+                            th:href="@{/cart/show}"
                             id="navbarDropdownMenuLink"
                             role="button"
-                            data-mdb-toggle="dropdown"
                             aria-expanded="false"
                         >
                             <i class="fas fa-shopping-cart"></i>
