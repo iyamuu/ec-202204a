@@ -152,7 +152,7 @@ public class OrderRepository {
 				+ "	left join items as i on i.id=item_id "
 				+ "	left join order_toppings as ot on oi.id=ot.order_item_id "
 				+ "	left join toppings as t on t.id= ot.topping_id "
-				+ "where user_id=:userId and status=:status";
+				+ "where user_id=:userId and status=:status order by o_id, item_id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId).addValue("status", status);
 		List<Order> orderList = template.query(sql, param, ORDER_ITEM_TOPPING_EXTRACTER);
 		return orderList;
@@ -207,6 +207,7 @@ public class OrderRepository {
 		template.update(sql, param);
 	}
 	
+
 	/**
 	 * カートに追加していた商品を削除します.
 	 * 
@@ -216,5 +217,30 @@ public class OrderRepository {
 		String sql = "DELETE FROM order_items where id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", orderItemId);
 		template.update(sql, param);
+	}
+	
+	/**
+	 * 注文履歴を検索します.
+	 * @param userId ユーザーID
+	 * @return 注文履歴の一覧
+	 */
+	public List<Order> findLogByUserId(Integer userId) {
+		String sql = "select "
+				+ "	o.id as o_id, user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method, "
+				+ "	u.id as u_id, u.name as u_name, email, password, zipcode, address, telephone, "
+				+ "	oi.id as oi_id, item_id, order_id, quantity, size, "
+				+ "	i.id as i_id, i.name as i_name, description, i.price_m as i_price_m, i.price_l as i_price_l, image_path, deleted, "
+				+ "	ot.id as ot_id, topping_id, order_item_id, "
+				+ "	t.id as t_id, t.name as t_name, t.price_m as t_price_m, t.price_l as t_price_l "
+				+ "from orders as o "
+				+ "	left join order_items as oi on o.id=oi.order_id "
+				+ "	left join users as u on u.id=o.user_id "
+				+ "	left join items as i on i.id=item_id "
+				+ "	left join order_toppings as ot on oi.id=ot.order_item_id "
+				+ "	left join toppings as t on t.id= ot.topping_id "
+				+ "where user_id=:userId and not status=0 order by o_id, item_id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
+		List<Order> orderList = template.query(sql, param, ORDER_ITEM_TOPPING_EXTRACTER);
+		return orderList;
 	}
 }
