@@ -33,15 +33,11 @@ public class OrderItem {
 	 */
 	public int getSubTotal() {
 		int subTotal = 0;
-		int toppingCount = 0;
-		for (OrderTopping orderTopping : orderToppingList) {
-			toppingCount++;
-		}
 		
 		if (getSize().compareTo('M') == 0) {
-			subTotal = item.getPriceM() + (200 * toppingCount);
+			subTotal = item.getPriceM() + (200 * orderToppingList.size());
 		} else {
-			subTotal = item.getPriceL() + (300 * toppingCount);
+			subTotal = item.getPriceL() + (300 * orderToppingList.size());
 		}
 		
 		return subTotal;
@@ -108,5 +104,4 @@ public class OrderItem {
 		return "OrderItem [id=" + id + ", itemId=" + itemId + ", orderId=" + orderId + ", quantity=" + quantity
 				+ ", size=" + size + ", item=" + item + ", toppingList=" + orderToppingList + "]";
 	}
-
 }
