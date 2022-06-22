@@ -93,38 +93,55 @@
 			<div class="container">
 				<div class="accordion" id="accordionExample">
 					<div class="accordion-item" th:each="order : ${orderList}">
-						<h2 class="accordion-header" id="headingOne">
-							<button class="accordion-button" type="button" data-mdb-toggle="collapse" data-mdb-target="#collapseOne"
-								aria-expanded="true" aria-controls="collapseOne">
-								2022年04月22日15:00の注文</button>
+						<h2 class="accordion-header" th:id="'heading' + ${order.id}">
+							<button class="accordion-button" type="button" data-mdb-toggle="collapse" th:data-mdb-target="'#collapse' + ${order.id}"
+								aria-expanded="true" th:aria-controls="'collapse' + ${order.id}">
+								<!-- 2022年04月22日15:00 -->
+								<span th:text="${#dates.format(order.deliveryTime, 'yyyy年MM月dd日HH時mm分')}">2022年04月22日15:00</span>
+								に配達の注文
+								<!-- <span th:text="${order.orderItemList}"></span> -->
+							</button>
 						</h2>
-						<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+						<div th:id="'collapse' + ${order.id}" class="accordion-collapse collapse show" th:aria-labelledby="'heading' + ${order.id}"
 							data-mdb-parent="#accordionExample">
 							<div class="accordion-body">
-								<h4>合計金額：32000円</h4>
-								<p>お届け先住所：東京都練馬区</p>
-								<p>お届け先：松浦拓哉様</p>
+								<h4>
+									合計金額：
+									<span th:text="${order.totalPrice}">32000</span>
+									円
+								</h4>
+								<p>お届け先住所：
+									<span th:text="${order.destinationAddress}">東京都練馬区</span>
+								</p>
+								<p>お届け先：
+									<span th:text="${order.destinationName}">山田太郎</span>
+									様</p>
 								<div class="row flex-row flex-nowrap overflow-auto">
 									<!-- 1個のitem start -->
-									<div class="col mx-auto" style="width: 18rem;">
+									<div th:each="orderItem : ${order.orderItemList}" class="col mx-auto" style="width: 18rem;">
 										<div class="card text-center" style="width: 18rem;">
 											<img th:src="@{/img_aloha/10.jpg}" class="card-img-top" alt="...">
 											<div class="card-body">
-												<h5 class="card-title">Hawaiianパラダイス</h5>
+												<h5 class="card-title" th:text="${orderItem.item.name}">Hawaiianパラダイス</h5>
 												<p class="card-text">
 												<ul>
-													<li>サイズ：M</li>
-													<li>数量：１個</li>
+													<li>サイズ：
+														<span th:text="${orderItem.size}">M</span>
+													</li>
+													<li>数量：
+														<span th:text="${orderItem.quantity}">1</span>
+														個</li>
 													<li>トッピング：
 														<ul>
-															<li>エビ</li>
-															<li>ジンジャエール</li>
+															<li th:each="topping : ${orderItem.orderToppingList}">エビ</li>
 														</ul>
 													</li>
 												</ul>
 												</p>
 												<p class="card-text">
-													<strong>小計：3280円</strong>
+													<strong>小計：
+														<span th:text="${orderItem.subTotal}">3280</span>
+														円</strong>
 												</p>
 											</div>
 										</div>
