@@ -43,10 +43,6 @@ public class InsertShoppingCartController {
 	
 	@RequestMapping("/insert")
 	public String insert(InsertShoppingCartForm form, Model model) {
-		System.out.println(form.getItemId());
-		System.out.println(form.getQuantity());
-		System.out.println(form.getSize());
-		System.out.println(form.getToppingList());
 		
 		OrderItem orderItem = new OrderItem();
 		orderItem.setItemId(form.getItemId());
