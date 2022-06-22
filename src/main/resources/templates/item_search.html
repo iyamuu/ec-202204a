@@ -19,10 +19,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
       rel="stylesheet"
     />
+    <!-- Custom CSS -->
     <link
       rel="stylesheet"
-      href="../static/css/item_list.css"
-      th:href="@{/css/item_list.css}"
+      href="../static/css/item_detail.css"
+      th:href="@{/css/item_search.css}"
     />
     <title>らくらくアロハ</title>
   </head>
@@ -88,13 +89,12 @@
                     aria-label="Search"
                     aria-describedby="search-addon"
                     name="search_name"
-                    autocomplete="on"
+					autocomplete="on"
                     list="itemlist"
                   />
-
-                  <datalist id="itemlist">
+				  <datalist id="itemlist">
                     <option
-                      th:each="item : ${itemList}"
+                      th:each="item : ${allItemList}"
                       th:value="${item.name}"
                       value="アサイーボウル"
                     ></option>
@@ -148,12 +148,12 @@
                 <li><a class="dropdown-item" href="#">注文履歴</a></li>
 
                 <li th:if="${session.user}">
-                  <a class="dropdown-item" th:href="@{/user/logout}"
+                  <a class="dropdown-item" th:href="@{/auth/logout}"
                     >ログアウト</a
                   >
                 </li>
                 <li th:unless="${session.user}">
-                  <a class="dropdown-item" th:href="@{/user/login}">ログイン</a>
+                  <a class="dropdown-item" th:href="@{/auth/login}">ログイン</a>
                 </li>
               </ul>
             </div>
@@ -164,116 +164,18 @@
       </nav>
       <!-- Navbar -->
     </header>
+
     <main>
-      <section>
-        <div class="container">
-          <!-- Carousel wrapper -->
-          <div
-            id="carouselMaterialStyle"
-            class="carousel slide carousel-fade"
-            data-mdb-ride="carousel"
-          >
-            <!-- Indicators -->
-            <div class="carousel-indicators">
-              <button
-                type="button"
-                data-mdb-target="#carouselMaterialStyle"
-                data-mdb-slide-to="0"
-                class="active"
-                aria-current="true"
-                aria-label="Slide 1"
-              ></button>
-              <button
-                type="button"
-                data-mdb-target="#carouselMaterialStyle"
-                data-mdb-slide-to="1"
-                aria-label="Slide 2"
-              ></button>
-              <button
-                type="button"
-                data-mdb-target="#carouselMaterialStyle"
-                data-mdb-slide-to="2"
-                aria-label="Slide 3"
-              ></button>
-            </div>
-
-            <!-- Inner -->
-            <div class="carousel-inner rounded-5 shadow-4-strong">
-              <!-- Single item -->
-              <div class="carousel-item active d-flex justify-content-center">
-                <img
-                  th:src="@{/img_aloha/1.jpg}"
-                  class="d-block w-50"
-                  alt="Sunset Over the City"
-                />
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>おすすめ商品１</h5>
-                  <p>
-                    これはめちゃくちゃ美味しい。だからそう、これは美味しい。
-                  </p>
-                </div>
-              </div>
-
-              <!-- Single item -->
-              <div class="carousel-item d-flex justify-content-center">
-                <img th:src="@{/img_aloha/2.jpg}" class="d-block w-50" />
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>おすすめ商品２</h5>
-                  <p>美味しくないはずが無い。So delicious!</p>
-                </div>
-              </div>
-
-              <!-- Single item -->
-              <div class="carousel-item d-flex justify-content-center">
-                <img th:src="@{/img_aloha/3.jpg}" class="d-block w-50" />
-
-                <div class="carousel-caption d-none d-md-block">
-                  <h5>おすすめ商品３</h5>
-                  <p>これはキマる。やっべえぞ。</p>
-                </div>
-              </div>
-            </div>
-            <!-- Inner -->
-
-            <!-- Controls -->
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-mdb-target="#carouselMaterialStyle"
-              data-mdb-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-mdb-target="#carouselMaterialStyle"
-              data-mdb-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-          <!-- Carousel wrapper -->
-        </div>
-      </section>
+      <section></section>
       <br />
       <section>
         <div class="container">
           <div style="text-align: center">
             <br />
-            <h2>美味しいハワイアン料理</h2>
+            <h2>検索結果はこちら</h2>
             <br />
-            <p>美味しいハワイアン料理はいかがですか？</p>
-            <p>
-              ハワイで採れた新鮮な野菜を使用したさまざまな料理を取り揃えています
+            <p th:if="${no_item}" th:text="${no_item}">
+              美味しいハワイアン料理はいかがですか？
             </p>
           </div>
         </div>
@@ -282,12 +184,14 @@
       <section>
         <div class="container">
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a class="btn btn-outline-dark mb-4" th:href="@{/items/list}"
+            <a
+              class="btn btn-outline-dark mb-4"
+              th:href="@{/items/search?search_name=} + ${search_name}"
               >値段の安い順</a
             >
             <a
               class="btn btn-outline-dark mb-4"
-              th:href="@{/items/list?sort=DESC}"
+              th:href="@{/items/search?search_name=} + ${search_name} + '&sort=DESC'"
               >値段の高い順</a
             >
           </div>

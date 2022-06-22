@@ -104,5 +104,4 @@ public class OrderItem {
 		return "OrderItem [id=" + id + ", itemId=" + itemId + ", orderId=" + orderId + ", quantity=" + quantity
 				+ ", size=" + size + ", item=" + item + ", toppingList=" + orderToppingList + "]";
 	}
-
 }

@@ -54,5 +54,4 @@ public class OrderTopping {
 		return "OrderTopping [id=" + id + ", toppingId=" + toppingId + ", orderItemId=" + orderItemId + ", topping="
 				+ topping + "]";
 	}
-
 }

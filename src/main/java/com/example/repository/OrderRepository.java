@@ -18,6 +18,13 @@ import com.example.domain.OrderTopping;
 import com.example.domain.Topping;
 import com.example.domain.User;
 
+/**
+ * 
+ * OrderテーブルとOrderItemsテーブルとOrderToppingsテーブルを結合したレポジトリ.
+ * 
+ * @author takuya.matsura
+ *
+ */
 @Repository
 public class OrderRepository {
 	
@@ -100,9 +107,8 @@ public class OrderRepository {
 				orderTopping.setId(rs.getInt("ot_id"));
 				orderTopping.setToppingId(rs.getInt("topping_id"));
 				orderTopping.setOrderItemId(rs.getInt("order_item_id"));
-				orderTopping.setTopping(new Topping());
-				
 				Topping topping = new Topping();
+				orderTopping.setTopping(topping);
 				topping.setId(rs.getInt("t_id"));
 				topping.setName(rs.getString("t_name"));
 				topping.setPriceM(rs.getInt("t_price_m"));
@@ -119,10 +125,18 @@ public class OrderRepository {
 		
 		return orderList;
 	};
-
+	
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 	
+	/**
+	 * 
+	 * ユーザーIDとステータスで注文の検索をします.
+	 * 
+	 * @param userId ユーザーID
+	 * @param status　注文ステータス
+	 * @return　指定したステータスの注文一覧
+	 */
 	public List<Order> findByUserIdAndStatus(Integer userId, Integer status) {
 		String sql = "select "
 				+ "	o.id as o_id, user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method, "
@@ -143,10 +157,58 @@ public class OrderRepository {
 		return orderList;
 	}
 	
-	
 	public void save(Order order) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
 		String updateSql = "UPDATE orders SET user_id=:userId, status=:status, total_price=:totalPrice, order_date=:orderDate, destination_name=:destinationName, destination_email=:destinationEmail, destination_zipcode=:destinationZipCode, destination_address=:destinationAddress, destination_tel=:destinationTel, delivery_time=:deliveryTime, payment_method=:paymentMethod WHERE id=:id";
         template.update(updateSql, param);
+  }
+
+	/**
+	 * 
+	 * ordersテーブルにデータを挿入します.
+	 * 
+	 * @param order 注文
+	 */
+	public void InsertOrder(Order order) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
+		String sql = "insert into orders (user_id, status, total_price, order_date, destination_name, destination_email, destination_zipcode, destination_address, destination_tel, delivery_time, payment_method) "
+				+ "values(:userId, :status, :totalPrice, :orderDate, :destinationName, :destinationEmail, :destinationZipCode, :destinationAddress, :destinationTel, :deliveryTime, :paymentMethod);";
+		template.update(sql, param);
+	}
+	
+	/**
+	 * 
+	 * orderitemsテーブルにデータを挿入します.
+	 * 
+	 * @param orderItem 注文商品
+	 */
+	public void InsertOrderItem(OrderItem orderItem) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(orderItem);
+		String sql = "insert into order_items (item_id, order_id, quantity, size) values(:itemId, :orderId, :quantity, :size)";
+		template.update(sql, param);
+	}
+	
+	/**
+	 * 
+	 * ordertoppingsテーブルにデータを挿入します.
+	 * 
+	 * 
+	 * @param orderTopping　注文商品のトッピング
+	 */
+	public void InsertOrderTopping(OrderTopping orderTopping) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(orderTopping);
+		String sql = "insert into order_toppings (topping_id, order_item_id) values (:toppingId, :orderItemId)";
+		template.update(sql, param);
+	}
+	
+
+	 * カートに追加していた商品を削除します.
+	 * 
+	 * @param orderItemId カートに追加された商品のid 
+	 */
+	public void deleteById(Integer orderItemId) {
+		String sql = "DELETE FROM order_items where id = :id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", orderItemId);
+		template.update(sql, param);
 	}
 }
