@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Font Awesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+	<!-- MDB -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css" rel="stylesheet" />
+	<link rel="stylesheet" th:href="@{/css/order_log.css}">
+	<title>らくらくアロハ</title>
+</head>
+
+<body>
+	<header class="fixed-top">
+		<!-- Navbar -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-info">
+			<!-- Container wrapper -->
+			<div class="container-fluid">
+				<!-- Toggle button -->
+				<button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+					data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<i class="fas fa-bars"></i>
+
+				</button>
+				<!-- Navbar brand -->
+				<a class="navbar-brand mt-2 mt-lg-0" href="item_list.html"> <img th:src="@{/img_aloha/header_logo.png}"
+						class="bg-light" height="15" alt="Rakuraku aloha Logo" loading="lazy" />
+				</a>
+
+				<!-- Collapsible wrapper -->
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+					<!-- Left links -->
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link" href="item_list.html">ホーム</a></li>
+						<li class="nav-item">
+							<!-- Search Form-->
+							<form class="d-flex input-group w-auto">
+								<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+									aria-describedby="search-addon" /> <span class="input-group-text border-0" id="search-addon"> <i
+										class="fas fa-search"></i>
+								</span>
+							</form>
+						</li>
+					</ul>
+					<!-- Left links -->
+				</div>
+				<!-- Collapsible wrapper -->
+
+				<!-- Right elements -->
+				<div class="d-flex align-items-center">
+
+					<!-- Icon -->
+					<a class="text-reset me-3 dropdown-toggle hidden-arrow" href="cart_list.html" id="navbarDropdownMenuLink"
+						role="button" data-mdb-toggle="dropdown" aria-expanded="false"> <i class="fas fa-shopping-cart"></i> <span
+							class="badge rounded-pill badge-notification bg-danger">1</span>
+					</a>
+
+					<!-- Avatar -->
+					<div class="dropdown">
+						<a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
+							role="button" data-mdb-toggle="dropdown" aria-expanded="false"> <i class="fa-solid fa-circle-user"></i>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+							<li><a class="dropdown-item" href="#">マイページ</a></li>
+							<li><a class="dropdown-item" href="order_log.html">注文履歴</a>
+							</li>
+							<li><a class="dropdown-item" href="#">ログアウト</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- Right elements -->
+			</div>
+			<!-- Container wrapper -->
+		</nav>
+		<!-- Navbar -->
+	</header>
+
+	<main>
+		<section>
+			<br>
+			<h2 class="text-center">注文履歴一覧</h2>
+			<br>
+		</section>
+		<br>
+		<section>
+			<div class="container">
+				<div class="accordion" id="accordionExample">
+					<div class="accordion-item" th:each="order : ${orderList}">
+						<h2 class="accordion-header" id="headingOne">
+							<button class="accordion-button" type="button" data-mdb-toggle="collapse" data-mdb-target="#collapseOne"
+								aria-expanded="true" aria-controls="collapseOne">
+								2022年04月22日15:00の注文</button>
+						</h2>
+						<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+							data-mdb-parent="#accordionExample">
+							<div class="accordion-body">
+								<h4>合計金額：32000円</h4>
+								<p>お届け先住所：東京都練馬区</p>
+								<p>お届け先：松浦拓哉様</p>
+								<div class="row flex-row flex-nowrap overflow-auto">
+									<!-- 1個のitem start -->
+									<div class="col mx-auto" style="width: 18rem;">
+										<div class="card text-center" style="width: 18rem;">
+											<img th:src="@{/img_aloha/10.jpg}" class="card-img-top" alt="...">
+											<div class="card-body">
+												<h5 class="card-title">Hawaiianパラダイス</h5>
+												<p class="card-text">
+												<ul>
+													<li>サイズ：M</li>
+													<li>数量：１個</li>
+													<li>トッピング：
+														<ul>
+															<li>エビ</li>
+															<li>ジンジャエール</li>
+														</ul>
+													</li>
+												</ul>
+												</p>
+												<p class="card-text">
+													<strong>小計：3280円</strong>
+												</p>
+											</div>
+										</div>
+									</div>
+									<!-- item end -->
+									<!-- 1個のitem start -->
+									<div class="col mx-auto" style="width: 18rem;">
+										<div class="card text-center" style="width: 18rem;">
+											<img th:src="@{/img_aloha/10.jpg}" class="card-img-top" alt="...">
+											<div class="card-body">
+												<h5 class="card-title">Hawaiianパラダイス</h5>
+												<p class="card-text">
+												<ul>
+													<li>サイズ：M</li>
+													<li>数量：１個</li>
+													<li>トッピング：
+														<ul>
+															<li>エビ</li>
+															<li>ジンジャエール</li>
+														</ul>
+													</li>
+												</ul>
+												</p>
+												<p class="card-text">
+													<strong>小計：3280円</strong>
+												</p>
+											</div>
+										</div>
+									</div>
+									<!-- item end -->
+									<!-- 1個のitem start -->
+									<div class="col mx-auto" style="width: 18rem;">
+										<div class="card text-center" style="width: 18rem;">
+											<img th:src="@{/img_aloha/10.jpg}" class="card-img-top" alt="...">
+											<div class="card-body">
+												<h5 class="card-title">Hawaiianパラダイス</h5>
+												<p class="card-text">
+												<ul>
+													<li>サイズ：M</li>
+													<li>数量：１個</li>
+													<li>トッピング：
+														<ul>
+															<li>エビ</li>
+															<li>ジンジャエール</li>
+														</ul>
+													</li>
+												</ul>
+												</p>
+												<p class="card-text">
+													<strong>小計：3280円</strong>
+												</p>
+											</div>
+										</div>
+									</div>
+									<!-- item end -->
+									<!-- 1個のitem start -->
+									<div class="col mx-auto" style="width: 18rem;">
+										<div class="card text-center" style="width: 18rem;">
+											<img th:src="@{/img_aloha/10.jpg}" class="card-img-top" alt="...">
+											<div class="card-body">
+												<h5 class="card-title">Hawaiianパラダイス</h5>
+												<p class="card-text">
+												<ul>
+													<li>サイズ：M</li>
+													<li>数量：１個</li>
+													<li>トッピング：
+														<ul>
+															<li>エビ</li>
+															<li>ジンジャエール</li>
+														</ul>
+													</li>
+												</ul>
+												</p>
+												<p class="card-text">
+													<strong>小計：3280円</strong>
+												</p>
+											</div>
+										</div>
+									</div>
+									<!-- item end -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</section>
+	</main>
+
+	<!-- Footer -->
+	<footer class="text-center text-lg-start bg-light text-muted">
+
+		<!-- Section: Links  -->
+		<section class="">
+			<div class="container text-center text-md-start mt-5">
+				<br>
+				<!-- Grid row -->
+				<div class="row mt-3">
+
+					<!-- Grid column -->
+					<div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+						<!-- Content -->
+						<h6 class="text-uppercase fw-bold mb-4">
+							<i class="fas fa-gem me-3"></i>らくらくアロハ
+						</h6>
+						<p>真心を込めて美味しい商品をお届けします</p>
+					</div>
+					<!-- Grid column -->
+
+					<!-- Grid column -->
+					<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+						<!-- Links -->
+						<h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+						<p>
+							<i class="fas fa-home me-3"></i> 東京都渋谷区千駄ヶ谷
+						</p>
+						<p>
+							<i class="fas fa-envelope me-3"></i> rakuraku-aloha@gmail.com
+						</p>
+						<p>
+							<i class="fas fa-phone me-3"></i> 0120-000-111
+						</p>
+					</div>
+					<!-- Grid column -->
+				</div>
+				<!-- Grid row -->
+			</div>
+		</section>
+		<!-- Section: Links  -->
+
+		<!-- Copyright -->
+		<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+			© 2021 Copyright: <a class="text-reset fw-bold" href="#">らくらくアロハ</a>
+		</div>
+		<!-- Copyright -->
+	</footer>
+	<!-- Footer -->
+
+	<!-- MDB -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"></script>
+</body>
+
+</html>
+© 2022 GitHub, Inc. Terms Privacy
