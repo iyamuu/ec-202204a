@@ -48,7 +48,7 @@ public class Order {
 	 * @return 消費税
 	 */
 	public int getTax() {
-		return (int) (totalPrice * 0.1);
+		return (int) (getCalcTotalPrice() * 0.1);
 	}
 	
 	/**
@@ -59,9 +59,13 @@ public class Order {
 	 */
 	public int getCalcTotalPrice() {
 		int totalPriceWithoutTax = 0;
-		
-		for (OrderItem orderItem : orderItemList) {
-			totalPriceWithoutTax += orderItem.getSubTotal();
+		try {
+			for (OrderItem orderItem : orderItemList) {
+				totalPriceWithoutTax += orderItem.getSubTotal();
+			}
+			
+		}catch(NullPointerException e) {
+			totalPriceWithoutTax += 0;
 		}
 		
 		return totalPriceWithoutTax;	

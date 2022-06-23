@@ -26,7 +26,6 @@
     />
     <title>らくらくアロハ</title>
   </head>
-
   <body>
     <header class="fixed-top">
       <!-- Navbar -->
@@ -46,7 +45,6 @@
             <i class="fas fa-bars"></i>
           </button>
           <!-- Navbar brand -->
-
           <a
             class="navbar-brand mt-2 mt-lg-0"
             href="item_list.html"
@@ -61,7 +59,6 @@
               loading="lazy"
             />
           </a>
-
           <!-- Collapsible wrapper -->
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left links -->
@@ -91,7 +88,6 @@
                     autocomplete="on"
                     list="itemlist"
                   />
-
                   <datalist id="itemlist">
                     <option
                       th:each="item : ${itemList}"
@@ -110,7 +106,6 @@
             <!-- Left links -->
           </div>
           <!-- Collapsible wrapper -->
-
           <!-- Right elements -->
           <div class="d-flex align-items-center">
             <!-- Icon -->
@@ -127,7 +122,6 @@
                 >1</span
               >
             </a>
-
             <!-- Avatar -->
             <div class="dropdown">
               <a
@@ -157,7 +151,7 @@
                   </form>
                 </li>
                 <li>
-                	<span sec:authorize="isAuthenticated()"><a class="dropdown-item" th:href="@{/user/logout}">ログアウト</a></span>
+                    <span sec:authorize="isAuthenticated()"><a class="dropdown-item" th:href="@{/user/logout}">ログアウト</a></span>
                     <span sec:authorize="!isAuthenticated()"><a class="dropdown-item" th:href="@{/user/login}">ログイン</a></span>
                 </li>
               </ul>
@@ -201,7 +195,6 @@
                 aria-label="Slide 3"
               ></button>
             </div>
-
             <!-- Inner -->
             <div class="carousel-inner rounded-5 shadow-4-strong">
               <!-- Single item -->
@@ -218,7 +211,6 @@
                   </p>
                 </div>
               </div>
-
               <!-- Single item -->
               <div class="carousel-item d-flex justify-content-center">
                 <img th:src="@{/img_aloha/2.jpg}" class="d-block w-50" />
@@ -227,11 +219,9 @@
                   <p>美味しくないはずが無い。So delicious!</p>
                 </div>
               </div>
-
               <!-- Single item -->
               <div class="carousel-item d-flex justify-content-center">
                 <img th:src="@{/img_aloha/3.jpg}" class="d-block w-50" />
-
                 <div class="carousel-caption d-none d-md-block">
                   <h5>おすすめ商品３</h5>
                   <p>これはキマる。やっべえぞ。</p>
@@ -239,7 +229,6 @@
               </div>
             </div>
             <!-- Inner -->
-
             <!-- Controls -->
             <button
               class="carousel-control-prev"
@@ -322,7 +311,6 @@
                   >
                     M:2160円, L:3380円
                   </p>
-
                   <a
                     th:href="@{'/items/detail?id='}+${item.id}"
                     class="btn btn-light"
@@ -335,7 +323,6 @@
         </div>
       </section>
     </main>
-
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-light text-muted">
       <!-- Section: Links  -->
@@ -353,7 +340,6 @@
               <p>真心を込めて美味しい商品をお届けします</p>
             </div>
             <!-- Grid column -->
-
             <!-- Grid column -->
             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
               <!-- Links -->
@@ -370,7 +356,6 @@
         </div>
       </section>
       <!-- Section: Links  -->
-
       <!-- Copyright -->
       <div
         class="text-center p-4"
@@ -382,13 +367,11 @@
       <!-- Copyright -->
     </footer>
     <!-- Footer -->
-
     <!-- MDB -->
     <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"
     ></script>
-
     <!-- paginathing  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script th:src="@{/js/script.js}"></script>
