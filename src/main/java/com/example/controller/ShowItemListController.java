@@ -32,7 +32,7 @@ public class ShowItemListController {
 	 * @param sort	並び順の設定
 	 * @return		商品一覧画面
 	 */
-	@RequestMapping("/list")
+	@RequestMapping("")
 	public String list(Model model, String sort,  @AuthenticationPrincipal LoginUser loginuser) {
 		List<Item> itemList = showItemListService.showList(sort);		
 		model.addAttribute("itemList", itemList);
