@@ -20,62 +20,47 @@
     <header class="fixed-top">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-info">
-            <!-- Container wrapper -->
-            <div class="container-fluid">
-                <!-- Toggle button -->
-                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-
-                </button>
-                <!-- Navbar brand -->
-                <a class="navbar-brand mt-2 mt-lg-0" th:href="@{/items/list}">
-                    <img th:src="@{/img_aloha/header_logo.png}" class="bg-light" height="15"
-                        alt="Rakuraku aloha Logo" loading="lazy" />
-                </a>
-
-                <!-- Collapsible wrapper -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                    <!-- Left links -->
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/items/list}">ホーム</a>
-                        </li>
-                        <li class="nav-item">
-                            <!-- Search Form-->
-                            <form
-                            class="d-flex input-group w-auto"
-                            th:action="@{'/items/search'}"
-                            method="get"
-                        >
-                            <input
-                            type="search"
-                            class="form-control rounded"
-                            placeholder="Search"
-                            aria-label="Search"
-                            aria-describedby="search-addon"
-                            name="search_name"
-                            />
-                            <span class="input-group-text border-0" id="search-addon">
-                            <button style="border: none" class="bg-info">
-                                <i class="fas fa-search"></i>
-                            </button>
-                            </span>
-                        </form>
-                        </li>
-                    </ul>
-                    <!-- Left links -->
-                </div>
-                <!-- Collapsible wrapper -->
-
+          <!-- Container wrapper -->
+          <div class="container-fluid">
+            <!-- Toggle button -->
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <!-- Navbar brand -->
+            <a
+              class="navbar-brand mt-2 mt-lg-0"
+              href="item_list.html"
+              th:href="@{/}"
+            >
+              <img
+                src="../static/img_aloha/rakurakuaroha_logo2.png"
+                th:src="@{/img_aloha/rakurakuaroha_logo2.png}"
+                class="bg-light"
+                height="25"
+                alt="Rakuraku aloha Logo"
+                loading="lazy"
+              />
+            </a>
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <!-- Left links -->
+              <!-- Left links -->
+            </div>
+            <!-- Collapsible wrapper -->
                 <!-- Right elements -->
                 <div class="d-flex align-items-center">
 
                     <!-- Icon -->
-                    <a class="text-reset me-3 dropdown-toggle hidden-arrow" href="@{/cart/show}" id="navbarDropdownMenuLink"
-                        role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                    <a class="text-reset me-3" th:href="@{/cart/show}" id="navbarDropdownMenuLink"
+                        role="button" aria-expanded="false">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="badge rounded-pill badge-notification bg-danger">0</span>
                     </a>
@@ -94,28 +79,20 @@
                             <li>
                                 <a class="dropdown-item" href="#">注文履歴</a>
                             </li>
-                            <li th:if="${session.user}">
-                                <a class="dropdown-item" th:href="@{/user/logout}"
-                                  >ログアウト</a
-                                >
-                             </li>
-                             <li th:unless="${session.user}">
-                                <a class="dropdown-item" th:href="@{/user/logout}">ログイン</a>
-                             </li>
-                             <li>
-                             	<span sec:authorize="isAuthenticated()"><a th:href="@{/user/logout}">ログアウト</a></span>
-                             	<span sec:authorize="!isAuthenticated()"><a th:href="@{/user/login}">ログイン</a></span>
-                             </li>
+                            <li>
+				               	<span sec:authorize="isAuthenticated()"><a class="dropdown-item" th:href="@{/user/logout}">ログアウト</a></span>
+				              	<span sec:authorize="!isAuthenticated()"><a class="dropdown-item" th:href="@{/user/login}">ログイン</a></span>
+				            </li>
                         </ul>
                     </div>
                 </div>
                 <!-- Right elements -->
-            </div>
-            <!-- Container wrapper -->
+
+          </div>
+          <!-- Container wrapper -->
         </nav>
         <!-- Navbar -->
-    </header>
-
+      </header>
     <main>
         <section>
             <div class="container">
@@ -127,11 +104,12 @@
                 <br><br>
                 <h2><i class="fas fa-shopping-cart"></i>ショッピングカート</h2>
                 <br><br>
-                <div class="row row-cols-1 row-cols-md-3 g-4" th:if="${order}">
+                <h3 th:if="${totalPrice == 0}" th:text="カートに商品がありません"></h3>
+                <div class="row flex-row flex-nowrap overflow-auto" th:if="${order}">
                     <!-- 1個のitem start -->
                     <div class="col mx-auto" style="width: 18rem;" th:each="orderItem : ${order.orderItemList}">
                         <div class="card text-center" style="width: 18rem;">
-                            <img th:src="@{/img_aloha/} + ${orderItem.item.imagePath}" class="card-img-top" alt="...">
+                            <img th:src="@{/img_aloha_resize/} + ${orderItem.item.imagePath}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${orderItem.item.name}">Hawaiianパラダイス</h5>
                                 <p class="card-text">
@@ -145,10 +123,10 @@
                                         </li>
                                     </ul>
                                 </p>
-                                <p class="card-text"><strong>小計：<span th:text="${orderItem.getSubTotal()}">3280</span>円</strong></p>
+                                <p class="card-text"><strong>小計：<span th:text="${#numbers.formatInteger(orderItem.getSubTotal(), 3, 'COMMA')}">3280</span>円</strong></p>
                                 <form th:action="@{/cart/delete}" method="post">
-                                    <input type="hidden" name="orderItemId" th:value="$orderItem.id">
-                                    <button href="cart_list.html" class="btn btn-danger">削除</button>
+                                    <input type="hidden" name="orderItemId" th:value="${orderItem.id}">
+                                    <button class="btn btn-danger">削除</button>
                                 </form>
                             </div>
                         </div>
@@ -156,14 +134,23 @@
                     <!-- item end -->
                 </div>
                 <br><br>
-                <div id="total-price">
-                    <h3>消費税：<span th:text="${tax}">8000</span>円</h3>
-                    <h3>合計金額(税込)：<span th:text="${totalPrice}">38000</span>円</h3>
+                <div id="total-price d-flex justify-content-end" th:unless="${totalPrice == 0}">
+                    <h3 class="text-end">消費税：<span th:text="${#numbers.formatInteger(tax, 3, 'COMMA')}">8000</span>円</h3>
+                    <h3 class="text-end">合計金額(税込)：<span th:text="${#numbers.formatInteger(totalPrice, 3, 'COMMA')}">38000</span>円</h3>
                 </div>
                 <br><br>
-                <form action="order_confirm.html">
-                    <button class="btn btn-secondary" id="order-button">注文に進む</button>
-                </form>
+                <div class="d-flex justify-content-center">
+                    <div>
+                        <a href="item_list.html" th:href="@{/}"
+                            class="d-flex justify-content-start btn btn-outline-secondary">お買い物を続ける</a>
+                    </div>
+                    
+                    <div th:unless="${totalPrice == 0}">
+                        <form action="order_confirm.html" th:action="@{/order/confirm}" >
+                            <button class="btn btn-secondary" id="order-button">注文に進む</button>
+                        </form>
+                    </div>
+                </div>
                 
             </div>
 

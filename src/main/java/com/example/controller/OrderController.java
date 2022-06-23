@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.domain.LoginUser;
 import com.example.domain.Order;
 import com.example.form.OrderForm;
+import com.example.service.InsertShoppingCartService;
 import com.example.service.OrderService;
 
 /**
@@ -42,10 +44,10 @@ public class OrderController {
 	private OrderForm setUpForm() {
 		return new OrderForm();
 	}
-	
+
 	@Autowired
 	private OrderService service;
-	
+
 	@Autowired
 	private HttpSession session;
 
@@ -57,40 +59,51 @@ public class OrderController {
 	 * 注文確認画面を表示するルーティング.
 	 * 
 	 * @param orderId 注文ID
-	 * @param model リクエストスコープ
-	 * @return　注文確認画面
+	 * @param model   リクエストスコープ
+	 * @return 注文確認画面
 	 */
 	@GetMapping("/confirm")
 	public String showOrder(Model model, @AuthenticationPrincipal LoginUser loginuser) {
-		Order order = service.showOrder(loginuser.getAdministrator().getId());
+		// ログインユーザーの取得
+		User user = loginuser.getUser();
+		
+		// ログインしていなかった時のユーザー情報を取得
+		User sessionUser = (User) session.getAttribute("user");
+		session.removeAttribute("user");
+		
+		Order order = service.mergeOrder(user, sessionUser);
+		
+		order = service.showOrder(user.getId());
+		System.out.println("order : " + order);
+
 		model.addAttribute("order", order);
 		try {
 			model.addAttribute("tax", order.getTax());
-			model.addAttribute("totalPrice", order.getCalcTotalPrice());
+			model.addAttribute("totalPrice", order.getCalcTotalPrice() + order.getTax());
 		} catch (NullPointerException e) {
 			model.addAttribute("tax", 0);
 			model.addAttribute("totalPrice", 0);
 		}
 		return "/order_confirm";
 	}
-	
+
 	/**
 	 * 注文処理を行うルーティング.
 	 * 
-	 * @param form 注文フォーム
+	 * @param form   注文フォーム
 	 * @param result バリデーション結果
-	 * @param model リクエストスコープ
+	 * @param model  リクエストスコープ
 	 * @return 一覧ページ
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	@PostMapping("/update")
 	public String update(@Validated OrderForm form, BindingResult result, Model model, @AuthenticationPrincipal LoginUser loginuser) throws ParseException {
 		Timestamp formDeliveryTime = null;
-		
-		if(!form.getDeliveryTime().equals("")) {
+
+		if (!form.getDeliveryTime().equals("")) {
 			formDeliveryTime = transformStringToTimestamp(form.getDeliveryTime());
-			
-			if(canDelivery(formDeliveryTime)) {
+
+			if (canDelivery(formDeliveryTime)) {
 				FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTime", "今から3時間後の日時をご入力ください");
 				result.addError(fieldError);
 			}
@@ -99,15 +112,17 @@ public class OrderController {
 		if(result.hasErrors()) {
 			return showOrder(model, loginuser);
 		}
-		
+
 		Order order = new Order();
 		BeanUtils.copyProperties(form, order);
 		order.setDeliveryTime(formDeliveryTime);
-		
-		service.update(loginuser.getAdministrator().getId(), order);
+
+
+		User user = loginuser.getUser();
+		service.update(user.getId(), order);
 		return "redirect:/order/finished";
 	}
-	
+
 	/**
 	 * 注文完了画面のルーティング.
 	 * 
@@ -126,7 +141,7 @@ public class OrderController {
 
 		return "/order_finished";
 	}
-	
+
 	/**
 	 * StringからTimestampへの型変更.
 	 * 
@@ -137,12 +152,12 @@ public class OrderController {
 	private Timestamp transformStringToTimestamp(String strDeliveryTime) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		Date date = sdf.parse(strDeliveryTime.replace("T", " "));
-		
+
 		Timestamp formDeliveryTime = new Timestamp(date.getTime());
-		
+
 		return formDeliveryTime;
 	}
-			
+
 	/**
 	 * 配達日時が注文時刻より3時間前か後かを判別する.
 	 * 
