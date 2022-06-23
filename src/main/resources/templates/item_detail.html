@@ -249,7 +249,7 @@
                             />
                             <label class="btn btn-outline-success" for="option1"
                                 >Mサイズ:
-                                <span th:text="${item.priceM}" class="priceM"
+                                <span th:text="${#numbers.formatInteger(item.priceM, 3, 'COMMA')}" class="priceM"
                                     >2160</span
                                 >円
                             </label>
@@ -264,7 +264,7 @@
                             />
                             <label class="btn btn-outline-danger" for="option2"
                                 >Lサイズ:
-                                <span th:text="${item.priceL}" class="priceL"
+                                <span th:text="${#numbers.formatInteger(item.priceL, 3, 'COMMA')}" class="priceL"
                                     >3380</span
                                 >円
                             </label>

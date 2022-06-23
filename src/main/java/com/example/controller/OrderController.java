@@ -39,10 +39,10 @@ public class OrderController {
 	private OrderForm setUpForm() {
 		return new OrderForm();
 	}
-	
+
 	@Autowired
 	private OrderService service;
-	
+
 	@Autowired
 	private HttpSession session;
 
@@ -50,8 +50,8 @@ public class OrderController {
 	 * 注文確認画面を表示するルーティング.
 	 * 
 	 * @param orderId 注文ID
-	 * @param model リクエストスコープ
-	 * @return　注文確認画面
+	 * @param model   リクエストスコープ
+	 * @return 注文確認画面
 	 */
 	@GetMapping("/confirm")
 	public String showOrder(Model model) {
@@ -60,49 +60,49 @@ public class OrderController {
 		model.addAttribute("order", order);
 		try {
 			model.addAttribute("tax", order.getTax());
-			model.addAttribute("totalPrice", order.getCalcTotalPrice());
+			model.addAttribute("totalPrice", order.getCalcTotalPrice() + order.getTax());
 		} catch (NullPointerException e) {
 			model.addAttribute("tax", 0);
 			model.addAttribute("totalPrice", 0);
 		}
 		return "/order_confirm";
 	}
-	
+
 	/**
 	 * 注文処理を行うルーティング.
 	 * 
-	 * @param form 注文フォーム
+	 * @param form   注文フォーム
 	 * @param result バリデーション結果
-	 * @param model リクエストスコープ
+	 * @param model  リクエストスコープ
 	 * @return 一覧ページ
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	@PostMapping("/update")
 	public String update(@Validated OrderForm form, BindingResult result, Model model) throws ParseException {
 		Timestamp formDeliveryTime = null;
-		
-		if(!form.getDeliveryTime().equals("")) {
+
+		if (!form.getDeliveryTime().equals("")) {
 			formDeliveryTime = transformStringToTimestamp(form.getDeliveryTime());
-			
-			if(canDelivery(formDeliveryTime)) {
+
+			if (canDelivery(formDeliveryTime)) {
 				FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTime", "今から3時間後の日時をご入力ください");
 				result.addError(fieldError);
 			}
 		}
-		
-		if(result.hasErrors()) {
+
+		if (result.hasErrors()) {
 			return showOrder(model);
 		}
-		
+
 		Order order = new Order();
 		BeanUtils.copyProperties(form, order);
 		order.setDeliveryTime(formDeliveryTime);
-		
+
 		User user = (User) session.getAttribute("user");
 		service.update(user.getId(), order);
 		return "redirect:/order/finished";
 	}
-	
+
 	/**
 	 * 注文完了画面のルーティング.
 	 * 
@@ -112,7 +112,7 @@ public class OrderController {
 	public String finished() {
 		return "/order_finished";
 	}
-	
+
 	/**
 	 * StringからTimestampへの型変更.
 	 * 
@@ -123,12 +123,12 @@ public class OrderController {
 	private Timestamp transformStringToTimestamp(String strDeliveryTime) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		Date date = sdf.parse(strDeliveryTime.replace("T", " "));
-		
+
 		Timestamp formDeliveryTime = new Timestamp(date.getTime());
-		
+
 		return formDeliveryTime;
 	}
-			
+
 	/**
 	 * 配達日時が注文時刻より3時間前か後かを判別する.
 	 * 
