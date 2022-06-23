@@ -76,6 +76,12 @@ public class InsertShoppingCartService {
 
 	}
 	
+	/**
+	 * 
+	 * ログインしていないための不使用のマイナスの値のユーザーIDを返します.
+	 * 
+	 * @return 重複しない未使用のユーザーID
+	 */
 	public int searchNotUseUserIdInOrder() {
 		Random rand = new Random();
 		int num = 0;
