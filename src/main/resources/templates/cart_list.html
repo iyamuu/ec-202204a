@@ -94,18 +94,10 @@
                             <li>
                                 <a class="dropdown-item" href="#">注文履歴</a>
                             </li>
-                            <li th:if="${session.user}">
-                                <a class="dropdown-item" th:href="@{/user/logout}"
-                                  >ログアウト</a
-                                >
-                             </li>
-                             <li th:unless="${session.user}">
-                                <a class="dropdown-item" th:href="@{/user/logout}">ログイン</a>
-                             </li>
-                             <li>
-                             	<span sec:authorize="isAuthenticated()"><a th:href="@{/user/logout}">ログアウト</a></span>
-                             	<span sec:authorize="!isAuthenticated()"><a th:href="@{/user/login}">ログイン</a></span>
-                             </li>
+                            <li>
+				               	<span sec:authorize="isAuthenticated()"><a class="dropdown-item" th:href="@{/user/logout}">ログアウト</a></span>
+				              	<span sec:authorize="!isAuthenticated()"><a class="dropdown-item" th:href="@{/user/login}">ログイン</a></span>
+				            </li>
                         </ul>
                     </div>
                 </div>
