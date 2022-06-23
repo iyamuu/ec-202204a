@@ -115,7 +115,7 @@ public class OrderController {
 			System.out.println(creditCardResponse.toString());
 
 			if (creditCardResponse.getStatus().equals("error")) {
-				FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTime", "今から3時間後の日時をご入力ください");
+				FieldError fieldError = new FieldError(result.getObjectName(), "cardNumber", "クレジットカード情報が不正です");
 				result.addError(fieldError);
 			}
 		}

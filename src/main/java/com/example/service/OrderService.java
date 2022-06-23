@@ -71,7 +71,15 @@ public class OrderService {
 		orderRepository.update(orderInCart);
 	}
 	
+	/**
+	 * クレジットカードの決済処理を行います.
+	 * OrderControllerのupdateメソッドで使用
+	 * 
+	 * @param creditCardRequest
+	 * @return
+	 */
 	public CreditCardResponse CreditCardPayment(CreditCardRequest creditCardRequest) {
+		
 		System.out.println("クレジットカードのサービスクラスのメソッド呼び出し");
 		String url = "http://153.127.48.168:8080/sample-credit-card-web-api/credit-card/payment";
 		return restTemplate.postForObject(url, creditCardRequest, CreditCardResponse.class);
