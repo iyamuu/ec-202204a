@@ -17,7 +17,7 @@ import com.example.service.ShowItemListService;
  *
  */
 @Controller
-@RequestMapping("")
+@RequestMapping("/")
 public class ShowItemListController {
 
 	@Autowired
