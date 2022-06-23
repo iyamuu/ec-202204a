@@ -4,7 +4,10 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import com.example.domain.CreditCardRequest;
+import com.example.domain.CreditCardResponse;
 import com.example.domain.Order;
 import com.example.repository.OrderRepository;
 
@@ -19,6 +22,11 @@ public class OrderService {
 	
 	@Autowired
 	private OrderRepository orderRepository;
+	
+//	@Autowired
+//	private RestTemplate restTemplate;
+	private RestTemplate restTemplate = new RestTemplate();
+	
 	
 	/**
 	 * 注文確認画面の表示.
@@ -58,5 +66,11 @@ public class OrderService {
 		orderInCart.setPaymentMethod(destinationOrder.getPaymentMethod());
 				
 		orderRepository.update(orderInCart);
+	}
+	
+	public CreditCardResponse CreditCardPayment(CreditCardRequest creditCardRequest) {
+		System.out.println("クレジットカードのサービスクラスのメソッド呼び出し");
+		String url = "http://153.127.48.168:8080/sample-credit-card-web-api/credit-card/payment";
+		return restTemplate.postForObject(url, creditCardRequest, CreditCardResponse.class);
 	}
 }
