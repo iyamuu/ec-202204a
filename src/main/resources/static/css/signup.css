@@ -22,6 +22,4 @@ body {
 .button-link {
     display: -webkit-flex;
     display: flex;
-    -webkit-justify-content: space-around;
-    justify-content: space-between;
 }
