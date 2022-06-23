@@ -61,7 +61,9 @@ let CalcPrice = (itemPrice, toppingPrice, quantity, toppingNum) => {
 	finalPrice = totalPrice + taxPrice;
 
 	$(function() {
-		$(".tax-price").text(taxPrice);
-		$(".total-price").text(finalPrice);
+		
+		// カンマ区切りで出力
+		$(".tax-price").text(String(taxPrice).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+		$(".total-price").text(String(finalPrice).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
 	});
 };
