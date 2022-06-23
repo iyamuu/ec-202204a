@@ -127,6 +127,7 @@
                 <br><br>
                 <h2><i class="fas fa-shopping-cart"></i>ショッピングカート</h2>
                 <br><br>
+                <h3 th:if="${totalPrice == 0}" th:text="カートに商品がありません"></h3>
                 <div class="row flex-row flex-nowrap overflow-auto" th:if="${order}">
                     <!-- 1個のitem start -->
                     <div class="col mx-auto" style="width: 18rem;" th:each="orderItem : ${order.orderItemList}">
@@ -156,7 +157,7 @@
                     <!-- item end -->
                 </div>
                 <br><br>
-                <div id="total-price d-flex justify-content-end">
+                <div id="total-price d-flex justify-content-end" th:unless="${totalPrice == 0}">
                     <h3 class="text-end">消費税：<span th:text="${#numbers.formatInteger(tax, 3, 'COMMA')}">8000</span>円</h3>
                     <h3 class="text-end">合計金額(税込)：<span th:text="${#numbers.formatInteger(totalPrice, 3, 'COMMA')}">38000</span>円</h3>
                 </div>
@@ -167,7 +168,7 @@
                             class="d-flex justify-content-start btn btn-outline-secondary">お買い物を続ける</a>
                     </div>
                     
-                    <div th:if="${order}">
+                    <div th:unless="${totalPrice == 0}">
                         <form action="order_confirm.html" th:action="@{/order/confirm}" >
                             <button class="btn btn-secondary" id="order-button">注文に進む</button>
                         </form>
