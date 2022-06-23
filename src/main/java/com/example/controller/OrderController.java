@@ -25,6 +25,7 @@ import com.example.domain.LoginUser;
 import com.example.domain.Order;
 import com.example.domain.User;
 import com.example.form.OrderForm;
+import com.example.service.InsertShoppingCartService;
 import com.example.service.OrderService;
 
 /**
@@ -57,7 +58,17 @@ public class OrderController {
 	 */
 	@GetMapping("/confirm")
 	public String showOrder(Model model, @AuthenticationPrincipal LoginUser loginuser) {
-		Order order = service.showOrder(loginuser.getUser().getId());
+		// ログインユーザーの取得
+		User user = loginuser.getUser();
+		
+		// ログインしていなかった時のユーザー情報を取得
+		User sessionUser = (User) session.getAttribute("user");
+		session.removeAttribute("user");
+		
+		Order order = service.mergeOrder(user, sessionUser);
+		
+		order = service.showOrder(user.getId());
+		System.out.println("order : " + order);
 		model.addAttribute("order", order);
 		try {
 			model.addAttribute("tax", order.getTax());
@@ -99,7 +110,7 @@ public class OrderController {
 		BeanUtils.copyProperties(form, order);
 		order.setDeliveryTime(formDeliveryTime);
 
-		User user = (User) session.getAttribute("user");
+		User user = loginuser.getUser();
 		service.update(user.getId(), order);
 		return "redirect:/order/finished";
 	}
