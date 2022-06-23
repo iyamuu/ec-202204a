@@ -42,13 +42,13 @@ public class LoginUserController {
 	 * 
 	 * @return ログイン画面
 	 */
-	@GetMapping("/login")
+	@GetMapping("/toLogin")
 	public String toLogin() {
 		
-		// 既にログインしているユーザーは一覧画面に遷移
-		if (session.getAttribute("user") != null) {
-			return "redirect:/items/list";
-		}
+//		// 既にログインしているユーザーは一覧画面に遷移
+//		if (session.getAttribute("user") != null) {
+//			return "redirect:/items/list";
+//		}
 		return "login";
 	}
 
