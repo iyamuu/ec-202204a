@@ -13,10 +13,10 @@ $(function() {
 	$("input[name='size']").on("change", function() {
 		size = $('input[name="size"]:checked').val();
 		if (size == "M") {
-			itemPrice = $(".priceM").text();
+			itemPrice = parseInt($(".priceM").text().replace(/,/g, ''), 10);
 			toppingPrice = 200;
 		} else if (size == "L") {
-			itemPrice = $(".priceL").text();
+			itemPrice = parseInt($(".priceL").text().replace(/,/g, ''), 10);
 			toppingPrice = 300;
 		}
 
@@ -61,7 +61,9 @@ let CalcPrice = (itemPrice, toppingPrice, quantity, toppingNum) => {
 	finalPrice = totalPrice + taxPrice;
 
 	$(function() {
-		$(".tax-price").text(taxPrice);
-		$(".total-price").text(finalPrice);
+		
+		// カンマ区切りで出力
+		$(".tax-price").text(String(taxPrice).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+		$(".total-price").text(String(finalPrice).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
 	});
 };

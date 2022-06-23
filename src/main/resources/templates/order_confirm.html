@@ -176,7 +176,7 @@
                                         </li>
                                     </ul>
                                 </p>
-                                <p class="card-text"><strong>小計：<span th:text="${orderItem.getSubTotal()}">3280</span>円</strong></p>
+                                <p class="card-text"><strong>小計：<span th:text="${#numbers.formatInteger(orderItem.getSubTotal(), 3, 'COMMA')}">3280</span>円</strong></p>
                                 <form th:action="@{/cart/delete}" method="post">
                                     <input type="hidden" name="orderItemId" th:value="${orderItem.id}">
                                     <button href="cart_list.html" class="btn btn-danger">削除</button>

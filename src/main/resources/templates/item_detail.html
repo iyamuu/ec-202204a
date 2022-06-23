@@ -82,10 +82,11 @@
               aria-expanded="false"
             >
               <i class="fas fa-shopping-cart"></i>
-              <span
-                class="badge rounded-pill badge-notification bg-danger"
-              ></span>
+              <span class="badge rounded-pill badge-notification bg-danger"
+                >1</span
+              >
             </a>
+
             <!-- Avatar -->
             <div class="dropdown">
               <a
@@ -103,15 +104,10 @@
                 aria-labelledby="navbarDropdownMenuAvatar"
               >
                 <li>
-                  <form th:action="@{/log}" method="post">
-                    <input
-                      th:if="${session.user}"
-                      type="hidden"
-                      th:value="${session.user.id}"
-                      name="userId"
-                    />
-                    <button class="dropdown-item">注文履歴</button>
-                  </form>
+                  <a class="dropdown-item" href="#">マイページ</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">注文履歴</a>
                 </li>
                 <li>
                   <span sec:authorize="isAuthenticated()"
@@ -206,7 +202,11 @@
               />
               <label class="btn btn-outline-success" for="option1"
                 >Mサイズ:
-                <span th:text="${item.priceM}" class="priceM">2160</span>円
+                <span
+                  th:text="${#numbers.formatInteger(item.priceM, 3, 'COMMA')}"
+                  class="priceM"
+                  >2160</span
+                >円
               </label>
               <input
                 type="radio"
@@ -219,7 +219,11 @@
               />
               <label class="btn btn-outline-danger" for="option2"
                 >Lサイズ:
-                <span th:text="${item.priceL}" class="priceL">3380</span>円
+                <span
+                  th:text="${#numbers.formatInteger(item.priceL, 3, 'COMMA')}"
+                  class="priceL"
+                  >3380</span
+                >円
               </label>
             </div>
             <br />

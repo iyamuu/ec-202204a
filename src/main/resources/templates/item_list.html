@@ -280,10 +280,12 @@
         <div class="container">
           <div class="d-grid gap-2 d-md-flex justify-content-end">
             <div>
-              <a class="btn btn-outline-dark mb-4" th:href="@{/}"
+              <a class="btn btn-outline-dark mb-4" th:href="@{/items/list}"
                 >値段の安い順</a
               >
-              <a class="btn btn-outline-dark mb-4" th:href="@{/?sort=DESC}"
+              <a
+                class="btn btn-outline-dark mb-4"
+                th:href="@{/items/list?sort=DESC}"
                 >値段の高い順</a
               >
             </div>
@@ -310,7 +312,7 @@
                   </p>
                   <p
                     class="card-text"
-                    th:text="'M:'+${item.priceM}+'円, L:'+ ${item.priceL}+'円'"
+                    th:text="'M:'+${#numbers.formatInteger(item.priceM, 3, 'COMMA')}+'円, L:'+ ${#numbers.formatInteger(item.priceL, 3, 'COMMA')}+'円'"
                   >
                     M:2160円, L:3380円
                   </p>
