@@ -71,12 +71,11 @@ public class OrderService {
 		orderRepository.update(orderInCart);
 	}
 	
-<<<<<<< HEAD
 	public CreditCardResponse CreditCardPayment(CreditCardRequest creditCardRequest) {
 		System.out.println("クレジットカードのサービスクラスのメソッド呼び出し");
 		String url = "http://153.127.48.168:8080/sample-credit-card-web-api/credit-card/payment";
 		return restTemplate.postForObject(url, creditCardRequest, CreditCardResponse.class);
-=======
+	}
 	/**
 	 * 
 	 * 未ログイン時の注文と過去のログイン時の注文を合体する.
@@ -128,6 +127,5 @@ public class OrderService {
 		//update(loginUser.getId(), order);
 		System.out.println("merged order : " + order);
 		return order;
->>>>>>> develop
 	}
 }

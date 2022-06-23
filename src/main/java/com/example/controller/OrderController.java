@@ -62,13 +62,13 @@ public class OrderController {
 	public String showOrder(Model model, @AuthenticationPrincipal LoginUser loginuser) {
 		// ログインユーザーの取得
 		User user = loginuser.getUser();
-		
+
 		// ログインしていなかった時のユーザー情報を取得
 		User sessionUser = (User) session.getAttribute("user");
 		session.removeAttribute("user");
-		
+
 		Order order = service.mergeOrder(user, sessionUser);
-		
+
 		order = service.showOrder(user.getId());
 		System.out.println("order : " + order);
 		model.addAttribute("order", order);
@@ -92,29 +92,35 @@ public class OrderController {
 	 * @throws ParseException
 	 */
 	@PostMapping("/update")
-	public String update(@Validated OrderForm form, BindingResult result, Model model, @AuthenticationPrincipal LoginUser loginuser) throws ParseException {
+	public String update(@Validated OrderForm form, BindingResult result, Model model,
+			@AuthenticationPrincipal LoginUser loginuser) throws ParseException {
 		Timestamp formDeliveryTime = null;
 		System.out.println(form.toString());
-		
+
 		// クレジットカードの決済処理
-		if(form.getPaymentMethod() == 2) {
+		if (form.getPaymentMethod() == 2) {
 			CreditCardRequest creditCardRequest = new CreditCardRequest();
-			
-				//リクエスト用のドメインに値をセット
-				creditCardRequest.setCard_number(form.getCardNumber());
-				creditCardRequest.setCard_exp_month(form.getCardExpMonth());
-				creditCardRequest.setCard_exp_year(form.getCardExpYear());
-				creditCardRequest.setCard_ccv(form.getCardCvv());
-				creditCardRequest.setCard_name(form.getCardName());
-				
-				System.out.println("サービスのメソッドを呼ぶ前。ドメインにセット");
-				System.out.println(creditCardRequest);
-				
-				CreditCardResponse  creditCardResponse = service.CreditCardPayment(creditCardRequest);
-				System.out.println(creditCardResponse.toString());
+
+			// リクエスト用のドメインに値をセット
+			creditCardRequest.setCard_number(form.getCardNumber());
+			creditCardRequest.setCard_exp_month(form.getCardExpMonth());
+			creditCardRequest.setCard_exp_year(form.getCardExpYear());
+			creditCardRequest.setCard_ccv(form.getCardCvv());
+			creditCardRequest.setCard_name(form.getCardName());
+
+			System.out.println("サービスのメソッドを呼ぶ前。ドメインにセット");
+			System.out.println(creditCardRequest);
+
+			CreditCardResponse creditCardResponse = service.CreditCardPayment(creditCardRequest);
+			System.out.println(creditCardResponse.toString());
+
+			if (creditCardResponse.getStatus().equals("error")) {
+				FieldError fieldError = new FieldError(result.getObjectName(), "deliveryTime", "今から3時間後の日時をご入力ください");
+				result.addError(fieldError);
+			}
 		}
-		
-		if(!form.getDeliveryTime().equals("")) {
+
+		if (!form.getDeliveryTime().equals("")) {
 			formDeliveryTime = transformStringToTimestamp(form.getDeliveryTime());
 
 			if (canDelivery(formDeliveryTime)) {
@@ -122,8 +128,8 @@ public class OrderController {
 				result.addError(fieldError);
 			}
 		}
-		
-		if(result.hasErrors()) {
+
+		if (result.hasErrors()) {
 			return showOrder(model, loginuser);
 		}
 
