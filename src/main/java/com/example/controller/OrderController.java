@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.domain.CreditCardRequest;
 import com.example.domain.Order;
 import com.example.domain.User;
 import com.example.form.OrderForm;
@@ -86,10 +87,18 @@ public class OrderController {
 		
 		System.out.println(form.toString());
 		
-		String url = "http://153.127.48.168:8080/sample-credit-card-web-api/credit-card/payment";
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, null, String.class);
-
+		// クレジットカードの処理
+		// 後でサービスに移動
+//		String url = "http://153.127.48.168:8080/sample-credit-card-web-api/credit-card/payment";
+//		RestTemplate restTemplate = new RestTemplate();
+//		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, null, String.class);
+		
+		if(form.getPaymentMethod() == 2) {
+			// クレジットカードの決済処理
+			CreditCardRequest creditCardRequest = new CreditCardRequest();
+			
+//			creditCard			
+		}
 		
 		if(!form.getDeliveryTime().equals("")) {
 			formDeliveryTime = transformStringToTimestamp(form.getDeliveryTime());

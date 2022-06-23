@@ -15,7 +15,7 @@ public class CreditCardRequest {
 	/* カードの有効期限（月） */
 	private Integer card_exp_month;
 	/* カード名義 */
-	private Integer card_name;
+	private String card_name;
 	/* セキュリティーコード */
 	private Integer card_ccv;
 
@@ -43,11 +43,11 @@ public class CreditCardRequest {
 		this.card_exp_month = card_exp_month;
 	}
 
-	public Integer getCard_name() {
+	public String getCard_name() {
 		return card_name;
 	}
 
-	public void setCard_name(Integer card_name) {
+	public void setCard_name(String card_name) {
 		this.card_name = card_name;
 	}
 
