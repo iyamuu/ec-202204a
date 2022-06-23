@@ -48,7 +48,6 @@ public class ShowShoppingCartController {
 		User user = new User();
 		try {
 			user = loginuser.getUser();
-			System.out.println("login user : " + user);
 		}catch(NullPointerException e) {
 			user = (User) session.getAttribute("user");
 			
@@ -56,7 +55,6 @@ public class ShowShoppingCartController {
 				user = new User();
 				user.setId(insertShoppingCartService.searchNotUseUserIdInOrder());
 				session.setAttribute("user", user);
-				System.out.println("userid" + user.getId());
 			}
 		}
 		Order order = shoppingCartService.showCart(user.getId());

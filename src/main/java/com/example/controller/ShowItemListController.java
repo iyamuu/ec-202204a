@@ -36,8 +36,15 @@ public class ShowItemListController {
 	public String list(Model model, String sort,  @AuthenticationPrincipal LoginUser loginuser) {
 		List<Item> itemList = showItemListService.showList(sort);		
 		model.addAttribute("itemList", itemList);
-		model.addAttribute("userId", loginuser.getUser().getId());
-
+		Integer userId = null;
+		
+		try {
+			userId = loginuser.getUser().getId();
+		} catch(NullPointerException e) {
+			userId = 0;
+		}
+		
+		model.addAttribute("userId", userId);
 		return "item_list";
 	}
 
