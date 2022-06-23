@@ -50,7 +50,7 @@ public class ShowShoppingCartController {
 		model.addAttribute("order", order);
 		try {
 			model.addAttribute("tax", order.getTax());
-			model.addAttribute("totalPrice", order.getCalcTotalPrice());
+			model.addAttribute("totalPrice", order.getCalcTotalPrice() + order.getTax());
 		} catch (NullPointerException e) {
 			model.addAttribute("tax", 0);
 			model.addAttribute("totalPrice", 0);

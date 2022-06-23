@@ -33,7 +33,6 @@ public class OrderItem {
 	 */
 	public int getSubTotal() {
 		int subTotal = 0;
-		
 		if (getSize().compareTo('M') == 0) {
 			subTotal = item.getPriceM() + (200 * orderToppingList.size());
 		} else {

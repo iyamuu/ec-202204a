@@ -28,12 +28,10 @@
           <i class="fas fa-bars"></i>
         </button>
         <!-- Navbar brand -->
-
         <a class="navbar-brand mt-2 mt-lg-0" href="item_list.html" th:href="@{/items/list}">
           <img src="../static/img_aloha/rakurakuaroha_logo2.png" th:src="@{/img_aloha/rakurakuaroha_logo2.png}"
             class="bg-light" height="25" alt="Rakuraku aloha Logo" loading="lazy" />
         </a>
-
         <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Left links -->
@@ -46,7 +44,6 @@
               <form class="d-flex input-group w-auto" th:action="@{'/items/search'}" method="get">
                 <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
                   aria-describedby="search-addon" name="search_name" autocomplete="on" list="itemlist" />
-
                 <datalist id="itemlist">
                   <option th:each="item : ${itemList}" th:value="${item.name}" value="アサイーボウル"></option>
                 </datalist>
@@ -61,7 +58,6 @@
           <!-- Left links -->
         </div>
         <!-- Collapsible wrapper -->
-
         <!-- Right elements -->
         <div class="d-flex align-items-center">
           <!-- Icon -->
@@ -70,7 +66,6 @@
             <i class="fas fa-shopping-cart"></i>
             <span class="badge rounded-pill badge-notification bg-danger">1</span>
           </a>
-
           <!-- Avatar -->
           <div class="dropdown">
             <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
@@ -114,7 +109,6 @@
             <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="2"
               aria-label="Slide 3"></button>
           </div>
-
           <!-- Inner -->
           <div class="carousel-inner rounded-5 shadow-4-strong">
             <!-- Single item -->
@@ -127,7 +121,6 @@
                 </p>
               </div>
             </div>
-
             <!-- Single item -->
             <div class="carousel-item d-flex justify-content-center">
               <img th:src="@{/img_aloha/2.jpg}" class="d-block w-50" />
@@ -136,11 +129,9 @@
                 <p>美味しくないはずが無い。So delicious!</p>
               </div>
             </div>
-
             <!-- Single item -->
             <div class="carousel-item d-flex justify-content-center">
               <img th:src="@{/img_aloha/3.jpg}" class="d-block w-50" />
-
               <div class="carousel-caption d-none d-md-block">
                 <h5>おすすめ商品３</h5>
                 <p>これはキマる。やっべえぞ。</p>
@@ -148,7 +139,6 @@
             </div>
           </div>
           <!-- Inner -->
-
           <!-- Controls -->
           <button class="carousel-control-prev" type="button" data-mdb-target="#carouselMaterialStyle"
             data-mdb-slide="prev">
@@ -188,7 +178,7 @@
         <div class="row row-cols-1 row-cols-md-3 g-4 item-content">
           <div class="col mx-auto" style="width: 18rem" th:each="item : ${itemList}">
             <div class="card text-center" style="width: 18rem">
-              <img src="../static/img_aloha_resize/10.jpg" class="card-img-top" alt="..."
+              <img src="../static/img_aloha/10.jpg" class="card-img-top" alt="..."
                 th:src="@{'/img_aloha/'}+${item.imagePath}" />
               <div class="card-body">
                 <h5 class="card-title" th:text="${item.name}">
@@ -200,7 +190,6 @@
                 <p class="card-text" th:text="'M:'+${item.priceM}+'円, L:'+ ${item.priceL}+'円'">
                   M:2160円, L:3380円
                 </p>
-
                 <a th:href="@{'/items/detail?id='}+${item.id}" class="btn btn-light">注文</a>
               </div>
             </div>
@@ -209,7 +198,6 @@
       </div>
     </section>
   </main>
-
   <!-- Footer -->
   <footer class="text-center text-lg-start bg-light text-muted">
     <!-- Section: Links  -->
@@ -227,7 +215,6 @@
             <p>真心を込めて美味しい商品をお届けします</p>
           </div>
           <!-- Grid column -->
-
           <!-- Grid column -->
           <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <!-- Links -->
@@ -244,7 +231,6 @@
       </div>
     </section>
     <!-- Section: Links  -->
-
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05)">
       © 2021 Copyright:
@@ -253,10 +239,8 @@
     <!-- Copyright -->
   </footer>
   <!-- Footer -->
-
   <!-- MDB -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"></script>
-
   <!-- paginathing  -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script th:src="@{/js/script.js}"></script>
