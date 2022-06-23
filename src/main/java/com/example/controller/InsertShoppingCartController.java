@@ -2,10 +2,12 @@ package com.example.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,12 +15,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.LoginUser;
 import com.example.domain.OrderItem;
 import com.example.domain.OrderTopping;
 import com.example.domain.Topping;
 import com.example.domain.User;
 import com.example.form.InsertShoppingCartForm;
 import com.example.service.InsertShoppingCartService;
+import com.example.service.OrderService;
 
 /**
  * 
@@ -46,17 +50,27 @@ public class InsertShoppingCartController {
 		return new InsertShoppingCartForm();
 	}
 	
+	/**
+	 * 
+	 * カートに商品を追加します.
+	 * 
+	 * @param form 商品追加フォーム
+	 * @param result　エラーメッセージ
+	 * @param model　リクエストスコープ
+	 * @return カート一覧画面
+	 */
 	@RequestMapping("/insert")
-	public String insert(@Validated InsertShoppingCartForm form, BindingResult result, Model model) {
+	public String insert(@Validated InsertShoppingCartForm form, BindingResult result, Model model, @AuthenticationPrincipal LoginUser loginuser) {
 		if (result.hasErrors()) {
 			return showItemDetailController.detail(form.getItemId(), model);
 		}
-		
+		// フォームをもとに注文商品を作成する
 		OrderItem orderItem = new OrderItem();
 		orderItem.setItemId(form.getItemId());
 		orderItem.setQuantity(form.getQuantity());
 		orderItem.setSize(form.getSize());
 		
+		// 	注文商品のトッピングリストを作成する
 		List<OrderTopping> orderToppingList = new ArrayList<>();
 		try {
 			for (Integer toppingId : form.getToppingList()) {
@@ -72,18 +86,36 @@ public class InsertShoppingCartController {
 		}
 		orderItem.setOrderToppingList(orderToppingList);
 		
-		User user = (User) session.getAttribute("user");
-		if (user == null) {
-			user = new User();
-			user.setId(decrementNullUserId());
+		
+		// ユーザーをログイン情報から取得
+		User user = new User();
+		try {
+			user = loginuser.getUser();
+			System.out.println("login user : " + user);
+		}catch(NullPointerException e) {
+			// ログインしていないときはセッションから以前の注文時に使用した情報を取得
+			user = (User) session.getAttribute("user");
+			System.out.println("session user : " + user);
+			//e.printStackTrace();
+			
+			// もしsessionにも存在しなかったら新しく情報を作成する
+			if (user == null) {
+				user = new User();
+				// どうにかしてかぶらない未使用のユーザーIDを設定
+				//もしユーザーのIDが設定されていなかったら新しく設定する
+				user.setId(generateRandomNotUseUserId());
+				System.out.println("generate user : " + user);
+				session.setAttribute("user", user);
+			}
+			
 		}
+		
 		insertShoppingCartService.insert(orderItem, user);
 		
 		return "redirect:/cart/show";
 	}
 	
-	private synchronized static int decrementNullUserId() {
-		return --nullUserId;
+	private int generateRandomNotUseUserId() {
+		return insertShoppingCartService.searchNotUseUserIdInOrder();
 	}
-
 }

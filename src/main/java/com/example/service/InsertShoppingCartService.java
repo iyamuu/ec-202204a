@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,10 +51,11 @@ public class InsertShoppingCartService {
 	 */
 	public void insert(OrderItem orderItem, User user) {
 		Order order = new Order();
+		
 		try {
 			order = orderRepository.findByUserIdAndStatus(user.getId(), 0).get(0);
 		} catch (IndexOutOfBoundsException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			order.setUserId(user.getId());
 			order.setStatus(0);
 			order.setUser(user);
@@ -71,5 +74,21 @@ public class InsertShoppingCartService {
 			orderRepository.InsertOrderTopping(orderTopping);
 		}
 
+	}
+	
+	public int searchNotUseUserIdInOrder() {
+		Random rand = new Random();
+		int num = 0;
+		while(true) {
+			num = rand.nextInt(10000) * (-1);
+			if (num < 0) {
+				System.out.println("randomnum:" + num);
+				System.out.println(orderRepository.findByUserIdAndStatus(num, 0));
+				if (orderRepository.findByUserIdAndStatus(num, 0).size() == 0) {
+					break;
+				}	
+			}
+		}
+		return num;
 	}
 }

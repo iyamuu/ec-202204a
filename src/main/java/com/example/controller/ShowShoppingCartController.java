@@ -3,12 +3,15 @@ package com.example.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.LoginUser;
 import com.example.domain.Order;
 import com.example.domain.User;
+import com.example.service.InsertShoppingCartService;
 import com.example.service.ShowShoppingCartService;
 
 /**
@@ -30,6 +33,9 @@ public class ShowShoppingCartController {
 	@Autowired
 	private HttpSession session;
 	
+	@Autowired
+	private InsertShoppingCartService insertShoppingCartService;
+	
 	/**
 	 * 
 	 * ショッピングカートを表示する.
@@ -38,13 +44,20 @@ public class ShowShoppingCartController {
 	 * @return　カート画面
 	 */
 	@RequestMapping("/show")
-	public String showCart(Model model) {
-		User user = (User) session.getAttribute("user");
-		if (user == null) {
-			user = new User();
-			user.setId(decrementNullUserId());
-			session.setAttribute("user", user);
-			System.out.println("userid" + user.getId());
+	public String showCart(Model model, @AuthenticationPrincipal LoginUser loginuser) {
+		User user = new User();
+		try {
+			user = loginuser.getUser();
+			System.out.println("login user : " + user);
+		}catch(NullPointerException e) {
+			user = (User) session.getAttribute("user");
+			
+			if (user == null) {
+				user = new User();
+				user.setId(insertShoppingCartService.searchNotUseUserIdInOrder());
+				session.setAttribute("user", user);
+				System.out.println("userid" + user.getId());
+			}
 		}
 		Order order = shoppingCartService.showCart(user.getId());
 		model.addAttribute("order", order);
@@ -57,9 +70,4 @@ public class ShowShoppingCartController {
 		}
 		return "cart_list.html";
 	}
-	
-	private synchronized static int decrementNullUserId() {
-		return --nullUserId;
-	}
-
 }
