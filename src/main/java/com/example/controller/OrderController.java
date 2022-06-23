@@ -97,7 +97,14 @@ public class OrderController {
 			// クレジットカードの決済処理
 			CreditCardRequest creditCardRequest = new CreditCardRequest();
 			
-//			creditCard			
+				//リクエスト用のドメインに値をセット
+				creditCardRequest.setCard_number(form.getCardNumber());
+				creditCardRequest.setCard_exp_month(form.getCardExpMonth());
+				creditCardRequest.setCard_exp_year(form.getCardExpYear());
+				creditCardRequest.setCard_ccv(form.getCardCvv());
+				creditCardRequest.setCard_name(form.getCardName());
+				
+				System.out.println(creditCardRequest.toString());
 		}
 		
 		if(!form.getDeliveryTime().equals("")) {

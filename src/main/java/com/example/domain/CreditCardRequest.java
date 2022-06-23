@@ -9,37 +9,37 @@ package com.example.domain;
 public class CreditCardRequest {
 
 	/* クレジットカード番号 */
-	private Integer card_number;
+	private String card_number;
 	/* カードの有効期限（年） */
-	private Integer card_exp_year;
+	private String card_exp_year;
 	/* カードの有効期限（月） */
-	private Integer card_exp_month;
+	private String card_exp_month;
 	/* カード名義 */
 	private String card_name;
 	/* セキュリティーコード */
-	private Integer card_ccv;
+	private String card_ccv;
 
-	public Integer getCard_number() {
+	public String getCard_number() {
 		return card_number;
 	}
 
-	public void setCard_number(Integer card_number) {
+	public void setCard_number(String card_number) {
 		this.card_number = card_number;
 	}
 
-	public Integer getCard_exp_year() {
+	public String getCard_exp_year() {
 		return card_exp_year;
 	}
 
-	public void setCard_exp_year(Integer card_exp_year) {
+	public void setCard_exp_year(String card_exp_year) {
 		this.card_exp_year = card_exp_year;
 	}
 
-	public Integer getCard_exp_month() {
+	public String getCard_exp_month() {
 		return card_exp_month;
 	}
 
-	public void setCard_exp_month(Integer card_exp_month) {
+	public void setCard_exp_month(String card_exp_month) {
 		this.card_exp_month = card_exp_month;
 	}
 
@@ -51,17 +51,18 @@ public class CreditCardRequest {
 		this.card_name = card_name;
 	}
 
-	public Integer getCard_ccv() {
+	public String getCard_ccv() {
 		return card_ccv;
 	}
 
-	public void setCard_ccv(Integer card_ccv) {
+	public void setCard_ccv(String card_ccv) {
 		this.card_ccv = card_ccv;
 	}
 
 	@Override
 	public String toString() {
-		return "CreditCardPayment [card_number=" + card_number + ", card_exp_year=" + card_exp_year
+		return "CreditCardRequest [card_number=" + card_number + ", card_exp_year=" + card_exp_year
 				+ ", card_exp_month=" + card_exp_month + ", card_name=" + card_name + ", card_ccv=" + card_ccv + "]";
 	}
+
 }
