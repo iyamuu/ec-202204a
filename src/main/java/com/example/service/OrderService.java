@@ -73,7 +73,12 @@ public class OrderService {
 	 */
 	public Order mergeOrder(User loginUser, User sessionUser) {
 		Order order = showOrder(loginUser.getId());
-		Order sessionOrder = showOrder(sessionUser.getId());
+		Order sessionOrder = null;
+		try {
+			sessionOrder = showOrder(sessionUser.getId());			
+		} catch (NullPointerException e) {
+			sessionOrder = null;
+		}
 		
 		System.out.println("order : " + order);
 		System.out.println("session order : " + sessionOrder);
