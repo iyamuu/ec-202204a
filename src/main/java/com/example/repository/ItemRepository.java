@@ -59,7 +59,7 @@ public class ItemRepository {
 	 * @return		検索結果
 	 */
 	public List<Item> findByName(String name, String sort){
-		String sql = " SELECT id, name, description, price_m, price_l, image_path, deleted FROM items WHERE name LIKE :name ORDER BY price_m";
+		String sql = " SELECT id, name, description, price_m, price_l, image_path, deleted FROM items WHERE name ILIKE :name ORDER BY price_m";
 		name = "%" + name +"%";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", name);
 		if(sort != null && sort.equals("DESC")) {
