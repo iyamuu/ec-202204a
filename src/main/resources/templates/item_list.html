@@ -161,9 +161,9 @@
                                 <li>
                                     <form th:action="@{/log}" method="post">
                                         <input
-                                            th:if="${session.user}"
+                                        	sec:authorize="isAuthenticated()"
                                             type="hidden"
-                                            th:value="${session.user.id}"
+                                            th:value="${userId}"
                                             name="userId"
                                         />
                                         <button class="dropdown-item">

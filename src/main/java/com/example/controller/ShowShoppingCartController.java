@@ -60,6 +60,7 @@ public class ShowShoppingCartController {
 			}
 		}
 		Order order = shoppingCartService.showCart(user.getId());
+		
 		model.addAttribute("order", order);
 		try {
 			model.addAttribute("tax", order.getTax());
