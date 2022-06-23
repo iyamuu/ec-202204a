@@ -17,7 +17,7 @@ import com.example.service.ShowItemListService;
  *
  */
 @Controller
-@RequestMapping("/items")
+@RequestMapping("/")
 public class ShowItemListController {
 
 	@Autowired
@@ -30,7 +30,7 @@ public class ShowItemListController {
 	 * @param sort	並び順の設定
 	 * @return		商品一覧画面
 	 */
-	@RequestMapping("/list")
+	@RequestMapping("")
 	public String list(Model model, String sort) {
 		List<Item> itemList = showItemListService.showList(sort);			
 		model.addAttribute("itemList", itemList);
