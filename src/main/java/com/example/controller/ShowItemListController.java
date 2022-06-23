@@ -3,11 +3,13 @@ package com.example.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Item;
+import com.example.domain.LoginUser;
 import com.example.service.ShowItemListService;
 
 /**
@@ -30,11 +32,19 @@ public class ShowItemListController {
 	 * @param sort	並び順の設定
 	 * @return		商品一覧画面
 	 */
-	@RequestMapping("")
-	public String list(Model model, String sort) {
-		List<Item> itemList = showItemListService.showList(sort);			
+	@RequestMapping("/list")
+	public String list(Model model, String sort,  @AuthenticationPrincipal LoginUser loginuser) {
+		List<Item> itemList = showItemListService.showList(sort);		
 		model.addAttribute("itemList", itemList);
-
+		Integer userId = null;
+		
+		try {
+			userId = loginuser.getUser().getId();
+		} catch(NullPointerException e) {
+			userId = 0;
+		}
+		
+		model.addAttribute("userId", userId);
 		return "item_list";
 	}
 
