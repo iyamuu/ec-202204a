@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.LoginUser;
 import com.example.domain.Order;
 import com.example.domain.User;
 import com.example.form.OrderForm;
@@ -54,9 +56,8 @@ public class OrderController {
 	 * @return　注文確認画面
 	 */
 	@GetMapping("/confirm")
-	public String showOrder(Model model) {
-		User user = (User) session.getAttribute("user");
-		Order order = service.showOrder(user.getId());
+	public String showOrder(Model model, @AuthenticationPrincipal LoginUser loginuser) {
+		Order order = service.showOrder(loginuser.getUser().getId());
 		model.addAttribute("order", order);
 		try {
 			model.addAttribute("tax", order.getTax());
@@ -78,7 +79,7 @@ public class OrderController {
 	 * @throws ParseException 
 	 */
 	@PostMapping("/update")
-	public String update(@Validated OrderForm form, BindingResult result, Model model) throws ParseException {
+	public String update(@Validated OrderForm form, BindingResult result, Model model, @AuthenticationPrincipal LoginUser loginuser) throws ParseException {
 		Timestamp formDeliveryTime = null;
 		
 		if(!form.getDeliveryTime().equals("")) {
@@ -91,7 +92,7 @@ public class OrderController {
 		}
 		
 		if(result.hasErrors()) {
-			return showOrder(model);
+			return showOrder(model, loginuser);
 		}
 		
 		Order order = new Order();
