@@ -20,56 +20,41 @@
     <header class="fixed-top">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-info">
-            <!-- Container wrapper -->
-            <div class="container-fluid">
-                <!-- Toggle button -->
-                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                    data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-
-                </button>
-                <!-- Navbar brand -->
-                <a class="navbar-brand mt-2 mt-lg-0" th:href="@{/items/list}">
-                    <img th:src="@{/img_aloha/rakurakuaroha_logo2.png}" class="bg-light" height="25"
-                        alt="Rakuraku aloha Logo" loading="lazy" />
-                </a>
-
-                <!-- Collapsible wrapper -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                    <!-- Left links -->
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/items/list}">ホーム</a>
-                        </li>
-                        <li class="nav-item">
-                            <!-- Search Form-->
-                            <form
-                            class="d-flex input-group w-auto"
-                            th:action="@{'/items/search'}"
-                            method="get"
-                        >
-                            <input
-                            type="search"
-                            class="form-control rounded"
-                            placeholder="Search"
-                            aria-label="Search"
-                            aria-describedby="search-addon"
-                            name="search_name"
-                            />
-                            <span class="input-group-text border-0" id="search-addon">
-                            <button style="border: none" class="bg-info">
-                                <i class="fas fa-search"></i>
-                            </button>
-                            </span>
-                        </form>
-                        </li>
-                    </ul>
-                    <!-- Left links -->
-                </div>
-                <!-- Collapsible wrapper -->
-
+          <!-- Container wrapper -->
+          <div class="container-fluid">
+            <!-- Toggle button -->
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <!-- Navbar brand -->
+            <a
+              class="navbar-brand mt-2 mt-lg-0"
+              href="item_list.html"
+              th:href="@{/}"
+            >
+              <img
+                src="../static/img_aloha/rakurakuaroha_logo2.png"
+                th:src="@{/img_aloha/rakurakuaroha_logo2.png}"
+                class="bg-light"
+                height="25"
+                alt="Rakuraku aloha Logo"
+                loading="lazy"
+              />
+            </a>
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <!-- Left links -->
+              <!-- Left links -->
+            </div>
+            <!-- Collapsible wrapper -->
                 <!-- Right elements -->
                 <div class="d-flex align-items-center">
 
@@ -102,12 +87,12 @@
                     </div>
                 </div>
                 <!-- Right elements -->
-            </div>
-            <!-- Container wrapper -->
+
+          </div>
+          <!-- Container wrapper -->
         </nav>
         <!-- Navbar -->
-    </header>
-
+      </header>
     <main>
         <section>
             <div class="container">
@@ -138,7 +123,7 @@
                                         </li>
                                     </ul>
                                 </p>
-                                <p class="card-text"><strong>小計：<span th:text="${orderItem.getSubTotal()}">3280</span>円</strong></p>
+                                <p class="card-text"><strong>小計：<span th:text="${#numbers.formatInteger(orderItem.getSubTotal(), 3, 'COMMA')}">3280</span>円</strong></p>
                                 <form th:action="@{/cart/delete}" method="post">
                                     <input type="hidden" name="orderItemId" th:value="${orderItem.id}">
                                     <button class="btn btn-danger">削除</button>
@@ -150,13 +135,13 @@
                 </div>
                 <br><br>
                 <div id="total-price d-flex justify-content-end" th:unless="${totalPrice == 0}">
-                    <h3 class="text-end">消費税：<span th:text="${tax}">8000</span>円</h3>
-                    <h3 class="text-end">合計金額(税込)：<span th:text="${totalPrice}">38000</span>円</h3>
+                    <h3 class="text-end">消費税：<span th:text="${#numbers.formatInteger(tax, 3, 'COMMA')}">8000</span>円</h3>
+                    <h3 class="text-end">合計金額(税込)：<span th:text="${#numbers.formatInteger(totalPrice, 3, 'COMMA')}">38000</span>円</h3>
                 </div>
                 <br><br>
                 <div class="d-flex justify-content-center">
                     <div>
-                        <a href="item_list.html" th:href="@{/items/list}"
+                        <a href="item_list.html" th:href="@{/}"
                             class="d-flex justify-content-start btn btn-outline-secondary">お買い物を続ける</a>
                     </div>
                     

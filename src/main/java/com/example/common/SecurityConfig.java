@@ -33,7 +33,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests() // 認可に関する設定
-				.antMatchers("/user/toLogin", "/user/insert", "/user/signup", "/items/list", "/items/detail", "/cart/show", "/cart/insert").permitAll() // 「/」などのパスは全てのユーザに許可
+				.antMatchers("/user/toLogin", "/user/insert", "/user/signup", "/", "/search", "/items/detail", "/cart/show", "/cart/insert").permitAll() // 「/」などのパスは全てのユーザに許可
 				// .antMatchers("/admin/**").hasRole("ADMIN") ///
 				// /admin/から始まるパスはADMIN権限でログインしている場合のみアクセス可(権限設定時の「ROLE_」を除いた文字列を指定)
 				// .antMatchers("/user/**").hasRole("USER") //
@@ -44,7 +44,7 @@ public class SecurityConfig {
 				.loginPage("/user/toLogin") // ログイン画面に遷移させるパス(ログイン認証が必要なパスを指定してかつログインされていないとこのパスに遷移される)
 				.loginProcessingUrl("/user/login") // ログインボタンを押した際に遷移させるパス(ここに遷移させれば自動的にログインが行われる)
 				.failureUrl("/user/toLogin?error=true") // ログイン失敗に遷移させるパス
-				.defaultSuccessUrl("/items/list", false) // 第1引数:デフォルトでログイン成功時に遷移させるパス
+				.defaultSuccessUrl("/", false) // 第1引数:デフォルトでログイン成功時に遷移させるパス
 				// 第2引数: true :認証後常に第1引数のパスに遷移
 				// false:認証されてなくて一度ログイン画面に飛ばされてもログインしたら指定したURLに遷移
 				.usernameParameter("email") // 認証時に使用するユーザ名のリクエストパラメータ名(今回はメールアドレスを使用)
@@ -52,7 +52,7 @@ public class SecurityConfig {
 
 		http.logout() // ログアウトに関する設定
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout**")) // ログアウトさせる際に遷移させるパス
-				.logoutSuccessUrl("/user/login") // ログアウト後に遷移させるパス(ここではログイン画面を設定)
+				.logoutSuccessUrl("/user/toLogin") // ログアウト後に遷移させるパス(ここではログイン画面を設定)
 				.deleteCookies("JSESSIONID") // ログアウト後、Cookieに保存されているセッションIDを削除
 				.invalidateHttpSession(true); // true:ログアウト後、セッションを無効にする false:セッションを無効にしない
 

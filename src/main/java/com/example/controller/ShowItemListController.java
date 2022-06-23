@@ -19,7 +19,7 @@ import com.example.service.ShowItemListService;
  *
  */
 @Controller
-@RequestMapping("/items")
+@RequestMapping("/")
 public class ShowItemListController {
 
 	@Autowired
