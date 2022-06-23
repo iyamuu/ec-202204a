@@ -1,6 +1,12 @@
 package com.example.domain;
 
-public class CreditCardPayment {
+/**
+ * クレジットカードの決済処理のリクエスト情報が入ります.
+ * 
+ * @author keisuke.isoda
+ *
+ */
+public class CreditCardRequest {
 
 	/* クレジットカード番号 */
 	private Integer card_number;
