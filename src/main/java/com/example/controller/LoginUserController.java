@@ -80,6 +80,6 @@ public class LoginUserController {
 	public String logout() {
 
 		session.invalidate();
-		return "redirect:/items/list";
+		return "redirect:/list";
 	}
 }
