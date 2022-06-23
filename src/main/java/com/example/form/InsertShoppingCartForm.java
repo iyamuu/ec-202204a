@@ -2,6 +2,9 @@ package com.example.form;
 
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * 
  * ショッピングカートに商品を追加するフォーム.
@@ -13,8 +16,10 @@ public class InsertShoppingCartForm {
 	/** 商品ID */
 	private Integer itemId;
 	/**　数量 */
+	@NotNull(message="数量を選択してください")
 	private Integer quantity;
 	/**　サイズ */
+	@NotNull(message="サイズを選択してください")
 	private Character size;
 	/**　トッピング一覧 */
 	private List<Integer> toppingList;

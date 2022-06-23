@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -36,13 +38,19 @@ public class InsertShoppingCartController {
 	@Autowired
 	private HttpSession session;
 	
+	@Autowired
+	private ShowItemDetailController showItemDetailController;
+	
 	@ModelAttribute
 	private InsertShoppingCartForm setUpForm() {
 		return new InsertShoppingCartForm();
 	}
 	
 	@RequestMapping("/insert")
-	public String insert(InsertShoppingCartForm form, Model model) {
+	public String insert(@Validated InsertShoppingCartForm form, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return showItemDetailController.detail(form.getItemId(), model);
+		}
 		
 		OrderItem orderItem = new OrderItem();
 		orderItem.setItemId(form.getItemId());
