@@ -43,7 +43,7 @@ public class OrderRepository {
 			if (nowOrderId != beforeOrderId) {
 				Order order = new Order();
 				order.setId(nowOrderId);
-				order.setUserId(null);
+				order.setUserId(rs.getInt("user_id"));
 				order.setStatus(rs.getInt("status"));
 				order.setTotalPrice(rs.getInt("total_price"));
 				order.setOrderDate(rs.getDate("order_date"));
@@ -102,7 +102,8 @@ public class OrderRepository {
 				orderItemList.add(orderItem);
 			}
 			
-			if (rs.getInt("order_item_id") == nowOrderItemId) {
+//			if (beforeOrderItemId != nowOrderItemId & rs.getInt("order_item_id") == nowOrderItemId) {
+			if (rs.getInt("ot_id") != 0) {
 				OrderTopping orderTopping = new OrderTopping();
 				orderTopping.setId(rs.getInt("ot_id"));
 				orderTopping.setToppingId(rs.getInt("topping_id"));
@@ -205,6 +206,7 @@ public class OrderRepository {
 		String sql = "insert into order_toppings (topping_id, order_item_id) values (:toppingId, :orderItemId)";
 		template.update(sql, param);
 	}
+	
 
 	/**
 	 * カートに追加していた商品を削除します.

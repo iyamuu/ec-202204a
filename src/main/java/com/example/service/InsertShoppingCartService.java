@@ -52,12 +52,15 @@ public class InsertShoppingCartService {
 		try {
 			order = orderRepository.findByUserIdAndStatus(user.getId(), 0).get(0);
 		} catch (IndexOutOfBoundsException e) {
+			e.printStackTrace();
 			order.setUserId(user.getId());
 			order.setStatus(0);
 			order.setUser(user);
+			order.setTotalPrice(order.getCalcTotalPrice());
 			orderRepository.InsertOrder(order);
 			
 		}
+		order = orderRepository.findByUserIdAndStatus(user.getId(), 0).get(0);
 		orderItem.setOrderId(order.getId());
 		orderRepository.InsertOrderItem(orderItem);
 		order = orderRepository.findByUserIdAndStatus(user.getId(), 0).get(0);
@@ -67,5 +70,6 @@ public class InsertShoppingCartService {
 			orderTopping.setOrderItemId(order.getOrderItemList().get(order.getOrderItemList().size()-1).getId());
 			orderRepository.InsertOrderTopping(orderTopping);
 		}
+
 	}
 }

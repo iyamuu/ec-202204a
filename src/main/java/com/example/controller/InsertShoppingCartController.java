@@ -43,10 +43,6 @@ public class InsertShoppingCartController {
 	
 	@RequestMapping("/insert")
 	public String insert(InsertShoppingCartForm form, Model model) {
-		System.out.println(form.getItemId());
-		System.out.println(form.getQuantity());
-		System.out.println(form.getSize());
-		System.out.println(form.getToppingList());
 		
 		OrderItem orderItem = new OrderItem();
 		orderItem.setItemId(form.getItemId());
@@ -54,13 +50,17 @@ public class InsertShoppingCartController {
 		orderItem.setSize(form.getSize());
 		
 		List<OrderTopping> orderToppingList = new ArrayList<>();
-		for (Integer toppingId : form.getToppingList()) {
-			Topping topping = insertShoppingCartService.searchToppingByToppingId(toppingId);
-			OrderTopping orderTopping = new OrderTopping();
-			orderTopping.setToppingId(toppingId);
-			orderTopping.setTopping(topping);
-			orderToppingList.add(orderTopping);
-			
+		try {
+			for (Integer toppingId : form.getToppingList()) {
+				Topping topping = insertShoppingCartService.searchToppingByToppingId(toppingId);
+				OrderTopping orderTopping = new OrderTopping();
+				orderTopping.setToppingId(toppingId);
+				orderTopping.setTopping(topping);
+				orderToppingList.add(orderTopping);
+				
+			}
+		} catch (NullPointerException e) {
+			orderToppingList = new ArrayList<>();
 		}
 		orderItem.setOrderToppingList(orderToppingList);
 		

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
@@ -32,7 +32,7 @@
         </button>
         <!-- Navbar brand -->
         <a class="navbar-brand mt-2 mt-lg-0" href="item_list.html">
-          <img th:src="@{/img_aloha/header_logo.png}" class="bg-light" height="15" alt="Rakuraku aloha Logo"
+          <img th:src="@{/img_aloha/rakurakuaroha_logo2.png}" class="bg-light" height="25" alt="Rakuraku aloha Logo"
             loading="lazy" />
         </a>
 
@@ -82,13 +82,9 @@
               <li>
                 <a class="dropdown-item" href="#">注文履歴</a>
               </li>
-              <li th:if="${session.user}">
-                <a class="dropdown-item" th:href="@{/user/logout}"
-                  >ログアウト</a
-                >
-              </li>
-              <li th:unless="${session.user}">
-                <a class="dropdown-item" th:href="@{/user/login}">ログイン</a>
+              <li>
+               	<span sec:authorize="isAuthenticated()"><a class="dropdown-item" th:href="@{/user/logout}">ログアウト</a></span>
+              	<span sec:authorize="!isAuthenticated()"><a class="dropdown-item" th:href="@{/user/login}">ログイン</a></span>
               </li>
             </ul>
           </div>
