@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.CreditCardRequest;
 import com.example.domain.CreditCardResponse;
+import com.example.domain.LoginUser;
 import com.example.domain.Order;
 import com.example.domain.User;
 import com.example.form.OrderForm;
+import com.example.service.InsertShoppingCartService;
 import com.example.service.OrderService;
 
 /**
@@ -56,9 +59,18 @@ public class OrderController {
 	 * @return 注文確認画面
 	 */
 	@GetMapping("/confirm")
-	public String showOrder(Model model) {
-		User user = (User) session.getAttribute("user");
-		Order order = service.showOrder(user.getId());
+	public String showOrder(Model model, @AuthenticationPrincipal LoginUser loginuser) {
+		// ログインユーザーの取得
+		User user = loginuser.getUser();
+		
+		// ログインしていなかった時のユーザー情報を取得
+		User sessionUser = (User) session.getAttribute("user");
+		session.removeAttribute("user");
+		
+		Order order = service.mergeOrder(user, sessionUser);
+		
+		order = service.showOrder(user.getId());
+		System.out.println("order : " + order);
 		model.addAttribute("order", order);
 		try {
 			model.addAttribute("tax", order.getTax());
@@ -80,7 +92,7 @@ public class OrderController {
 	 * @throws ParseException
 	 */
 	@PostMapping("/update")
-	public String update(@Validated OrderForm form, BindingResult result, Model model) throws ParseException {
+	public String update(@Validated OrderForm form, BindingResult result, Model model, @AuthenticationPrincipal LoginUser loginuser) throws ParseException {
 		Timestamp formDeliveryTime = null;
 		System.out.println(form.toString());
 		
@@ -110,16 +122,16 @@ public class OrderController {
 				result.addError(fieldError);
 			}
 		}
-
-		if (result.hasErrors()) {
-			return showOrder(model);
+		
+		if(result.hasErrors()) {
+			return showOrder(model, loginuser);
 		}
 
 		Order order = new Order();
 		BeanUtils.copyProperties(form, order);
 		order.setDeliveryTime(formDeliveryTime);
 
-		User user = (User) session.getAttribute("user");
+		User user = loginuser.getUser();
 		service.update(user.getId(), order);
 		return "redirect:/order/finished";
 	}
