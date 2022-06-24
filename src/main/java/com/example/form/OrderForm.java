@@ -37,20 +37,14 @@ public class OrderForm {
 	/** 支払方法 */
 	private Integer paymentMethod;
 	/** カード番号(数字14桁-16桁) */
-	@Pattern(regexp = "^[0-9]{14}$|^[0-9]{16}$", message = "カード番号はハイフンなしの形式で入力してください")
 	private String cardNumber;
 	/** カード有効期限(月)(数字2桁) */
-	@Pattern(regexp = "^[0-9]{2}$", message = "カード有効期限（月）はxxの形式で入力してください")
 	private String cardExpMonth;
 	/** カード有効期限(年)(数字4桁) */
-	@Pattern(regexp = "^[0-9]{4}$", message = "カード有効期限（年）はxxxxの形式で入力してください")
 	private String cardExpYear;
 	/** セキュリティコード(数字3桁-4桁) */
-	@Pattern(regexp = "^[0-9]{3}$|^[0-9]{4}$", message = "セキュリティコードはxxxまたはxxxxの形式で入力してください")
 	private String cardCvv;
 	/** カード名義人名 */
-	@NotBlank(message = "カード名義人名を入力してください")
-	@Size(min=1, max=50, message="カード名義人名の文字数は、50桁までの入力をお願いします")
 	private String cardName;
 	
 	public String getCardNumber() {
