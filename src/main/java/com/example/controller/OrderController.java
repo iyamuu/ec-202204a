@@ -119,7 +119,6 @@ public class OrderController {
 
 			if (creditCardResponse.getStatus().equals("error")) {
 				model.addAttribute("creditCardError", "クレジットカード情報が不正です");
-				System.out.println("カードのエラー");
 				isCardError = true;
 			}
 		}
