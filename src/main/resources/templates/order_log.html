@@ -32,6 +32,8 @@
 			<br>
 		</section>
 		<br>
+		<h3 class="text-center" th:if="${orderList.size == 0}"
+			th:text="注文履歴がありません">注文履歴がありません</h3>
 		<section>
 			<div class="container">
 				<div class="accordion" id="accordionExample">
