@@ -59,6 +59,7 @@ public class OrderService {
 		orderInCart.setUserId(userId);
 		orderInCart.setOrderDate(new Date());
 		orderInCart.setStatus(destinationOrder.getPaymentMethod());
+		orderInCart.setTotalPrice(destinationOrder.getTotalPrice());
 		
 		orderInCart.setDestinationName(destinationOrder.getDestinationName());
 		orderInCart.setDestinationEmail(destinationOrder.getDestinationEmail());
