@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.CreditCardRequest;
+import com.example.domain.CreditCardResponse;
 import com.example.domain.LoginUser;
 import com.example.domain.Order;
 import com.example.domain.User;
@@ -65,13 +67,13 @@ public class OrderController {
 	public String showOrder(Model model, @AuthenticationPrincipal LoginUser loginuser) {
 		// ログインユーザーの取得
 		User user = loginuser.getUser();
-		
+
 		// ログインしていなかった時のユーザー情報を取得
 		User sessionUser = (User) session.getAttribute("user");
 		session.removeAttribute("user");
-		
+
 		Order order = service.mergeOrder(user, sessionUser);
-		
+
 		order = service.showOrder(user.getId());
 		System.out.println("order : " + order);
 
@@ -96,8 +98,28 @@ public class OrderController {
 	 * @throws ParseException
 	 */
 	@PostMapping("/update")
-	public String update(@Validated OrderForm form, BindingResult result, Model model, @AuthenticationPrincipal LoginUser loginuser) throws ParseException {
+	public String update(@Validated OrderForm form, BindingResult result, Model model,
+			@AuthenticationPrincipal LoginUser loginuser) throws ParseException {
 		Timestamp formDeliveryTime = null;
+
+		// クレジットカードの決済処理
+		if (form.getPaymentMethod() == 2) {
+			CreditCardRequest creditCardRequest = new CreditCardRequest();
+
+			// リクエスト用のドメインに値をセット
+			creditCardRequest.setCard_number(form.getCardNumber());
+			creditCardRequest.setCard_exp_month(form.getCardExpMonth());
+			creditCardRequest.setCard_exp_year(form.getCardExpYear());
+			creditCardRequest.setCard_cvv(form.getCardCvv());
+			creditCardRequest.setCard_name(form.getCardName());
+
+			CreditCardResponse creditCardResponse = service.CreditCardPayment(creditCardRequest);
+
+			if (creditCardResponse.getStatus().equals("error")) {
+				model.addAttribute("creditCardError", "クレジットカード情報が不正です");
+//				result.rejectValue("cardNumber", null, "クレジットカード情報が不正です");
+			}
+		}
 
 		if (!form.getDeliveryTime().equals("")) {
 			formDeliveryTime = transformStringToTimestamp(form.getDeliveryTime());
@@ -107,8 +129,8 @@ public class OrderController {
 				result.addError(fieldError);
 			}
 		}
-		
-		if(result.hasErrors()) {
+
+		if (result.hasErrors()) {
 			return showOrder(model, loginuser);
 		}
 
