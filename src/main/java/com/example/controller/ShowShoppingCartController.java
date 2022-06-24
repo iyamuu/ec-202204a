@@ -1,5 +1,8 @@
 package com.example.controller;
 
+import java.util.List;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.Item;
 import com.example.domain.LoginUser;
 import com.example.domain.Order;
 import com.example.domain.User;
 import com.example.service.InsertShoppingCartService;
+import com.example.service.ShowItemListService;
 import com.example.service.ShowShoppingCartService;
 
 /**
@@ -36,6 +41,12 @@ public class ShowShoppingCartController {
 	@Autowired
 	private InsertShoppingCartService insertShoppingCartService;
 	
+	@Autowired
+	private ServletContext application;
+	
+	@Autowired
+	private ShowItemListService showItemListService;
+	
 	/**
 	 * 
 	 * ショッピングカートを表示する.
@@ -45,6 +56,10 @@ public class ShowShoppingCartController {
 	 */
 	@RequestMapping("/show")
 	public String showCart(Model model, @AuthenticationPrincipal LoginUser loginuser) {
+		List<Item> recomendItemList = showItemListService.getRecomendationItemList();
+		application.setAttribute("recomendItemList", recomendItemList);
+		
+		
 		User user = new User();
 		try {
 			user = loginuser.getUser();
