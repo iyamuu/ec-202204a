@@ -105,7 +105,7 @@ public class OrderController {
 			creditCardRequest.setCard_number(form.getCardNumber());
 			creditCardRequest.setCard_exp_month(form.getCardExpMonth());
 			creditCardRequest.setCard_exp_year(form.getCardExpYear());
-			creditCardRequest.setCard_ccv(form.getCardCvv());
+			creditCardRequest.setCard_cvv(form.getCardCvv());
 			creditCardRequest.setCard_name(form.getCardName());
 
 			System.out.println("サービスのメソッドを呼ぶ前。ドメインにセット");

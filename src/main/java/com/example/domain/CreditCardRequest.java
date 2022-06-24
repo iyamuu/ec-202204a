@@ -17,7 +17,7 @@ public class CreditCardRequest {
 	/* カード名義 */
 	private String card_name;
 	/* セキュリティーコード */
-	private String card_ccv;
+	private String card_cvv;
 
 	public String getCard_number() {
 		return card_number;
@@ -51,18 +51,18 @@ public class CreditCardRequest {
 		this.card_name = card_name;
 	}
 
-	public String getCard_ccv() {
-		return card_ccv;
+	public String getCard_cvv() {
+		return card_cvv;
 	}
 
-	public void setCard_ccv(String card_ccv) {
-		this.card_ccv = card_ccv;
+	public void setCard_cvv(String card_ccv) {
+		this.card_cvv = card_ccv;
 	}
 
 	@Override
 	public String toString() {
 		return "CreditCardRequest [card_number=" + card_number + ", card_exp_year=" + card_exp_year
-				+ ", card_exp_month=" + card_exp_month + ", card_name=" + card_name + ", card_ccv=" + card_ccv + "]";
+				+ ", card_exp_month=" + card_exp_month + ", card_name=" + card_name + ", card_ccv=" + card_cvv + "]";
 	}
 
 }
