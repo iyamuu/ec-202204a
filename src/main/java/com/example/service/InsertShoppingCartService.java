@@ -55,7 +55,6 @@ public class InsertShoppingCartService {
 		try {
 			order = orderRepository.findByUserIdAndStatus(user.getId(), 0).get(0);
 		} catch (IndexOutOfBoundsException e) {
-			//e.printStackTrace();
 			order.setUserId(user.getId());
 			order.setStatus(0);
 			order.setUser(user);
@@ -88,8 +87,6 @@ public class InsertShoppingCartService {
 		while(true) {
 			num = rand.nextInt(10000) * (-1);
 			if (num < 0) {
-				System.out.println("randomnum:" + num);
-				System.out.println(orderRepository.findByUserIdAndStatus(num, 0));
 				if (orderRepository.findByUserIdAndStatus(num, 0).size() == 0) {
 					break;
 				}	

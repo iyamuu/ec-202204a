@@ -204,40 +204,49 @@
 							<hr>
 							<div id="card-input">
 
-								<h3>クレジットカード情報</h3>
-								<div th:text="${creditCardError}" style="color: red">エラー！</div>
-								<div class="mb-3">
-									<label for="cardNumber" class="form-label">クレジットカード番号：</label>
+								<h3 style="display: inline;">クレジットカード情報</h3>
+								<span th:text="${creditCardError}" style="color: red">エラー！</span>
+								<br>
+								<div class="mb-3 mt-3">
+									<label for="cardNumber" class="form-label">クレジットカード番号（14桁
+										or 16桁）：</label>
+									<div th:errors="*{cardNumber}" style="color: red">エラー！</div>
 									<input type="text" name="cardNumber" class="form-control"
 										id="cardNumber" th:field="*{cardNumber}" />
+									<div class="form-text">ex) xxxxxxxxxxxxxxxx(ハイフンなし)</div>
 								</div>
-
 								<hr>
 								<div class="mb-3">
 									<label for="cardExpMonth" class="form-label">カード有効期限(月)：</label>
+									<div th:errors="*{cardExpMonth}" style="color: red">エラー！</div>
 									<input type="text" name="cardExpMonth" class="form-control"
 										id="cardExpMonth" th:field="*{cardExpMonth}" />
+									<div class="form-text">ex) 01</div>
 								</div>
 
 								<hr>
 								<div class="mb-3">
 									<label for="cardExpYear" class="form-label">カード有効期限(年)：</label>
+									<div th:errors="*{cardExpYear}" style="color: red">エラー！</div>
 									<input type="text" name="cardExpYear" class="form-control"
 										id="cardExpYear" th:field="*{cardExpYear}" />
 								</div>
 
 								<hr>
 								<div class="mb-3">
-									<label for="cardCvv" class="form-label">セキュリティーコード：</label> <input
-										type="text" name="cardCvv" class="form-control" id="cardCvv"
-										th:field="*{cardCvv}" />
+									<label for="cardCvv" class="form-label">セキュリティーコード（3桁
+										or 4桁）：</label>
+									<div th:errors="*{cardCvv}" style="color: red">エラー！</div>
+									<input type="text" name="cardCvv" class="form-control"
+										id="cardCvv" th:field="*{cardCvv}" />
 								</div>
 
 								<hr>
 								<div class="mb-3">
-									<label for="cardName" class="form-label">カード名義：</label> <input
-										type="text" name="cardName" class="form-control" id="cardName"
-										th:field="*{cardName}" />
+									<label for="cardName" class="form-label">カード名義：</label>
+									<div th:errors="*{cardName}" style="color: red">エラー！</div>
+									<input type="text" name="cardName" class="form-control"
+										id="cardName" th:field="*{cardName}" />
 								</div>
 
 								<hr>

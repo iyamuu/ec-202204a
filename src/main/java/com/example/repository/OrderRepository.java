@@ -102,7 +102,6 @@ public class OrderRepository {
 				orderItemList.add(orderItem);
 			}
 			
-//			if (beforeOrderItemId != nowOrderItemId & rs.getInt("order_item_id") == nowOrderItemId) {
 			if (rs.getInt("ot_id") != 0) {
 				OrderTopping orderTopping = new OrderTopping();
 				orderTopping.setId(rs.getInt("ot_id"));
