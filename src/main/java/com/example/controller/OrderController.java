@@ -105,7 +105,7 @@ public class OrderController {
 		boolean isCardError = false;
 
 		// クレジットカードの決済処理
-		if (form.getPaymentMethod() == 2) {
+		if (form.getPaymentMethod() != null && form.getPaymentMethod() == 2) {
 			CreditCardRequest creditCardRequest = new CreditCardRequest();
 
 			// リクエスト用のドメインに値をセット
