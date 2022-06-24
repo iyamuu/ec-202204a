@@ -91,11 +91,9 @@ public class InsertShoppingCartController {
 		User user = new User();
 		try {
 			user = loginuser.getUser();
-			System.out.println("login user : " + user);
 		}catch(NullPointerException e) {
 			// ログインしていないときはセッションから以前の注文時に使用した情報を取得
 			user = (User) session.getAttribute("user");
-			System.out.println("session user : " + user);
 			//e.printStackTrace();
 			
 			// もしsessionにも存在しなかったら新しく情報を作成する
@@ -104,7 +102,6 @@ public class InsertShoppingCartController {
 				// どうにかしてかぶらない未使用のユーザーIDを設定
 				//もしユーザーのIDが設定されていなかったら新しく設定する
 				user.setId(generateRandomNotUseUserId());
-				System.out.println("generate user : " + user);
 				session.setAttribute("user", user);
 			}
 			
