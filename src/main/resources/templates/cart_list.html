@@ -107,6 +107,40 @@
 			</div>
 
 		</section>
+		<div class="container">
+			<hr>
+		</div>
+		
+		<section>
+			<div class="container">
+				<br>
+				<h3>ご一緒にこちらの商品はいかがですか?</h3>
+				<br><br>
+				<div class="row flex-row flex-nowrap overflow-auto" th:if="${order}">
+					<!-- 1個のitem start -->
+					<div class="col mx-auto" style="width: 18rem;"
+						th:each="recomendItem : ${application.recomendItemList}">
+						<div class="card text-center" style="width: 18rem">
+							<img src="../static/img_aloha_resize/10.jpg" class="card-img-top"
+								alt="..." th:src="@{'/img_aloha_resize/'}+${recomendItem.imagePath}" />
+							<div class="card-body">
+								<h5 class="card-title" th:text="${recomendItem.name}">
+									Hawaiianパラダイス</h5>
+								<p class="card-text" th:text="${recomendItem.description}">
+									ハワイで取れる名産物でかつオーガニックな食料がふんだんに使われたローカルフーズです。健康志向の方に大人気の商品です。</p>
+								<p class="card-text"
+									th:text="'M:'+${#numbers.formatInteger(recomendItem.priceM, 3, 'COMMA')}+'円, L:'+ ${#numbers.formatInteger(recomendItem.priceL, 3, 'COMMA')}+'円'">
+									M:2160円, L:3380円</p>
+								<a th:href="@{'/items/detail?id='}+${recomendItem.id}"
+									class="btn btn-light">一緒に注文</a>
+							</div>
+						</div>
+						</div>
+					</div>
+					<!-- item end -->
+				</div>
+			</div>
+		</section>
 	</main>
 
 	<!-- Footer -->
