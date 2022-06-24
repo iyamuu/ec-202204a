@@ -51,7 +51,8 @@
 				<a class="text-reset me-3" th:href="@{/cart/show}"
 					id="navbarDropdownMenuLink" role="button" aria-expanded="false">
 					<i class="fas fa-shopping-cart"></i> <span
-					class="badge rounded-pill badge-notification bg-danger" th:if="${session.itemCount > 0}" th:text="${session.itemCount}"></span>
+					class="badge rounded-pill badge-notification bg-danger"
+					th:if="${session.itemCount > 0}" th:text="${session.itemCount}"></span>
 				</a>
 				<!-- Avatar -->
 				<div class="dropdown">
@@ -65,7 +66,7 @@
 						<li>
 							<form th:action="@{/log}" method="post">
 								<input sec:authorize="isAuthenticated()" type="hidden"
-										th:value="${userId}" name="userId" />
+									th:value="${userId}" name="userId" />
 								<button class="dropdown-item">注文履歴</button>
 							</form>
 						</li>
@@ -118,7 +119,8 @@
 				<a class="text-reset me-3" th:href="@{/cart/show}"
 					id="navbarDropdownMenuLink" role="button" aria-expanded="false">
 					<i class="fas fa-shopping-cart"></i> <span
-					class="badge rounded-pill badge-notification bg-danger" th:if="${session.itemCount > 0}" th:text="${session.itemCount}"></span>
+					class="badge rounded-pill badge-notification bg-danger"
+					th:if="${session.itemCount > 0}" th:text="${session.itemCount}"></span>
 				</a>
 				<!-- Avatar -->
 				<div class="dropdown">
