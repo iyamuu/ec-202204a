@@ -26,8 +26,6 @@ public class OrderService {
 	@Autowired
 	private OrderRepository orderRepository;
 	
-//	@Autowired
-//	private RestTemplate restTemplate;
 	private RestTemplate restTemplate = new RestTemplate();
 	
 	
@@ -84,6 +82,7 @@ public class OrderService {
 		String url = "http://153.127.48.168:8080/sample-credit-card-web-api/credit-card/payment";
 		return restTemplate.postForObject(url, creditCardRequest, CreditCardResponse.class);
 	}
+
 	/**
 	 * 
 	 * 未ログイン時の注文と過去のログイン時の注文を合体する.
@@ -125,8 +124,7 @@ public class OrderService {
 			// ログインユーザーにのみ注文が存在するとき
 			
 		}
-		
-		//update(loginUser.getId(), order);
+
 		return order;
 	}
 }

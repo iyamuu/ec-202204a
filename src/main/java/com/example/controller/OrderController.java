@@ -76,7 +76,6 @@ public class OrderController {
 		Order order = service.mergeOrder(user, sessionUser);
 
 		order = service.showOrder(user.getId());
-		System.out.println("order : " + order);
 
 		model.addAttribute("order", order);
 		try {
@@ -143,8 +142,6 @@ public class OrderController {
 		order.setDeliveryTime(formDeliveryTime);
 		Integer totalPriceInTax = order.getCalcTotalPrice() + order.getTax();
 		order.setTotalPrice(totalPriceInTax);
-		System.out.println("合計金額" + totalPriceInTax);
-		System.out.println("データベースに入れるドメインの中身" + order);
 
 		service.update(user.getId(), order);
 		return "redirect:/order/finished";
