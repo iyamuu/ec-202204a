@@ -2,6 +2,8 @@ package com.example.controller;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,10 @@ import com.example.service.ShowItemListService;
 public class ShowItemListController {
 
 	@Autowired
-	ShowItemListService showItemListService;
+	private ShowItemListService showItemListService;
+	
+	@Autowired
+	private ServletContext application;
 
 	/**
 	 * 商品一覧画面を表示.
@@ -35,6 +40,8 @@ public class ShowItemListController {
 	@RequestMapping("")
 	public String list(Model model, String sort,  @AuthenticationPrincipal LoginUser loginuser) {
 		List<Item> itemList = showItemListService.showList(sort);		
+		List<Item> recomendItemList = showItemListService.getRecomendationItemList();
+		application.setAttribute("recomendItemList", recomendItemList);
 		model.addAttribute("itemList", itemList);
 		Integer userId = null;
 		

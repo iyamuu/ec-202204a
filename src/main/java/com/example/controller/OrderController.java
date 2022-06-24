@@ -6,12 +6,13 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,7 +54,7 @@ public class OrderController {
 	private HttpSession session;
 
 	@Autowired
-	private MailSender sender;
+	private JavaMailSender mailSender;
 
 
 	/**
@@ -75,7 +76,6 @@ public class OrderController {
 		Order order = service.mergeOrder(user, sessionUser);
 
 		order = service.showOrder(user.getId());
-		System.out.println("order : " + order);
 
 		model.addAttribute("order", order);
 		try {
@@ -101,6 +101,8 @@ public class OrderController {
 	public String update(@Validated OrderForm form, BindingResult result, Model model,
 			@AuthenticationPrincipal LoginUser loginuser) throws ParseException {
 		Timestamp formDeliveryTime = null;
+		
+		boolean isCardError = false;
 
 		// クレジットカードの決済処理
 		if (form.getPaymentMethod() == 2) {
@@ -117,7 +119,7 @@ public class OrderController {
 
 			if (creditCardResponse.getStatus().equals("error")) {
 				model.addAttribute("creditCardError", "クレジットカード情報が不正です");
-//				result.rejectValue("cardNumber", null, "クレジットカード情報が不正です");
+				isCardError = true;
 			}
 		}
 
@@ -130,16 +132,20 @@ public class OrderController {
 			}
 		}
 
-		if (result.hasErrors()) {
+		if (result.hasErrors() || isCardError) {
 			return showOrder(model, loginuser);
 		}
 
-		Order order = new Order();
-		BeanUtils.copyProperties(form, order);
-		order.setDeliveryTime(formDeliveryTime);
-
-
+		// ユーザーIDを取得
 		User user = loginuser.getUser();
+		
+		Order order = service.showOrder(user.getId());
+		BeanUtils.copyProperties(form, order);
+		
+		order.setDeliveryTime(formDeliveryTime);
+		Integer totalPriceInTax = order.getCalcTotalPrice() + order.getTax();
+		order.setTotalPrice(totalPriceInTax);
+
 		service.update(user.getId(), order);
 		return "redirect:/order/finished";
 	}
@@ -150,15 +156,26 @@ public class OrderController {
 	 * @return 注文完了画面
 	 */
 	@GetMapping("/finished")
-	public String finished() {
-		SimpleMailMessage msg = new SimpleMailMessage();
+	public String finished(Model model, @AuthenticationPrincipal LoginUser loginuser) {
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = null;
+		
+		try {
+		      helper = new MimeMessageHelper(message, true);
+		      helper.setFrom("r9r.celtics.t9t@gmail.com");
+		      helper.setTo(loginuser.getUser().getEmail());
+		      helper.setSubject("ラクラクアロハからお買い物内容の確認メールです！");
 
-		msg.setFrom("r9r.celtics.t9t@gmail.com");
-		msg.setTo("r9r_celtics_t9t@icloud.com");
-		msg.setSubject("テストメール");//タイトルの設定
-		msg.setText("Spring Boot より本文送信"); //本文の設定
+		      String insertMessage = "この度はラクラクアロハでお買い物して頂き、<br>ありがとうございます！<br><br>注文内容の確認をお願いします！<br>詳しい詳細は以下のリンクをご確認ください <br><br> <a href=\"localhost:8080/ec-202204a/log?userId="+ loginuser.getUser().getId() +"\">注文詳細の確認</a>";
 
-		this.sender.send(msg);
+		      helper.setText(insertMessage, true);
+
+		      mailSender.send(message);
+
+		    } catch (Exception e) {
+		      e.printStackTrace();
+		      return null;
+		    }
 
 		return "/order_finished";
 	}
