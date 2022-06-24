@@ -43,6 +43,11 @@ public class UserDetailsServicelmpl implements UserDetailsService {
 		// 権限付与の例
 		Collection<GrantedAuthority> authorityList = new ArrayList<>();
 		authorityList.add(new SimpleGrantedAuthority("ROLE_USER")); // ユーザ権限付与
+		
+		// userIdが１のユーザーを管理者として登録
+		if(user.getId() == 1) {
+			authorityList.add(new SimpleGrantedAuthority("ROLE_ADMIN")); // 管理者権限付与			
+		}
 
 		return new LoginUser(user,authorityList);
 	}
