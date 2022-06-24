@@ -115,8 +115,8 @@ public class OrderController {
 			System.out.println(creditCardResponse.toString());
 
 			if (creditCardResponse.getStatus().equals("error")) {
-				FieldError fieldError = new FieldError(result.getObjectName(), "cardNumber", "クレジットカード情報が不正です");
-				result.addError(fieldError);
+				model.addAttribute("creditCardError", "クレジットカード情報が不正です");
+//				result.rejectValue("cardNumber", null, "クレジットカード情報が不正です");
 			}
 		}
 

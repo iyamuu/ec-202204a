@@ -338,8 +338,8 @@
                           <div id="card-input">
 
                           <h3>クレジットカード情報</h3>
-                            <div th:errors="*{cardNumber}" style="color:red">エラー！</div>
-                          <div class="mb-3">
+								<div th:text="${creditCardError}" style="color: red">エラー！</div>
+								<div class="mb-3">
                             <label
                                 for="cardNumber"
                                 class="form-label"
