@@ -2,7 +2,6 @@ package com.example.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,7 +21,6 @@ import com.example.domain.Topping;
 import com.example.domain.User;
 import com.example.form.InsertShoppingCartForm;
 import com.example.service.InsertShoppingCartService;
-import com.example.service.OrderService;
 
 /**
  * 
@@ -108,7 +106,8 @@ public class InsertShoppingCartController {
 		}
 		
 		insertShoppingCartService.insert(orderItem, user);
-		
+		Integer itemCount = insertShoppingCartService.calcItemCountInCart(user.getId());
+		session.setAttribute("itemCount", itemCount);
 		return "redirect:/cart/show";
 	}
 	

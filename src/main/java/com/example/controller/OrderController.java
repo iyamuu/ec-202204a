@@ -85,6 +85,9 @@ public class OrderController {
 			model.addAttribute("tax", 0);
 			model.addAttribute("totalPrice", 0);
 		}
+		
+		Integer itemCount = service.calcItemCountInCart(loginuser.getUser().getId());
+		session.setAttribute("itemCount", itemCount);
 		return "/order_confirm";
 	}
 
