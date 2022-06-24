@@ -46,30 +46,16 @@
 					<!-- Inner -->
 					<div class="carousel-inner rounded-5 shadow-4-strong">
 						<!-- Single item -->
-						<div class="carousel-item active d-flex justify-content-center">
-							<img th:src="@{/img_aloha_resize/1.jpg}" class="d-block w-50"
-								alt="Sunset Over the City" />
-							<div class="carousel-caption d-none d-md-block">
-								<h5>おすすめ商品１</h5>
-								<p>これはめちゃくちゃ美味しい。だからそう、これは美味しい。</p>
-
-							</div>
-						</div>
-						<!-- Single item -->
-						<div class="carousel-item d-flex justify-content-center">
-							<img th:src="@{/img_aloha_resize/2.jpg}" class="d-block w-50" />
-							<div class="carousel-caption d-none d-md-block">
-								<h5>おすすめ商品２</h5>
-								<p>美味しくないはずが無い。So delicious!</p>
-							</div>
-						</div>
-						<!-- Single item -->
-						<div class="carousel-item d-flex justify-content-center">
-							<img th:src="@{/img_aloha_resize/3.jpg}" class="d-block w-50" />
-							<div class="carousel-caption d-none d-md-block">
-								<h5>おすすめ商品３</h5>
-								<p>これはキマる。やっべえぞ。</p>
-							</div>
+						<div th:each="recomendItem, status : ${application.recomendItemList}" th:id="'carousel-item' + ${status.count}" class="carousel-item d-flex justify-content-center">
+							<a th:href="@{'/items/detail?id='}+${recomendItem.id}" class="w-100">
+								<img th:src="@{'/img_aloha_resize/'} + ${recomendItem.imagePath}" class="d-block w-50 m-auto"
+									alt="おすすめ商品" />
+							
+								<div class="carousel-caption d-none d-md-block">
+									<a class="btn btn-success"  th:href="@{'/items/detail?id='}+${recomendItem.id}" th:text="${'おすすめ商品：' + recomendItem.name}">これはめちゃくちゃ美味しい。だからそう、これは美味しい。</a>
+									
+								</div>
+							</a>
 						</div>
 					</div>
 					<!-- Inner -->
@@ -146,5 +132,6 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script th:src="@{/js/script.js}"></script>
 	<script th:src="@{/js/paginathing.min.js}"></script>
+	<script th:src="@{/js/carousel.js}"></script>
 </body>
 </html>
