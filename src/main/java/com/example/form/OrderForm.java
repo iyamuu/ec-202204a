@@ -1,9 +1,9 @@
 package com.example.form;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * 注文のフォームクラス.
@@ -50,7 +50,7 @@ public class OrderForm {
 	private String cardCvv;
 	/** カード名義人名 */
 	@NotBlank(message = "カード名義人名を入力してください")
-	@Min(value=50, message="カード名義人名の文字数は、50桁までの入力をお願いします")
+	@Size(min=1, max=50, message="カード名義人名の文字数は、50桁までの入力をお願いします")
 	private String cardName;
 	
 	public String getCardNumber() {
