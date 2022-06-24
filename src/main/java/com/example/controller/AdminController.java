@@ -15,23 +15,36 @@ import com.example.service.AdminService;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-	
+
 	@Autowired
 	private AdminService adminService;
 
 	@RequestMapping("")
 	public String index(@AuthenticationPrincipal LoginUser loginuser) {
-		
+
 		Map<String, Integer> purchasedMap = adminService.showPurchasedCount();
-		
+
+		if (isAdmin(loginuser)) {
+			return "/admin";
+		}
+		return "forward:/";
+	}
+
+	/**
+	 * 管理者かチェックします.
+	 * 
+	 * @param loginuser ユーザー情報
+	 * @return 管理者の場合true、そうでない場合false
+	 */
+	private boolean isAdmin(LoginUser loginuser) {
+
 		Collection<GrantedAuthority> authorityList = loginuser.getAuthorities();
-		for(GrantedAuthority authority : authorityList) {
-			
-			if(authority.getAuthority().equals("ROLE_ADMIN")) {
-				return "/admin";	
+		for (GrantedAuthority authority : authorityList) {
+
+			if (authority.getAuthority().equals("ROLE_ADMIN")) {
+				return true;
 			}
 		}
-		
-		return "forward:/";
+		return false;
 	}
 }

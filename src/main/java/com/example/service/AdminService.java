@@ -50,12 +50,20 @@ public class AdminService {
 			}
 		}
 		
+		Map<String, Integer> purchasedSortMap = new HashMap<>();
+		
+		for(String itemName: purchasedMap.keySet()) {
+		}
+		
 		for(String itemName: purchasedMap.keySet()) {
 			Integer itemCount = purchasedMap.get(itemName);
 			if(itemCount >= 0) {
 				System.out.println(itemName + "の購入数は" + itemCount + "です");				
 			}
 		}
+		
+		
+		
 		return purchasedMap;
 	}
 }
