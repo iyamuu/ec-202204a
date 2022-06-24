@@ -127,4 +127,27 @@ public class OrderService {
 
 		return order;
 	}
+	
+	/**
+	 * カート内の商品数を計算する.
+	 * 
+	 * @param userId ユーザーID
+	 * @return　商品数
+	 */
+	public Integer calcItemCountInCart(Integer userId) {
+		Order order = new Order();
+		try {
+			order = orderRepository.findByUserIdAndStatus(userId, 0).get(0);
+		} catch (IndexOutOfBoundsException e) {
+			order = null;
+		}
+		
+		Integer itemCount = null;
+		if(order == null) {
+			itemCount = 0;
+		} else {
+			itemCount = order.getOrderItemList().size();			
+		}
+		return itemCount;
+	}
 }
