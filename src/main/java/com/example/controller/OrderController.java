@@ -118,7 +118,6 @@ public class OrderController {
 
 			if (creditCardResponse.getStatus().equals("error")) {
 				model.addAttribute("creditCardError", "クレジットカード情報が不正です");
-//				result.rejectValue("cardNumber", null, "クレジットカード情報が不正です");
 			}
 		}
 
@@ -135,12 +134,18 @@ public class OrderController {
 			return showOrder(model, loginuser);
 		}
 
-		Order order = new Order();
-		BeanUtils.copyProperties(form, order);
-		order.setDeliveryTime(formDeliveryTime);
-
-
+		// ユーザーIDを取得
 		User user = loginuser.getUser();
+		
+		Order order = service.showOrder(user.getId());
+		BeanUtils.copyProperties(form, order);
+		
+		order.setDeliveryTime(formDeliveryTime);
+		Integer totalPriceInTax = order.getCalcTotalPrice() + order.getTax();
+		order.setTotalPrice(totalPriceInTax);
+		System.out.println("合計金額" + totalPriceInTax);
+		System.out.println("データベースに入れるドメインの中身" + order);
+
 		service.update(user.getId(), order);
 		return "redirect:/order/finished";
 	}
