@@ -2,6 +2,8 @@ package com.example.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Item;
 import com.example.domain.LoginUser;
+import com.example.domain.User;
 import com.example.service.ShowItemListService;
 
 /**
@@ -23,7 +26,10 @@ import com.example.service.ShowItemListService;
 public class ShowItemListController {
 
 	@Autowired
-	ShowItemListService showItemListService;
+	private ShowItemListService showItemListService;
+	
+	@Autowired
+	private HttpSession session;
 
 	/**
 	 * 商品一覧画面を表示.
@@ -41,10 +47,17 @@ public class ShowItemListController {
 		try {
 			userId = loginuser.getUser().getId();
 		} catch(NullPointerException e) {
-			userId = 0;
+			User user = (User) session.getAttribute("user");
+			if(user == null) {
+				userId = 0;
+			} else {
+				userId = user.getId();
+			}
 		}
 		
 		model.addAttribute("userId", userId);
+		Integer itemCount = showItemListService.calcItemCountInCart(userId);
+		session.setAttribute("itemCount", itemCount);
 		return "item_list";
 	}
 
