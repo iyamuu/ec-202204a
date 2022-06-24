@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Font Awesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+	<!-- MDB -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css" rel="stylesheet" />
+	<!-- Custom CSS -->
+	<link rel="stylesheet" th:href="@{/css/order_confirm.css}">
+
+	<title>らくらくアロハ</title>
+</head>
+
+<body>
+	<header th:replace="header::frag_header"></header>
+
+	<main>
+		<section>
+			<div class="container">
+				<h3>管理者画面</h3>
+				<hr>
+				<br>
+				<div style="text-align: center">
+					<h4>購入数ランキング</h4>
+				</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">商品名</th>
+							<th scope="col">購入数（個）</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr　th:each="purchasedData : ${purchasedMap}">
+							<th scope="row" th:text="${purchasedData.key}">商品1</th>
+							<td th:text="${purchasedData.value}">4</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+
+	<!-- Footer -->
+
+	<footer th:replace="footer::frag_footer"></footer>
+
+	<!-- Footer -->
+
+	<!-- MDB -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+
+		</script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/get_address.js}"></script>
+	<script type="text/javascript" th:src="@{/js/order_confirm.js}"></script>
+	<script type="text/javascript" th:src="@{/js/get_login_info.js}"></script>
+</body>
+
+</html>
