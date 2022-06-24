@@ -177,7 +177,7 @@
 								<div class="mb-3">
 									<label for="deliveryTime" class="form-label">配達日時：</label>
 									<div th:errors="*{deliveryTime}" style="color: red">エラー！</div>
-									<input type="datetime-local" step="300" name="deliveryTime"
+									<input type="datetime-local" step="60" name="deliveryTime"
 										class="form-control" id="deliveryTime"
 										th:field="*{deliveryTime}" />
 								</div>
