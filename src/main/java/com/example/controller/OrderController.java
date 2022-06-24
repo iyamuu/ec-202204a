@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +27,6 @@ import com.example.domain.LoginUser;
 import com.example.domain.Order;
 import com.example.domain.User;
 import com.example.form.OrderForm;
-import com.example.service.InsertShoppingCartService;
 import com.example.service.OrderService;
 
 /**
@@ -49,6 +50,10 @@ public class OrderController {
 	@Autowired
 	private HttpSession session;
 
+	@Autowired
+	private MailSender sender;
+
+
 	/**
 	 * 注文確認画面を表示するルーティング.
 	 * 
@@ -69,6 +74,7 @@ public class OrderController {
 		
 		order = service.showOrder(user.getId());
 		System.out.println("order : " + order);
+
 		model.addAttribute("order", order);
 		try {
 			model.addAttribute("tax", order.getTax());
@@ -110,6 +116,7 @@ public class OrderController {
 		BeanUtils.copyProperties(form, order);
 		order.setDeliveryTime(formDeliveryTime);
 
+
 		User user = loginuser.getUser();
 		service.update(user.getId(), order);
 		return "redirect:/order/finished";
@@ -122,6 +129,15 @@ public class OrderController {
 	 */
 	@GetMapping("/finished")
 	public String finished() {
+		SimpleMailMessage msg = new SimpleMailMessage();
+
+		msg.setFrom("r9r.celtics.t9t@gmail.com");
+		msg.setTo("r9r_celtics_t9t@icloud.com");
+		msg.setSubject("テストメール");//タイトルの設定
+		msg.setText("Spring Boot より本文送信"); //本文の設定
+
+		this.sender.send(msg);
+
 		return "/order_finished";
 	}
 

@@ -63,7 +63,6 @@ public class RegisterUserController {
 		BeanUtils.copyProperties(form, user);
 		service.insert(user);
 		
-		// TODO:商品一覧ページが出来たら、そこに飛ばす
-		return "redirect:/user/login";
+		return "redirect:/user/toLogin";
 	}
 }
