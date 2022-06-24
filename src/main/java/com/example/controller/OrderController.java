@@ -180,6 +180,8 @@ public class OrderController {
 		      return null;
 		    }
 
+		Integer itemCount = service.calcItemCountInCart(loginuser.getUser().getId());
+		session.setAttribute("itemCount", itemCount);
 		return "/order_finished";
 	}
 

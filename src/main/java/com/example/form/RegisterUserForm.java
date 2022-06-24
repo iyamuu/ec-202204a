@@ -34,7 +34,7 @@ public class RegisterUserForm {
 	/** 住所 */
 	private String address;
 	/** 電話番号 */
-	@Pattern(regexp = "^[0-9]{4}-[0-9]{4}-[0-9]{4}$", message = "電話番号はxxxx-xxxx-xxxxの形式で入力してください")
+	@Pattern(regexp = "^[0-9]{3}[0-9]?-[0-9]{4}-[0-9]{4}$", message = "電話番号はxxxx-xxxx-xxxxまたはxxx-xxxx-xxxxの形式で入力してください")
 	private String telephone;
 
 	/**
