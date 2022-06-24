@@ -74,10 +74,9 @@
 								</form>
 							</li>
 							<li><span sec:authorize="isAuthenticated()"><a
-									class="dropdown-item" th:href="@{/user/logout}">ログアウト</a></span>
-								<span sec:authorize="!isAuthenticated()"><a
-									class="dropdown-item" th:href="@{/user/login}">ログイン</a></span>
-							</li>
+									class="dropdown-item" th:href="@{/user/logout}">ログアウト</a></span> <span
+								sec:authorize="!isAuthenticated()"><a
+									class="dropdown-item" th:href="@{/user/login}">ログイン</a></span></li>
 						</ul>
 					</div>
 				</div>
