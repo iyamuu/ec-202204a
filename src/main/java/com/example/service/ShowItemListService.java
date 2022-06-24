@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.Item;
+import com.example.domain.Order;
 import com.example.domain.Topping;
 import com.example.repository.ItemRepository;
+import com.example.repository.OrderRepository;
 import com.example.repository.ToppingRepository;
 
 /**
@@ -26,6 +28,9 @@ public class ShowItemListService {
 
 	@Autowired
 	ToppingRepository toppingRepository;
+	
+	@Autowired
+	private OrderRepository orderRepository;
 
 	/**
 	 * 商品一覧情報を取得.
@@ -63,6 +68,30 @@ public class ShowItemListService {
 		return itemList;
 	}
 	
+	/**
+	 * カート内の商品数を計算する.
+	 * 
+	 * @param userId ユーザーID
+	 * @return　商品数
+	 */
+	public Integer calcItemCountInCart(Integer userId) {
+		Order order = new Order();
+		try {
+			order = orderRepository.findByUserIdAndStatus(userId, 0).get(0);
+		} catch (IndexOutOfBoundsException e) {
+			order = null;
+		}
+		
+		Integer itemCount = null;
+		if(order == null) {
+			itemCount = 0;
+		} else {
+			itemCount = order.getOrderItemList().size();			
+		}
+		
+		return itemCount;
+	}
+		
 	/**
 	 * 
 	 * ランダムでおすすめのアイテム3つを返します。
