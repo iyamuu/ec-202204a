@@ -1,8 +1,6 @@
 package com.example.controller;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,18 +29,8 @@ public class AdminController {
 	@RequestMapping("")
 	public String index(@AuthenticationPrincipal LoginUser loginuser, Model model) {
 
-		// 注文された数のカウントをします
 		Map<String, Integer> purchasedMap = adminService.showPurchasedCount();
-		
-//		List<String> itemNameSortList = new ArrayList<>();
-//		List<Integer> itemCountSortList = new ArrayList<>();
-//		System.out.println("マップのサイズ" + purchasedMap.size());
-//		
-		
-		
-		// 注文数のカウントはここまで
-		
-		model.addAttribute("itemCountSortList");
+		model.addAttribute("purchasedMap", purchasedMap);
 
 		if (isAdmin(loginuser)) {
 			return "/admin";
