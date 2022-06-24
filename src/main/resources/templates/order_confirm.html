@@ -116,10 +116,11 @@
 						aria-labelledby="profile-tab">
 						<br>
 						<h3>お届け先情報</h3>
-						<button type="button" id="get-login-info">ログイン者情報を使用する</button>
+						<button type="button" id="get-login-info" class="btn btn-success mb-3">ログイン者情報を使用する</button>
 						<form th:action="@{/order/update}" method="post"
-							th:object="${orderForm}">
-							<div class="register-input-content">
+							th:object="${orderForm}"
+							class="bg-light">
+							<div class="register-input-content mx-3">
 								<div class="mb-3">
 									<label for="destinationName" class="form-label">名前：</label>
 									<div th:errors="*{destinationName}" style="color: red">エラー！</div>
@@ -247,14 +248,19 @@
 								<hr>
 							</div>
 
-							<div class="button-link">
-								<a class="btn btn-outline-secondary" th:href="@{/order/confirm}">
-									ショッピングカート画面へ </a>
+							<div class="button-link d-flex justify-content-center mx-2">
+								
 								<button type="reset" class="btn btn-outline-info">
 									入力画面のクリア</button>
 								<button type="submit" class="btn btn-primary">注文する</button>
 							</div>
+							<br>
 						</form>
+						<br>
+						<div class="container d-flex justify-content-center mx-2">
+							<a class="btn btn-outline-secondary" th:href="@{/order/confirm}">
+								ショッピングカート画面へ </a>
+						</div>
 					</div>
 				</div>
 
