@@ -104,6 +104,8 @@ public class OrderController {
 	public String update(@Validated OrderForm form, BindingResult result, Model model,
 			@AuthenticationPrincipal LoginUser loginuser) throws ParseException {
 		Timestamp formDeliveryTime = null;
+		
+		boolean isCardError = false;
 
 		// クレジットカードの決済処理
 		if (form.getPaymentMethod() == 2) {
@@ -120,6 +122,7 @@ public class OrderController {
 
 			if (creditCardResponse.getStatus().equals("error")) {
 				model.addAttribute("creditCardError", "クレジットカード情報が不正です");
+				isCardError = true;
 			}
 		}
 
@@ -132,7 +135,7 @@ public class OrderController {
 			}
 		}
 
-		if (result.hasErrors()) {
+		if (result.hasErrors() || isCardError) {
 			return showOrder(model, loginuser);
 		}
 

@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +88,29 @@ public class ShowItemListService {
 		} else {
 			itemCount = order.getOrderItemList().size();			
 		}
+		
 		return itemCount;
+	}
+		
+	/**
+	 * 
+	 * ランダムでおすすめのアイテム3つを返します。
+	 * 
+	 * @return　おすすめ商品情報一覧
+	 */
+	public List<Item> getRecomendationItemList(){
+		List<Item> itemList = showList("DESC");
+		List<Item> recomendItemList = new ArrayList<>();
+		
+		Collections.shuffle(itemList);
+		int cnt = 0;
+		for (Item item : itemList) {
+			recomendItemList.add(item);
+			cnt++;
+			if (cnt >= 3) break;
+		}
+		
+		return recomendItemList;
 	}
 
 }
