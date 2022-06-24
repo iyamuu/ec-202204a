@@ -249,10 +249,37 @@
 							</div>
 
 							<div class="button-link d-flex justify-content-center mx-2">
-								
+								<div>
 								<button type="reset" class="btn btn-outline-info">
 									入力画面のクリア</button>
-								<button type="submit" class="btn btn-primary">注文する</button>
+								</div>
+								<div>
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+									注文する
+								  </button>
+			  
+								  <!-- Modal -->
+								  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+									aria-hidden="true">
+									<div class="modal-dialog">
+									  <div class="modal-content">
+										<div class="modal-header">
+										  <h5 class="modal-title" id="exampleModalLabel">注文の送信</h5>
+										  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+										  ご注文内容を送信してもよろしいですか？
+										</div>
+										<div class="modal-footer">
+										  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+										  <button type="submit" class="btn btn-primary">注文する</button>
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+								
 							</div>
 							<br>
 						</form>
