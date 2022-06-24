@@ -80,8 +80,6 @@ public class OrderService {
 	 */
 	public CreditCardResponse CreditCardPayment(CreditCardRequest creditCardRequest) {
 		
-		System.out.println("クレジットカードのサービスクラスのメソッド呼び出し");
-		System.out.println(creditCardRequest);
 		String url = "http://153.127.48.168:8080/sample-credit-card-web-api/credit-card/payment";
 		return restTemplate.postForObject(url, creditCardRequest, CreditCardResponse.class);
 	}
@@ -102,12 +100,9 @@ public class OrderService {
 			sessionOrder = null;
 		}
 		
-		System.out.println("order : " + order);
-		System.out.println("session order : " + sessionOrder);
 		
 		if (order == null && sessionOrder != null) {
 			// sessionユーザーにのみ注文があるとき
-			System.out.println("未ログイン時の注文データのみ存在します");
 			order = sessionOrder;
 			order.setUserId(loginUser.getId());
 			orderRepository.update(order);
@@ -115,7 +110,6 @@ public class OrderService {
 			
 		} else if (order != null && sessionOrder != null) {
 			// ログインユーザーとセッションユーザーの両方に注文があるとき
-			System.out.println("ログイン時と未ログイン時の両方に注文データが存在します");
 			List<OrderItem> orderItemList = order.getOrderItemList();
 			List<OrderItem> sessionOrderItemList = sessionOrder.getOrderItemList();
 			
@@ -128,12 +122,10 @@ public class OrderService {
 			order.setOrderItemList(orderItemList);	
 		} else {
 			// ログインユーザーにのみ注文が存在するとき
-			System.out.println("ログイン時の注文データのみ存在します");
 			
 		}
 		
 		//update(loginUser.getId(), order);
-		System.out.println("merged order : " + order);
 		return order;
 	}
 }

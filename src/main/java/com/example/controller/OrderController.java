@@ -95,7 +95,6 @@ public class OrderController {
 	public String update(@Validated OrderForm form, BindingResult result, Model model,
 			@AuthenticationPrincipal LoginUser loginuser) throws ParseException {
 		Timestamp formDeliveryTime = null;
-		System.out.println(form.toString());
 
 		// クレジットカードの決済処理
 		if (form.getPaymentMethod() == 2) {
@@ -108,11 +107,7 @@ public class OrderController {
 			creditCardRequest.setCard_cvv(form.getCardCvv());
 			creditCardRequest.setCard_name(form.getCardName());
 
-			System.out.println("サービスのメソッドを呼ぶ前。ドメインにセット");
-			System.out.println(creditCardRequest);
-
 			CreditCardResponse creditCardResponse = service.CreditCardPayment(creditCardRequest);
-			System.out.println(creditCardResponse.toString());
 
 			if (creditCardResponse.getStatus().equals("error")) {
 				model.addAttribute("creditCardError", "クレジットカード情報が不正です");
