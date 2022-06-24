@@ -22,70 +22,8 @@
 </head>
 
 <body>
-	<header class="fixed-top">
-		<!-- Navbar -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-info">
-			<!-- Container wrapper -->
-			<div class="container-fluid">
-				<!-- Toggle button -->
-				<button class="navbar-toggler" type="button"
-					data-mdb-toggle="collapse"
-					data-mdb-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<i class="fas fa-bars"></i>
-				</button>
-				<!-- Navbar brand -->
-				<a class="navbar-brand mt-2 mt-lg-0" href="item_list.html"
-					th:href="@{/}"> <img
-					src="../static/img_aloha/rakurakuaroha_logo2.png"
-					th:src="@{/img_aloha/rakurakuaroha_logo2.png}" class="bg-light"
-					height="25" alt="Rakuraku aloha Logo" loading="lazy" />
-				</a>
-				<!-- Collapsible wrapper -->
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<!-- Left links -->
-					<!-- Left links -->
-				</div>
-				<!-- Collapsible wrapper -->
-				<!-- Right elements -->
-				<div class="d-flex align-items-center">
-					<!-- Icon -->
-					<a class="text-reset me-3" th:href="@{/cart/show}"
-						id="navbarDropdownMenuLink" role="button" aria-expanded="false">
-						<i class="fas fa-shopping-cart"></i> <span
-						class="badge rounded-pill badge-notification bg-danger"></span>
-					</a>
-					<!-- Avatar -->
-					<div class="dropdown">
-						<a class="dropdown-toggle d-flex align-items-center hidden-arrow"
-							href="#" id="navbarDropdownMenuAvatar" role="button"
-							data-mdb-toggle="dropdown" aria-expanded="false">
-							<i class="fa-solid fa-circle-user"></i>
-						</a>
-						<ul class="dropdown-menu dropdown-menu-end"
-							aria-labelledby="navbarDropdownMenuAvatar">
-							<li>
-								<form th:action="@{/log}" method="post">
-									<input th:if="${session.user}" type="hidden"
-										th:value="${session.user.id}" name="userId" />
-									<button class="dropdown-item">注文履歴</button>
-								</form>
-							</li>
-							<li><span sec:authorize="isAuthenticated()"><a
-									class="dropdown-item" th:href="@{/user/logout}">ログアウト</a></span>
-								<span sec:authorize="!isAuthenticated()"><a
-									class="dropdown-item" th:href="@{/user/login}">ログイン</a></span>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<!-- Right elements -->
-			</div>
-			<!-- Container wrapper -->
-		</nav>
-		<!-- Navbar -->
-	</header>
+	<header th:replace="header::frag_header"></header>
+
 	<main>
 		<section>
 			<div class="container">
@@ -113,51 +51,9 @@
 	</main>
 
 	<!-- Footer -->
-	<footer class="text-center text-lg-start bg-light text-muted">
-		<!-- Section: Links  -->
-		<section class="">
-			<div class="container text-center text-md-start mt-5">
-				<br />
-				<!-- Grid row -->
-				<div class="row mt-3">
-					<!-- Grid column -->
-					<div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-						<!-- Content -->
-						<h6 class="text-uppercase fw-bold mb-4">
-							<i class="fas fa-gem me-3"></i>らくらくアロハ
-						</h6>
-						<p>真心を込めて美味しい商品をお届けします</p>
-					</div>
-					<!-- Grid column -->
 
-					<!-- Grid column -->
-					<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-						<!-- Links -->
-						<h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-						<p>
-							<i class="fas fa-home me-3"></i> 東京都渋谷区千駄ヶ谷
-						</p>
-						<p>
-							<i class="fas fa-envelope me-3"></i> rakuraku-aloha@gmail.com
-						</p>
-						<p>
-							<i class="fas fa-phone me-3"></i> 0120-000-111
-						</p>
-					</div>
-					<!-- Grid column -->
-				</div>
-				<!-- Grid row -->
-			</div>
-		</section>
-		<!-- Section: Links  -->
+	<footer th:replace="footer::frag_footer"></footer>
 
-		<!-- Copyright -->
-		<div class="text-center p-4"
-			style="background-color: rgba(0, 0, 0, 0.05)">
-			© 2021 Copyright: <a class="text-reset fw-bold" href="#">らくらくアロハ</a>
-		</div>
-		<!-- Copyright -->
-	</footer>
 	<!-- Footer -->
 
 	<!-- MDB -->

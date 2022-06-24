@@ -3,6 +3,7 @@ package com.example.form;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * 注文のフォームクラス.
@@ -28,7 +29,7 @@ public class OrderForm {
 	@NotBlank(message = "住所を入力してください")
 	private String destinationAddress;
 	/** 宛先電話番号 */
-	@Pattern(regexp = "^[0-9]{4}-[0-9]{4}-[0-9]{4}$", message = "電話番号はxxxx-xxxx-xxxxの形式で入力してください")
+	@Pattern(regexp = "^[0-9]{3}[0-9]?-[0-9]{4}-[0-9]{4}$", message = "電話番号はxxx-xxxx-xxxxの形式で入力してください")
 	private String destinationTel;
 	/** 配達時間 */
 	@NotBlank(message="配達日時を入力してください")
@@ -36,14 +37,20 @@ public class OrderForm {
 	/** 支払方法 */
 	private Integer paymentMethod;
 	/** カード番号(数字14桁-16桁) */
+	@Pattern(regexp = "^[0-9]{14}$|^[0-9]{16}$", message = "カード番号はハイフンなしの形式で入力してください")
 	private String cardNumber;
 	/** カード有効期限(月)(数字2桁) */
+	@Pattern(regexp = "^[0-9]{2}$", message = "カード有効期限（月）はxxの形式で入力してください")
 	private String cardExpMonth;
 	/** カード有効期限(年)(数字4桁) */
+	@Pattern(regexp = "^[0-9]{4}$", message = "カード有効期限（年）はxxxxの形式で入力してください")
 	private String cardExpYear;
 	/** セキュリティコード(数字3桁-4桁) */
+	@Pattern(regexp = "^[0-9]{3}$|^[0-9]{4}$", message = "セキュリティコードはxxxまたはxxxxの形式で入力してください")
 	private String cardCvv;
 	/** カード名義人名 */
+	@NotBlank(message = "カード名義人名を入力してください")
+	@Size(min=1, max=50, message="カード名義人名の文字数は、50桁までの入力をお願いします")
 	private String cardName;
 	
 	public String getCardNumber() {

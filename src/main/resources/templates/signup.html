@@ -23,83 +23,8 @@
 </head>
 
 <body>
-	<header class="fixed-top">
-		<!-- Navbar -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-info">
-			<!-- Container wrapper -->
-			<div class="container-fluid">
-				<!-- Toggle button -->
-				<button class="navbar-toggler" type="button"
-					data-mdb-toggle="collapse"
-					data-mdb-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<i class="fas fa-bars"></i>
-				</button>
-				<!-- Navbar brand -->
-				<a class="navbar-brand mt-2 mt-lg-0" href="#"> <img
-					th:src="@{/img_aloha/rakurakuaroha_logo2.png}" class="bg-light"
-					height="25" alt="Rakuraku aloha Logo" loading="lazy" />
-				</a>
+	<header th:replace="header::frag_header"></header>
 
-				<!-- Collapsible wrapper -->
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<!-- Left links -->
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link" href="#">ホーム</a></li>
-						<li class="nav-item">
-							<!-- Search Form-->
-							<form class="d-flex input-group w-auto">
-								<input type="search" class="form-control rounded"
-									placeholder="Search" aria-label="Search"
-									aria-describedby="search-addon" />
-								<span class="input-group-text border-0" id="search-addon">
-									<i class="fas fa-search"></i>
-								</span>
-							</form>
-						</li>
-					</ul>
-					<!-- Left links -->
-				</div>
-				<!-- Collapsible wrapper -->
-
-				<!-- Right elements -->
-				<div class="d-flex align-items-center">
-					<!-- Icon -->
-					<a class="text-reset me-3 dropdown-toggle hidden-arrow" href="#"
-						id="navbarDropdownMenuLink" role="button"
-						data-mdb-toggle="dropdown" aria-expanded="false">
-						<i class="fas fa-shopping-cart"></i> <span
-						class="badge rounded-pill badge-notification bg-danger">1</span>
-					</a>
-
-					<!-- Avatar -->
-					<div class="dropdown">
-						<a class="dropdown-toggle d-flex align-items-center hidden-arrow"
-							href="#" id="navbarDropdownMenuAvatar" role="button"
-							data-mdb-toggle="dropdown" aria-expanded="false">
-							<i class="fa-solid fa-circle-user"></i>
-						</a>
-						<ul class="dropdown-menu dropdown-menu-end"
-							aria-labelledby="navbarDropdownMenuAvatar">
-							<li><a class="dropdown-item" href="#">マイページ</a>
-							</li>
-							<li><a class="dropdown-item" href="#">注文履歴</a>
-							</li>
-							<li><span sec:authorize="isAuthenticated()"><a
-									class="dropdown-item" th:href="@{/user/logout}">ログアウト</a></span>
-								<span sec:authorize="!isAuthenticated()"><a
-									class="dropdown-item" th:href="@{/user/login}">ログイン</a></span>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<!-- Right elements -->
-			</div>
-			<!-- Container wrapper -->
-		</nav>
-		<!-- Navbar -->
-	</header>
 
 	<main>
 		<div class="container">
@@ -113,8 +38,7 @@
 							<div class="register-input-content">
 								<div class="mb-3">
 									<label for="name" class="form-label">名前：</label>
-									<div th:errors="*{name}" style="color: red">
-										エラー！</div>
+									<div th:errors="*{name}" style="color: red">エラー！</div>
 									<input type="text" name="name" class="form-control" id="name"
 										th:field="*{name}" />
 								</div>
@@ -123,8 +47,7 @@
 
 								<div class="mb-3">
 									<label for="email" class="form-label">メールアドレス：</label>
-									<div th:errors="*{email}" style="color: red">
-										エラー！</div>
+									<div th:errors="*{email}" style="color: red">エラー！</div>
 									<input type="email" name="email" class="form-control"
 										id="email" aria-describedby="emailHelp" th:field="*{email}" />
 									<div id="emailHelp" class="form-text">ex) taro@sample.com
@@ -135,8 +58,7 @@
 
 								<div class="mb-3">
 									<label for="password" class="form-label">パスワード：</label>
-									<div th:errors="*{password}" style="color: red">
-										エラー！</div>
+									<div th:errors="*{password}" style="color: red">エラー！</div>
 									<input type="password" name="password" class="form-control"
 										id="password" th:field="*{password}" />
 								</div>
@@ -156,8 +78,7 @@
 
 								<div class="mb-3">
 									<label for="zipcode" class="form-label">郵便番号：</label>
-									<div th:errors="*{zipcode}" style="color: red">
-										エラー！</div>
+									<div th:errors="*{zipcode}" style="color: red">エラー！</div>
 									<input type="text" name="zipcode" class="form-control"
 										id="zipcode" th:field="*{zipcode}" />
 									<div id="zipcodeHelp" class="form-text">ex) 123-4567</div>
@@ -167,8 +88,7 @@
 
 								<div class="mb-3">
 									<label for="address" class="form-label">住所：</label>
-									<div th:errors="*{address}" style="color: red">
-										エラー！</div>
+									<div th:errors="*{address}" style="color: red">エラー！</div>
 									<input type="text" name="address" class="form-control"
 										id="address" th:field="*{address}" />
 								</div>
@@ -177,8 +97,7 @@
 
 								<div class="mb-3">
 									<label for="telephone" class="form-label">電話番号：</label>
-									<div th:errors="*{telephone}" style="color: red">
-										エラー！</div>
+									<div th:errors="*{telephone}" style="color: red">エラー！</div>
 									<input type="text" name="telephone" class="form-control"
 										id="telephone" th:field="*{telephone}" />
 									<div id="telephoneHelp" class="form-text">ex)
@@ -193,8 +112,7 @@
 								</div>
 							</div>
 						</div>
-						<br />
-						<br />
+						<br /> <br />
 						<div class="button-link row mx-5 justify-content-center">
 							<div class="col-auto">
 								<button type="reset" class="btn btn-outline-info mb-2">
@@ -202,8 +120,7 @@
 							</div>
 							<div class="col-auto">
 								<a class="btn btn-outline-secondary mb-2"
-									th:href="@{/user/toLogin}">
-									ログイン画面へ </a>
+									th:href="@{/user/toLogin}"> ログイン画面へ </a>
 							</div>
 						</div>
 					</form>
@@ -213,51 +130,9 @@
 	</main>
 
 	<!-- Footer -->
-	<footer class="text-center text-lg-start bg-light text-muted">
-		<!-- Section: Links  -->
-		<section class="">
-			<div class="container text-center text-md-start mt-5">
-				<br />
-				<!-- Grid row -->
-				<div class="row mt-3">
-					<!-- Grid column -->
-					<div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-						<!-- Content -->
-						<h6 class="text-uppercase fw-bold mb-4">
-							<i class="fas fa-gem me-3"></i>らくらくアロハ
-						</h6>
-						<p>真心を込めて美味しい商品をお届けします</p>
-					</div>
-					<!-- Grid column -->
 
-					<!-- Grid column -->
-					<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-						<!-- Links -->
-						<h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-						<p>
-							<i class="fas fa-home me-3"></i> 東京都渋谷区千駄ヶ谷
-						</p>
-						<p>
-							<i class="fas fa-envelope me-3"></i> rakuraku-aloha@gmail.com
-						</p>
-						<p>
-							<i class="fas fa-phone me-3"></i> 0120-000-111
-						</p>
-					</div>
-					<!-- Grid column -->
-				</div>
-				<!-- Grid row -->
-			</div>
-		</section>
-		<!-- Section: Links  -->
+	<footer th:replace="footer::frag_footer"></footer>
 
-		<!-- Copyright -->
-		<div class="text-center p-4"
-			style="background-color: rgba(0, 0, 0, 0.05)">
-			© 2021 Copyright: <a class="text-reset fw-bold" href="#">らくらくアロハ</a>
-		</div>
-		<!-- Copyright -->
-	</footer>
 	<!-- Footer -->
 
 	<!-- MDB -->
