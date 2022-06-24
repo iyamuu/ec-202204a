@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import com.example.domain.CreditCardRequest;
+import com.example.domain.CreditCardResponse;
 import com.example.domain.Order;
 import com.example.domain.OrderItem;
 import com.example.domain.User;
@@ -22,6 +25,11 @@ public class OrderService {
 	
 	@Autowired
 	private OrderRepository orderRepository;
+	
+//	@Autowired
+//	private RestTemplate restTemplate;
+	private RestTemplate restTemplate = new RestTemplate();
+	
 	
 	/**
 	 * 注文確認画面の表示.
@@ -64,6 +72,18 @@ public class OrderService {
 	}
 	
 	/**
+	 * クレジットカードの決済処理を行います.
+	 * OrderControllerのupdateメソッドで使用
+	 * 
+	 * @param creditCardRequest
+	 * @return
+	 */
+	public CreditCardResponse CreditCardPayment(CreditCardRequest creditCardRequest) {
+		
+		String url = "http://153.127.48.168:8080/sample-credit-card-web-api/credit-card/payment";
+		return restTemplate.postForObject(url, creditCardRequest, CreditCardResponse.class);
+	}
+	/**
 	 * 
 	 * 未ログイン時の注文と過去のログイン時の注文を合体する.
 	 * 
@@ -80,13 +100,9 @@ public class OrderService {
 			sessionOrder = null;
 		}
 		
-		System.out.println("order : " + order);
-		System.out.println("session order : " + sessionOrder);
-		
 		
 		if (order == null && sessionOrder != null) {
 			// sessionユーザーにのみ注文があるとき
-			System.out.println("未ログイン時の注文データのみ存在します");
 			order = sessionOrder;
 			order.setUserId(loginUser.getId());
 			orderRepository.update(order);
@@ -94,7 +110,6 @@ public class OrderService {
 			
 		} else if (order != null && sessionOrder != null) {
 			// ログインユーザーとセッションユーザーの両方に注文があるとき
-			System.out.println("ログイン時と未ログイン時の両方に注文データが存在します");
 			List<OrderItem> orderItemList = order.getOrderItemList();
 			List<OrderItem> sessionOrderItemList = sessionOrder.getOrderItemList();
 			
@@ -107,12 +122,10 @@ public class OrderService {
 			order.setOrderItemList(orderItemList);	
 		} else {
 			// ログインユーザーにのみ注文が存在するとき
-			System.out.println("ログイン時の注文データのみ存在します");
 			
 		}
 		
 		//update(loginUser.getId(), order);
-		System.out.println("merged order : " + order);
 		return order;
 	}
 }
