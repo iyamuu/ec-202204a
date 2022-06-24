@@ -2,8 +2,8 @@ package com.example.form;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 /**
  * 注文のフォームクラス.
@@ -35,6 +35,7 @@ public class OrderForm {
 	@NotBlank(message="配達日時を入力してください")
 	private String deliveryTime;
 	/** 支払方法 */
+	@NotNull(message = "支払方法を選択してください")
 	private Integer paymentMethod;
 	/** カード番号(数字14桁-16桁) */
 	private String cardNumber;
