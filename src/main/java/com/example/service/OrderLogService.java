@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class OrderLogService {
 	public List<Order> showOrderHistory(Integer userId) {
 		
 		List<Order> orderList = orderRepository.findLogByUserId(userId);
+		Collections.reverse(orderList);
 		return orderList;
 	}
 }
