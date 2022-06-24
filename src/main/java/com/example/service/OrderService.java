@@ -81,6 +81,7 @@ public class OrderService {
 	public CreditCardResponse CreditCardPayment(CreditCardRequest creditCardRequest) {
 		
 		System.out.println("クレジットカードのサービスクラスのメソッド呼び出し");
+		System.out.println(creditCardRequest);
 		String url = "http://153.127.48.168:8080/sample-credit-card-web-api/credit-card/payment";
 		return restTemplate.postForObject(url, creditCardRequest, CreditCardResponse.class);
 	}
@@ -103,7 +104,6 @@ public class OrderService {
 		
 		System.out.println("order : " + order);
 		System.out.println("session order : " + sessionOrder);
-		
 		
 		if (order == null && sessionOrder != null) {
 			// sessionユーザーにのみ注文があるとき
