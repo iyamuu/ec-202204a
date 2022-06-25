@@ -72,13 +72,9 @@ public class AdminController {
 		if (!isAdmin(loginuser)) {
 			return "forward:/";
 		}
-		System.out.println("これからエラーの判定");
 		if(result.hasErrors()) {
-			System.out.println("エラーありました");
 			return toInsertItem(loginuser);
 		}
-		
-		System.out.println(form);
 		
 		return "redirect:/admin";
 	}
