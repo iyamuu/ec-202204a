@@ -30,7 +30,24 @@
 	<main>
 		<div class="container">
 			<br>
-			<h2>商品登録画面</h2>
+			<h3>管理者画面</h3>
+			<br>
+			<div class="dropdown">
+				<button class="btn btn-outline-dark mb-4 dropdown-toggle"
+					type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+					aria-expanded="false">メニュー</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+					<li><a class="dropdown-item" href="admin.html"
+						th:href="@{/admin}">商品購入数ランキング</a></li>
+					<li><a class="dropdown-item" href="insert_item.html"
+						th:href="@{/admin/toInsertItem}">商品の追加</a></li>
+				</ul>
+			</div>
+			<hr>
+			<br>
+			<div style="text-align: center">
+				<h4>商品の追加</h4>
+			</div>
 			<br>
 			<form th:action="@{/admin/insertItem}" method="post" class="bg-light"
 				th:object="${insertItemForm}" enctype="multipart/form-data">
@@ -88,7 +105,14 @@
 	<!-- MDB -->
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous">
+		
+	</script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/get_login_info.js}"></script>
 </body>
 
 </html>
