@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
@@ -104,6 +103,12 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			FieldError fieldError = new FieldError(result.getObjectName(), "priceL", "値段を入力してください");
+			result.addError(fieldError);
+		}
+		
+		// 画像が選択されたか判定
+		if(form.getItemImage().getOriginalFilename().equals("")) {
+			FieldError fieldError = new FieldError(result.getObjectName(), "itemImage", "商品画像を選択してください");
 			result.addError(fieldError);
 		}
 		
