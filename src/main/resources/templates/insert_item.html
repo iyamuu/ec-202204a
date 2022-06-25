@@ -32,45 +32,43 @@
 			<br>
 			<h2>商品登録画面</h2>
 			<br>
-			<form action="" method="post" class="bg-light"
+			<form th:action="@{/admin/insertItem}" method="post" class="bg-light" th:object="${insertItemForm}"
 				enctype="multipart/form-data">
 				<div class="register-input-content mx-3">
 					<div class="mb-3">
 						<label for="itemName" class="form-label">商品名：</label>
-						<div style="color: red">エラー！</div>
-						<input type="text" name="itemName" class="form-control"
+						<div th:errors="*{itemName}" style="color: red">エラー！</div>
+						<input type="text" name="itemName" class="form-control" th:field="*{itemName}"
 							id="itemName" />
 					</div>
 					<div class="mb-3">
 						<label for="description" class="form-label">説明文：</label>
-						<div style="color: red">エラー！</div>
-						<textarea name="description" class="form-control" id="description"></textarea>
+						<div th:errors="*{description}" style="color: red">エラー！</div>
+						<textarea name="description" class="form-control" id="description" th:field="*{description}"></textarea>
 					</div>
 					<div class="mb-3">
-						<label for="m-price" class="form-label">Mサイズの値段：</label>
-						<div style="color: red">エラー！</div>
-						<input type="text" name="m-price" class="form-control"
-							id="m-price" />
+						<label for="mPrice" class="form-label">Mサイズの値段：</label>
+						<div th:errors="*{mPrice}" style="color: red">エラー！</div>
+						<input type="text" name="mPrice" class="form-control" id="mPrice" th:field="*{mPrice}"/>
 					</div>
 					<div class="mb-3">
-						<label for="l-price" class="form-label">Lサイズの値段：</label>
-						<div style="color: red">エラー！</div>
-						<input type="text" name="l-price" class="form-control"
-							id="l-price" />
+						<label for="lPrice" class="form-label">Lサイズの値段：</label>
+						<div th:errors="*{lPrice}" style="color: red">エラー！</div>
+						<input type="text" name="lPrice" class="form-control" id="lPrice" th:field="*{lPrice}" />
 					</div>
 					<div class="mb-3">
-						<label for="item-image" class="form-label">：</label>
-						<div style="color: red">エラー！</div>
-						<input name="item-image" type="file"
+						<label for="itemImage" class="form-label">商品画像：</label>
+						<div th:errors="*{itemImage}" style="color: red">エラー！</div>
+						<input name="itemImage" type="file"
 							accept=".jpg,.png,image/jpeg,image/png" class="form-control"
-							id="item-image" />
+							id="itemImage" th:field="*{itemImage}"/>
 					</div>
 
 				</div>
 
 				<div class="button-link d-flex justify-content-center mx-2">
 					<!-- Button trigger modal -->
-					<button type="button" class="btn btn-primary"
+					<button type="submit" class="btn btn-primary"
 						data-bs-toggle="modal" data-bs-target="#exampleModal">
 						登録する</button>
 				</div>

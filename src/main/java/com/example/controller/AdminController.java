@@ -8,17 +8,32 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.LoginUser;
+import com.example.form.InsertItemForm;
 import com.example.service.AdminService;
 
+/**
+ * 管理者ページのコントローラー
+ * 
+ * @author isodakeisuke
+ *
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	
+	@ModelAttribute
+	private InsertItemForm setUpForm() {
+		return new InsertItemForm();
+	}
 
 	/**
 	 * 管理者画面を表示します.
@@ -28,22 +43,44 @@ public class AdminController {
 	 */
 	@RequestMapping("")
 	public String index(@AuthenticationPrincipal LoginUser loginuser, Model model) {
+		if (!isAdmin(loginuser)) {
+			return "forward:/";
+		}
 
 		Map<String, Integer> purchasedMap = adminService.showPurchasedCount();
 		model.addAttribute("purchasedMap", purchasedMap);
-
-		if (isAdmin(loginuser)) {
-			return "admin";
-		}
-		return "forward:/";
+		return "admin";
 	}
 	
+	/**
+	 * 商品登録画面を表示します.
+	 * 
+	 * @param loginuser ユーザー情報（このページに入れるかの認証に使用）
+	 * @param form 商品情報
+	 * @return 管理者なら商品登録画面　その他なら商品一覧画面
+	 */
 	@RequestMapping("/toInsertItem")
-	public String insertItem(@AuthenticationPrincipal LoginUser loginuser) {
-		if (isAdmin(loginuser)) {
-			return "insert_item";
+	public String toInsertItem(@AuthenticationPrincipal LoginUser loginuser) {
+		if (!isAdmin(loginuser)) {
+			return "forward:/";
 		}
-		return "forward:/";
+		return "insert_item";
+	}
+	
+	@RequestMapping("/insertItem")
+	public String insertItem(@AuthenticationPrincipal LoginUser loginuser, @Validated InsertItemForm form, BindingResult result) {
+		if (!isAdmin(loginuser)) {
+			return "forward:/";
+		}
+		System.out.println("これからエラーの判定");
+		if(result.hasErrors()) {
+			System.out.println("エラーありました");
+			return toInsertItem(loginuser);
+		}
+		
+		System.out.println(form);
+		
+		return "redirect:/admin";
 	}
 
 	/**

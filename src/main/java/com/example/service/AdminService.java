@@ -14,6 +14,11 @@ import com.example.domain.OrderItem;
 import com.example.repository.ItemRepository;
 import com.example.repository.OrderRepository;
 
+/**
+ * 管理者に関連する業務処理を行います.
+ * @author isodakeisuke
+ *
+ */
 @Service
 public class AdminService {
 
@@ -65,8 +70,6 @@ public class AdminService {
 				if (maxPurchasedCount == null || purchasedMap.get(itemName) > maxPurchasedCount) {
 					maxPurchasedName = itemName;
 					maxPurchasedCount = purchasedMap.get(itemName);
-					
-					System.out.print("*");
 				} 
 			}
 			
