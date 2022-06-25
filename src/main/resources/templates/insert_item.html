@@ -36,10 +36,10 @@
 				th:object="${insertItemForm}" enctype="multipart/form-data">
 				<div class="register-input-content mx-3">
 					<div class="mb-3">
-						<label for="itemName" class="form-label">商品名：</label>
-						<div th:errors="*{itemName}" style="color: red">エラー！</div>
-						<input type="text" name="itemName" class="form-control"
-							th:field="*{itemName}" id="itemName" />
+						<label for="name" class="form-label">商品名：</label>
+						<div th:errors="*{name}" style="color: red">エラー！</div>
+						<input type="text" name="name" class="form-control"
+							th:field="*{name}" id="name" />
 					</div>
 					<div class="mb-3">
 						<label for="description" class="form-label">説明文：</label>

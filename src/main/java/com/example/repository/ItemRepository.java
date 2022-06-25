@@ -110,7 +110,7 @@ public class ItemRepository {
 	public void insert(Item item) {
 		item.setId(getPrimaryId());
 		
-		String sql = "insert into items (id, name, description, price_m, price_l, image_path) values (:id, :itemName, :description, :priceM, :priceL, :imagePath)";
+		String sql = "insert into items (id, name, description, price_m, price_l, image_path) values (:id, :name, :description, :priceM, :priceL, :imagePath)";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(item);
 		template.update(sql, param);
 	}

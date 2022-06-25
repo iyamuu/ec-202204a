@@ -15,26 +15,24 @@ public class InsertItemForm {
 
 	/* 商品名 */
 	@NotBlank(message = "商品名を入力してください")
-	private String itemName;
+	private String name;
 	/* 説明文 */
 	@NotBlank(message = "説明文を入力してください")
 	private String description;
 	/* Mサイズの値段 */
-	@NotBlank(message = "Mサイズの値段を入力してください")
 	private String priceM;
 	/* Lサイズの値段 */
-	@NotBlank(message = "Lサイズの値段を入力してください")
 	private String priceL;
 	/* 商品画像 */
 	@NotNull(message = "商品画像を選択してください")
 	private MultipartFile itemImage;
 
-	public String getItemName() {
-		return itemName;
+	public String getname() {
+		return name;
 	}
 
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
+	public void setname(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
@@ -71,7 +69,7 @@ public class InsertItemForm {
 
 	@Override
 	public String toString() {
-		return "InsertItemForm [itemName=" + itemName + ", description=" + description + ", priceM=" + priceM
+		return "InsertItemForm [name=" + name + ", description=" + description + ", priceM=" + priceM
 				+ ", priceL=" + priceL + ", itemImage=" + itemImage + "]";
 	}
 
