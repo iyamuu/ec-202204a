@@ -49,12 +49,10 @@ public class InsertItemService {
 				OutputStream stream = Files.newOutputStream(imagePath);
 				// ファイルに書き込み
 				stream.write(bytes);
-				System.out.println("保存処理完了");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
-		System.out.println("リポジトリ呼びます");
 		item.setImagePath(imageName);
 		itemRepository.insert(item);
 	}
