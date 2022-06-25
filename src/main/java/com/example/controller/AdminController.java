@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
@@ -20,6 +21,7 @@ import com.example.domain.LoginUser;
 import com.example.form.InsertItemForm;
 import com.example.service.AdminService;
 import com.example.service.InsertItemService;
+import com.example.service.ShowItemListService;
 
 /**
  * 管理者ページのコントローラー
@@ -36,6 +38,9 @@ public class AdminController {
 	
 	@Autowired
 	private InsertItemService insertItemService;
+	
+	@Autowired
+	private ShowItemListService showItemListService;
 	
 	@ModelAttribute
 	private InsertItemForm setUpForm() {
@@ -88,6 +93,14 @@ public class AdminController {
 			return "forward:/";
 		}
 		
+		// 名前がかぶっている商品がもともと存在するとき
+		List<Item> itemList = showItemListService.search(form.getname(), null);
+		if(itemList.size() > 0) {
+//			FieldError fieldError = new FieldError(result.getObjectName(), "name", "その名前の商品はすでに存在します");
+//			result.addError(fieldError);
+			result.rejectValue("name", null, "その名前の商品はすでに存在します");
+		}
+		
 		// 入力された値段を文字列に変更
 		Integer priceM = 0;
 		Integer priceL = 0;
@@ -95,21 +108,18 @@ public class AdminController {
 			priceM = Integer.parseInt(form.getpriceM());
 		} catch (Exception e) {
 			e.printStackTrace();
-			FieldError fieldError = new FieldError(result.getObjectName(), "priceM", "値段を入力してください");
-			result.addError(fieldError);
+			result.rejectValue("priceM", null, "値段を入力してください");
 		}
 		try {
 			priceL = Integer.parseInt(form.getpriceL());
 		} catch (Exception e) {
 			e.printStackTrace();
-			FieldError fieldError = new FieldError(result.getObjectName(), "priceL", "値段を入力してください");
-			result.addError(fieldError);
+			result.rejectValue("priceL", null, "値段を入力してください");
 		}
 		
 		// 画像が選択されたか判定
 		if(form.getItemImage().getOriginalFilename().equals("")) {
-			FieldError fieldError = new FieldError(result.getObjectName(), "itemImage", "商品画像を選択してください");
-			result.addError(fieldError);
+			result.rejectValue("itemImage", null, "商品画像を選択してください");
 		}
 		
 		if(result.hasErrors()) {
@@ -121,8 +131,7 @@ public class AdminController {
 		item.setPriceM(priceM);
 		item.setPriceL(priceL);
 		
-		System.out.println(item.toString());
-			insertItemService.insert(item, form.getItemImage());
+		insertItemService.insert(item, form.getItemImage());
 		
 		return "redirect:/admin/toInsertItemFinished";
 	}
