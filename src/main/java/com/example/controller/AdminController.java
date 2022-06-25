@@ -33,7 +33,15 @@ public class AdminController {
 		model.addAttribute("purchasedMap", purchasedMap);
 
 		if (isAdmin(loginuser)) {
-			return "/admin";
+			return "admin";
+		}
+		return "forward:/";
+	}
+	
+	@RequestMapping("/toInsertItem")
+	public String insertItem(@AuthenticationPrincipal LoginUser loginuser) {
+		if (isAdmin(loginuser)) {
+			return "insert_item";
 		}
 		return "forward:/";
 	}
