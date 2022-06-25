@@ -124,7 +124,23 @@ public class AdminController {
 		System.out.println(item.toString());
 			insertItemService.insert(item, form.getItemImage());
 		
-		return "redirect:/admin";
+		return "redirect:/admin/toInsertItemFinished";
+	}
+	
+	/**
+	 * 商品追加の完了画面
+	 * 
+	 * @param loginuser ユーザー情報
+	 * @param model モデル
+	 * @return 商品追加完了画面
+	 */
+	@RequestMapping("/toInsertItemFinished")
+	private String toInsertItemFinished(@AuthenticationPrincipal LoginUser loginuser) {
+		if (!isAdmin(loginuser)) {
+			return "forward:/";
+		}
+		
+		return "insert_item_finished";
 	}
 
 	/**
