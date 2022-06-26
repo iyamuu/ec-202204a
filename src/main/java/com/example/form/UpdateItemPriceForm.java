@@ -8,18 +8,17 @@ package com.example.form;
  */
 public class UpdateItemPriceForm {
 	/* 商品id */
-	private String itemId;
+	private Integer itemId;
 	/* Mサイズの値段 */
 	private String priceM;
 	/* Lサイズの値段 */
 	private String priceL;
 
-
-	public String getItemId() {
+	public Integer getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(String itemId) {
+	public void setItemId(Integer itemId) {
 		this.itemId = itemId;
 	}
 
