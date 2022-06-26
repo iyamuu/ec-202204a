@@ -29,7 +29,7 @@
 		<br />
 		<section>
 			<div class="container text-center">
-				<h2>商品の追加が完了しました</h2>
+				<h2 th:text="${completionMessage}">商品の追加が完了しました</h2>
 				<br /> <a href="admin.html" th:href="@{/admin}"
 					class="btn btn-outline-secondary"> 管理者トップに戻る</a>
 			</div>

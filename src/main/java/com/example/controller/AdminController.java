@@ -132,25 +132,35 @@ public class AdminController {
 		
 		insertItemService.insert(item, form.getItemImage());
 		
-		return "redirect:/admin/toInsertItemFinished";
+		return "redirect:/admin/toAdminFinished";
+	}
+	
+	@RequestMapping("/toChangeItemPriceList")
+	public String toChangeItemPriceList(@AuthenticationPrincipal LoginUser loginuser,Model model) {
+		
+		List<Item> itemList = showItemListService.showList(null);
+		model.addAttribute("itemList", itemList);
+		
+		return "change_item_price_list";
 	}
 	
 	/**
-	 * 商品追加の完了画面
+	 * 操作の完了画面
 	 * 
 	 * @param loginuser ユーザー情報
 	 * @param model モデル
-	 * @return 商品追加完了画面
+	 * @return 操作完了画面
 	 */
-	@RequestMapping("/toInsertItemFinished")
-	private String toInsertItemFinished(@AuthenticationPrincipal LoginUser loginuser) {
+	@RequestMapping("/toAdminFinished")
+	private String toAdminFinished(@AuthenticationPrincipal LoginUser loginuser, Model model) {
 		if (!isAdmin(loginuser)) {
 			return "forward:/";
 		}
 		
-		return "insert_item_finished";
+		model.addAttribute("completionMessage", "商品の追加が完了しました");
+		return "admin_finished";
 	}
-
+	
 	/**
 	 * 管理者かチェックします.
 	 * 
