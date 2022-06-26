@@ -40,11 +40,13 @@
 						th:href="@{/admin}">商品購入数ランキング</a></li>
 					<li><a class="dropdown-item" href="insert_item.html"
 						th:href="@{/admin/toInsertItem}">商品の追加</a></li>
+					<li><a class="dropdown-item" href="change_item_price.html"
+						th:href="@{/admin/toChangeItemPriceList}">商品の値段変更</a></li>
 				</ul>
 			</div>
 			<hr>
 			<br>
-				<div class="text-center">
+			<div class="text-center">
 				<h4>商品の追加</h4>
 			</div>
 			<br>
@@ -67,13 +69,13 @@
 						<label for="priceM" class="form-label">Mサイズの値段：</label>
 						<div th:errors="*{priceM}" style="color: red">エラー！</div>
 						<input type="text" name="priceM" class="form-control" id="priceM"
-							th:field="*{priceM}" placeholder="1000"/>
+							th:field="*{priceM}" placeholder="1000" />
 					</div>
 					<div class="mb-3">
 						<label for="priceL" class="form-label">Lサイズの値段：</label>
 						<div th:errors="*{priceL}" style="color: red">エラー！</div>
 						<input type="text" name="priceL" class="form-control" id="priceL"
-							th:field="*{priceL}" placeholder="2000"/>
+							th:field="*{priceL}" placeholder="2000" />
 					</div>
 					<div class="mb-3">
 						<label for="itemImage" class="form-label">商品画像：</label>

@@ -34,14 +34,16 @@
 				<h3>管理者画面</h3>
 				<br>
 				<div class="dropdown">
-					<button class="btn btn-outline-dark mb-4 dropdown-toggle"
-						type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+					<button class="btn btn-outline-dark mb-4 dropdown-toggle" type="button"
+						id="dropdownMenuButton1" data-bs-toggle="dropdown"
 						aria-expanded="false">メニュー</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 						<li><a class="dropdown-item" href="admin.html"
 							th:href="@{/admin}">商品購入数ランキング</a></li>
 						<li><a class="dropdown-item" href="insert_item.html"
 							th:href="@{/admin/toInsertItem}">商品の追加</a></li>
+						<li><a class="dropdown-item" href="change_item_price.html"
+							th:href="@{/admin/toChangeItemPriceList}">商品の値段変更</a></li>
 					</ul>
 				</div>
 				<hr>
