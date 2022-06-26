@@ -27,11 +27,11 @@ public class InsertItemForm {
 	@NotNull(message = "商品画像を選択してください")
 	private MultipartFile itemImage;
 
-	public String getname() {
+	public String getName() {
 		return name;
 	}
 
-	public void setname(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -43,19 +43,19 @@ public class InsertItemForm {
 		this.description = description;
 	}
 
-	public String getpriceM() {
+	public String getPriceM() {
 		return priceM;
 	}
 
-	public void setpriceM(String priceM) {
+	public void setPriceM(String priceM) {
 		this.priceM = priceM;
 	}
 
-	public String getpriceL() {
+	public String getPriceL() {
 		return priceL;
 	}
 
-	public void setpriceL(String priceL) {
+	public void setPriceL(String priceL) {
 		this.priceL = priceL;
 	}
 
@@ -69,8 +69,8 @@ public class InsertItemForm {
 
 	@Override
 	public String toString() {
-		return "InsertItemForm [name=" + name + ", description=" + description + ", priceM=" + priceM
-				+ ", priceL=" + priceL + ", itemImage=" + itemImage + "]";
+		return "InsertItemForm [name=" + name + ", description=" + description + ", priceM=" + priceM + ", priceL="
+				+ priceL + ", itemImage=" + itemImage + "]";
 	}
 
 }

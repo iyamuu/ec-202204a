@@ -108,7 +108,7 @@ public class AdminController {
 		}
 
 		// 名前がかぶっている商品がもともと存在するとき
-		List<Item> itemList = showItemListService.search(form.getname(), null);
+		List<Item> itemList = showItemListService.search(form.getName(), null);
 		if (itemList.size() > 0) {
 //			FieldError fieldError = new FieldError(result.getObjectName(), "name", "その名前の商品はすでに存在します");
 //			result.addError(fieldError);
@@ -119,13 +119,13 @@ public class AdminController {
 		Integer priceM = 0;
 		Integer priceL = 0;
 		try {
-			priceM = Integer.parseInt(form.getpriceM());
+			priceM = Integer.parseInt(form.getPriceM());
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.rejectValue("priceM", null, "値段を正しく入力してください");
 		}
 		try {
-			priceL = Integer.parseInt(form.getpriceL());
+			priceL = Integer.parseInt(form.getPriceL());
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.rejectValue("priceL", null, "値段を正しく入力してください");
