@@ -8,18 +8,19 @@ package com.example.form;
  */
 public class UpdateItemPriceForm {
 	/* 商品id */
-	private String id;
+	private String itemId;
 	/* Mサイズの値段 */
 	private String priceM;
 	/* Lサイズの値段 */
 	private String priceL;
 
-	public String getId() {
-		return id;
+
+	public String getItemId() {
+		return itemId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
 	}
 
 	public String getPriceM() {
@@ -40,7 +41,7 @@ public class UpdateItemPriceForm {
 
 	@Override
 	public String toString() {
-		return "UpdateItemPriceForm [id=" + id + ", priceM=" + priceM + ", priceL=" + priceL + "]";
+		return "UpdateItemPriceForm [itemId=" + itemId + ", priceM=" + priceM + ", priceL=" + priceL + "]";
 	}
 
 }

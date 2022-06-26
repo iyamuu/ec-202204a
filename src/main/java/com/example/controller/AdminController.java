@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.domain.Item;
 import com.example.domain.LoginUser;
 import com.example.form.InsertItemForm;
+import com.example.form.UpdateItemPriceForm;
 import com.example.service.AdminService;
 import com.example.service.InsertItemService;
+import com.example.service.ShowItemDetailService;
 import com.example.service.ShowItemListService;
 
 /**
@@ -41,9 +43,17 @@ public class AdminController {
 	@Autowired
 	private ShowItemListService showItemListService;
 	
+	@Autowired
+	private ShowItemDetailService showItemDetailService;
+	
 	@ModelAttribute
 	private InsertItemForm setUpForm() {
 		return new InsertItemForm();
+	}
+	
+	@ModelAttribute
+	private UpdateItemPriceForm setUpUpdateItemPriceForm() {
+		return new UpdateItemPriceForm();
 	}
 
 	/**
@@ -135,13 +145,59 @@ public class AdminController {
 		return "redirect:/admin/toAdminFinished";
 	}
 	
+	/**
+	 * 値段変更の商品一覧画面を表示します.
+	 * 
+	 * @param loginuser ユーザー情報
+	 * @param model モデル
+	 * @return 値段変更の商品一覧画面
+	 */
 	@RequestMapping("/toChangeItemPriceList")
 	public String toChangeItemPriceList(@AuthenticationPrincipal LoginUser loginuser,Model model) {
+		if (!isAdmin(loginuser)) {
+			return "forward:/";
+		}
 		
 		List<Item> itemList = showItemListService.showList(null);
 		model.addAttribute("itemList", itemList);
 		
 		return "change_item_price_list";
+	}
+	
+	/**
+	 * 値段を変更する商品の金額入力画面を表示します.
+	 * 
+	 * @param loginuser ユーザー情報
+	 * @param model モデル
+	 * @return 値段を変更する商品の金額入力画面
+	 */
+	@RequestMapping("/toChangeItemPriceDetail")
+	public String toChangeItemPriceDetail(@AuthenticationPrincipal LoginUser loginuser,Model model, Integer id) {
+		if (!isAdmin(loginuser)) {
+			return "forward:/";
+		}
+		
+		Item item = showItemDetailService.ShowDetail(id);
+		model.addAttribute("item", item);
+		return "change_item_price_detail";
+	}
+	
+	/**
+	 * 商品の値段の変更を行います.
+	 * 
+	 * @param loginuser ユーザー情報
+	 * @param model モデル
+	 * @param form 入力された情報
+	 * @return 完了画面
+	 */
+	@RequestMapping("/changeItemPrice")
+	public String changeItemPrice(@AuthenticationPrincipal LoginUser loginuser,Model model, UpdateItemPriceForm form) {
+		if (!isAdmin(loginuser)) {
+			return "forward:/";
+		}
+		
+		System.out.println(form);
+		return "redirect:/admin/toAdminFinished";
 	}
 	
 	/**
@@ -152,12 +208,11 @@ public class AdminController {
 	 * @return 操作完了画面
 	 */
 	@RequestMapping("/toAdminFinished")
-	private String toAdminFinished(@AuthenticationPrincipal LoginUser loginuser, Model model) {
+	private String toAdminFinished(@AuthenticationPrincipal LoginUser loginuser) {
 		if (!isAdmin(loginuser)) {
 			return "forward:/";
 		}
 		
-		model.addAttribute("completionMessage", "商品の追加が完了しました");
 		return "admin_finished";
 	}
 	

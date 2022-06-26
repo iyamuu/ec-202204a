@@ -65,7 +65,7 @@
 								<p class="card-text"
 									th:text="'M:'+${#numbers.formatInteger(item.priceM, 3, 'COMMA')}+'円, L:'+ ${#numbers.formatInteger(item.priceL, 3, 'COMMA')}+'円'">
 									M:2160円, L:3380円</p>
-								<a th:href="@{'/items/detail?id='}+${item.id}"
+								<a th:href="@{'/admin/toChangeItemPriceDetail?id='}+${item.id}"
 									class="btn btn-light">値段を変更</a>
 							</div>
 						</div>
