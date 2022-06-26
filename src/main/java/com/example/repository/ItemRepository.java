@@ -115,4 +115,14 @@ public class ItemRepository {
 		template.update(sql, param);
 	}
 
+	/**
+	 * 商品の値段を変更します
+	 * 
+	 * @param item
+	 */
+	public void updatePrice(Item item) {
+		String sql = "update items set price_m = :priceM, price_l = :priceL where id = :id";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(item);
+		template.update(sql, param);
+	}
 }
