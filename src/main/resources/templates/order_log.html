@@ -57,7 +57,7 @@
 							data-mdb-parent="#accordionExample">
 							<div class="accordion-body">
 								<h4>
-									合計金額： <span th:text="${order.totalPrice}">32000</span> 円
+									合計金額： <span th:text="${#numbers.formatInteger(order.totalPrice, 3, 'COMMA')}">32000</span> 円
 								</h4>
 								<p>
 									お届け先住所： <span th:text="${order.destinationAddress}">東京都練馬区</span>
@@ -68,7 +68,7 @@
 								<div class="row flex-row flex-nowrap overflow-auto">
 									<!-- 1個のitem start -->
 									<div th:each="orderItem : ${order.orderItemList}"
-										class="col mx-auto" style="width: 18rem;">
+										class="col mx-2" style="width: 18rem;">
 										<div class="card text-center" style="width: 18rem;">
 											<img
 												th:src="@{'/img_aloha_resize/'}+${orderItem.item.imagePath}"
@@ -93,7 +93,7 @@
 												</ul>
 												</p>
 												<p class="card-text">
-													<strong>小計： <span th:text="${orderItem.subTotal}">3280</span>
+													<strong>小計： <span th:text="${#numbers.formatInteger(orderItem.subTotal, 3, 'COMMA')}">3280</span>
 														円
 													</strong>
 												</p>

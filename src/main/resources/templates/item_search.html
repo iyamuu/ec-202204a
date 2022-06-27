@@ -51,8 +51,8 @@
 						class="btn btn-outline-dark mb-4"
 						th:href="@{/search?search_name=} + ${search_name} + '&sort=DESC'">値段の高い順</a>
 				</div>
-				<div class="row row-cols-1 row-cols-md-3 g-4 item-content">
-					<div class="col mx-auto" style="width: 18rem"
+				<div class="row row-cols-1 row-cols-md-3 g-4 item-content d-flex justify-content-center">
+					<div class="col mx-2" style="width: 18rem"
 						th:each="item : ${itemList}">
 						<div class="card text-center" style="width: 18rem">
 							<img src="../static/img_aloha/10.jpg" class="card-img-top"
