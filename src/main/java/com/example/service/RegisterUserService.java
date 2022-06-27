@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.domain.User;
 import com.example.repository.RegisterUserRepository;
+import com.example.repository.UserRepository;
 
 /**
  * ユーザー登録処理をするサービス.
@@ -20,6 +21,9 @@ public class RegisterUserService {
 	private RegisterUserRepository repository;
 	
 	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	/**
@@ -31,5 +35,9 @@ public class RegisterUserService {
 		String encodePassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodePassword);
 		repository.save(user);
+	}
+	
+	public User searchByEmail(String email) {
+		return userRepository.findByEmail(email);
 	}
 }
