@@ -40,8 +40,10 @@
 								<div class="mb-3">
 									<label for="name" class="form-label">名前：</label>
 									<div th:errors="*{name}" style="color: red">エラー！</div>
-									<input type="text" name="name" class="form-control" id="name"
-										th:field="*{name}" />
+									<input th:if="${name}" type="text" name="name" class="form-control" id="name" th:placeholder="${name}" th:value="${name}" 
+										 th:readonly="${true}"/>
+									<input th:unless="${name}" type="text" name="name" class="form-control" id="name"
+									th:field="*{name}" />
 								</div>
 
 								<hr />
@@ -49,8 +51,10 @@
 								<div class="mb-3">
 									<label for="email" class="form-label">メールアドレス：</label>
 									<div th:errors="*{email}" style="color: red">エラー！</div>
-									<input type="email" name="email" class="form-control"
-										id="email" aria-describedby="emailHelp" th:field="*{email}" />
+									<input type="email" th:if="${email}" name="email" class="form-control" th:placeholder="${email}" th:value="${email}" 
+										id="email" aria-describedby="emailHelp" th:readonly="${true}"/>
+									<input type="email" th:unless="${email}" name="email" class="form-control"
+									id="email" aria-describedby="emailHelp" th:field="*{email}" />
 									<div id="emailHelp" class="form-text">ex) taro@sample.com
 									</div>
 								</div>
