@@ -60,7 +60,7 @@
 						href="#" id="navbarDropdownMenuAvatar" role="button"
 						data-mdb-toggle="dropdown" aria-expanded="false"> 
 						<i class="fa-solid fa-circle-user text-right text-light fw-light" sec:authorize="!isAuthenticated()"> ゲスト</i>
-						<i class="fa-solid fa-circle-user text-right text-light fw-light" > <span sec:authorize="isAuthenticated()" sec:authentication="principal.user.name"></span> </i>さん
+						<i class="fa-solid fa-circle-user text-right text-light fw-light" sec:authorize="isAuthenticated()"> <span sec:authentication="principal.user.name"></span> </i>さん
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="navbarDropdownMenuAvatar">
@@ -129,7 +129,7 @@
 						href="#" id="navbarDropdownMenuAvatar" role="button"
 						data-mdb-toggle="dropdown" aria-expanded="false">
 						<i class="fa-solid fa-circle-user text-right text-light fw-light" sec:authorize="!isAuthenticated()"> ゲスト</i>
-						<i class="fa-solid fa-circle-user text-right text-light fw-light" > <span sec:authorize="isAuthenticated()" sec:authentication="principal.user.name"></span> </i>さん
+						<i class="fa-solid fa-circle-user text-right text-light fw-light" sec:authorize="isAuthenticated()"> <span sec:authentication="principal.user.name"></span> </i>さん
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="navbarDropdownMenuAvatar">
