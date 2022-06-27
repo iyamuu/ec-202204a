@@ -2,12 +2,15 @@ package com.example.common;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.bind.annotation.RestController;
 
 @Configuration
 public class SecurityConfig {
@@ -22,7 +25,7 @@ public class SecurityConfig {
 	 */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/css/**", "/img_aloha/**", "/img_aloha_resize/**", "/js/**", "/fonts/**");
+        return (web) -> web.ignoring().antMatchers("/css/**", "/img_aloha/**", "/img_google/**", "/img_github/**", "/img_aloha_resize/**", "/js/**", "/fonts/**");
     }
 
 	/**
@@ -33,7 +36,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests() // 認可に関する設定
-				.antMatchers("/user/toLogin", "/user/insert", "/user/signup", "/", "/search", "/items/detail", "/cart/show", "/cart/insert", "/cart/delete").permitAll() // 「/」などのパスは全てのユーザに許可
+				.antMatchers("/error", "/webjars/**", "/user/toLogin", "/user/insert", "/user/signup", "/", "/search", "/items/detail", "/cart/show", "/cart/insert", "/cart/delete").permitAll() // 「/」などのパスは全てのユーザに許可
 				// .antMatchers("/admin/**").hasRole("ADMIN") ///
 				// /admin/から始まるパスはADMIN権限でログインしている場合のみアクセス可(権限設定時の「ROLE_」を除いた文字列を指定)
 				// .antMatchers("/user/**").hasRole("USER") //
@@ -55,6 +58,8 @@ public class SecurityConfig {
 				.logoutSuccessUrl("/user/toLogin") // ログアウト後に遷移させるパス(ここではログイン画面を設定)
 				.deleteCookies("JSESSIONID") // ログアウト後、Cookieに保存されているセッションIDを削除
 				.invalidateHttpSession(true); // true:ログアウト後、セッションを無効にする false:セッションを無効にしない
+		
+		http.oauth2Login();
 
 		return http.build();
 	}

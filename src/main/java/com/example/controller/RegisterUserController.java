@@ -2,6 +2,8 @@ package com.example.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,7 +42,11 @@ public class RegisterUserController {
 	 * @return ユーザー登録画面
 	 */
 	@GetMapping("/signup")
-	public String toInsert(Model model) {
+	public String toInsert(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+		if (oidcUser != null) {
+			model.addAttribute("name", oidcUser.getFullName());
+			model.addAttribute("email", oidcUser.getEmail());
+		}
 		return "signup"; 
 	}
 	
@@ -53,10 +59,14 @@ public class RegisterUserController {
 	 * @return リダイレクト
 	 */
 	@PostMapping("/insert")
-	public String insert(@Validated RegisterUserForm form, BindingResult result, Model model) {
-		
+	public String insert(@Validated RegisterUserForm form, BindingResult result, Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+		if (oidcUser != null) {
+			form.setName(oidcUser.getFullName());
+			form.setEmail(oidcUser.getEmail());
+		}
+		System.out.println(result);
 		if(result.hasErrors()) {
-			return toInsert(model);
+			return toInsert(model, oidcUser);
 		}
 		
 		User user = new User();

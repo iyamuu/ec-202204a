@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.domain.Item;
 import com.example.domain.LoginUser;
 import com.example.domain.User;
+import com.example.service.LoginUserService;
+import com.example.service.RegisterUserService;
 import com.example.service.ShowItemListService;
 
 /**
@@ -30,6 +33,9 @@ public class ShowItemListController {
 	private ShowItemListService showItemListService;
 	
 	@Autowired
+	private RegisterUserService registerUserService;
+	
+	@Autowired
 	private HttpSession session;
 
 	@Autowired
@@ -43,7 +49,17 @@ public class ShowItemListController {
 	 * @return		商品一覧画面
 	 */
 	@RequestMapping("")
-	public String list(Model model, String sort,  @AuthenticationPrincipal LoginUser loginuser) {
+	public String list(Model model, String sort,  @AuthenticationPrincipal LoginUser loginuser, @AuthenticationPrincipal OidcUser oidcUser) {
+		if (oidcUser != null) {
+			// もしユーザーを取得しようとして空欄だったら新しく登録する
+			User registeredUser = registerUserService.searchByEmail(oidcUser.getEmail());
+			System.out.println(registeredUser);
+			System.out.println(oidcUser.getFullName());
+			System.out.println(oidcUser.getEmail());
+			if (registeredUser == null) {
+				return "redirect:/user/signup";
+			}
+		}
 		List<Item> itemList = showItemListService.showList(sort);		
 		List<Item> recomendItemList = showItemListService.getRecomendationItemList();
 		application.setAttribute("recomendItemList", recomendItemList);
