@@ -119,6 +119,7 @@
 						<button type="button" id="get-login-info" class="btn btn-success mb-3">ログイン者情報を使用する</button>
 						<form th:action="@{/order/update}" method="post"
 							th:object="${orderForm}"
+							id="orderForm"
 							class="bg-light">
 							<div class="register-input-content mx-3">
 								<div class="mb-3">
@@ -273,7 +274,7 @@
 										</div>
 										<div class="modal-footer">
 										  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-										  <button type="submit" class="btn btn-primary">注文する</button>
+										  <button type="submit" id="modal-order-confirm-button" class="btn btn-primary">注文する</button>
 										</div>
 									  </div>
 									</div>
