@@ -9,4 +9,9 @@ $(function () {
 		$("#card-input").hide();		
 	}
   });
+
+  $("#modal-order-confirm-button").on("click", function(){
+    $("#orderForm").submit();
+    $("#modal-order-confirm-button").prop("disabled", true);;
+  })
 });
