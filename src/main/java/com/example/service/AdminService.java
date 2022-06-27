@@ -51,7 +51,7 @@ public class AdminService {
 				
 				for(String itemName: purchasedMap.keySet()) {
 					if(itemName.equals(orderItem.getItem().getName()) ) {
-						Integer purchasedCount = purchasedMap.get(itemName) + 1;
+						Integer purchasedCount = purchasedMap.get(itemName) + orderItem.getQuantity();
 						purchasedMap.put(itemName, purchasedCount);
 					}
 				}
