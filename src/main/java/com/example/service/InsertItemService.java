@@ -36,10 +36,10 @@ public class InsertItemService {
 	public void insert(Item item, MultipartFile itemImage){
 		// 画像の保存先のパスを作成
 		// ファイルの名前：LocalDateTime＋選択されたファイルの名前（ファイルの名前がかぶらないようLocalDateTimeをつけています）
-		File imageDir = new File("src/main/resources/static/img_aloha_resize");
+		File imageDir = new File("src\\main\\resources\\static\\img_aloha_resize");
 		imageDir = imageDir.getAbsoluteFile();
-		String imageName = LocalDateTime.now().toString() + itemImage.getOriginalFilename();
-        Path imagePath = Paths.get(imageDir.toString() + "/" + imageName);
+		String imageName = LocalDateTime.now().getNano() + itemImage.getOriginalFilename();
+        Path imagePath = Paths.get(imageDir.toString() + "\\" + imageName);
 
 			// アップロードファイルをバイト値に変換
 			byte[] bytes;
