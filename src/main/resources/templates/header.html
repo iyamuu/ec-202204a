@@ -58,8 +58,9 @@
 				<div class="dropdown">
 					<a class="dropdown-toggle d-flex align-items-center hidden-arrow"
 						href="#" id="navbarDropdownMenuAvatar" role="button"
-						data-mdb-toggle="dropdown" aria-expanded="false"> <i
-						class="fa-solid fa-circle-user"></i>
+						data-mdb-toggle="dropdown" aria-expanded="false"> 
+						<i class="fa-solid fa-circle-user text-right" sec:authorize="!isAuthenticated()"> ゲスト</i>
+						<i class="fa-solid fa-circle-user text-right" sec:authorize="isAuthenticated()" sec:authentication="principal.user.name"></i>さん
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="navbarDropdownMenuAvatar">
@@ -73,7 +74,7 @@
 						<li><span sec:authorize="isAuthenticated()"><a
 								class="dropdown-item" th:href="@{/user/logout}">ログアウト</a></span> <span
 							sec:authorize="!isAuthenticated()"><a
-								class="dropdown-item" th:href="@{/user/login}">ログイン</a></span></li>
+								class="dropdown-item" th:href="@{/user/toLogin}">ログイン</a></span></li>
 					</ul>
 				</div>
 			</div>
@@ -126,8 +127,9 @@
 				<div class="dropdown">
 					<a class="dropdown-toggle d-flex align-items-center hidden-arrow"
 						href="#" id="navbarDropdownMenuAvatar" role="button"
-						data-mdb-toggle="dropdown" aria-expanded="false"> <i
-						class="fa-solid fa-circle-user"></i>
+						data-mdb-toggle="dropdown" aria-expanded="false">
+						<i class="fa-solid fa-circle-user text-right" sec:authorize="!isAuthenticated()"> ゲスト</i>
+						<i class="fa-solid fa-circle-user text-right" sec:authorize="isAuthenticated()" sec:authentication="principal.user.name"></i>さん
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="navbarDropdownMenuAvatar">
@@ -141,7 +143,7 @@
 						<li><span sec:authorize="isAuthenticated()"><a
 								class="dropdown-item" th:href="@{/user/logout}">ログアウト</a></span> <span
 							sec:authorize="!isAuthenticated()"><a
-								class="dropdown-item" th:href="@{/user/login}">ログイン</a></span></li>
+								class="dropdown-item" th:href="@{/user/toLogin}">ログイン</a></span></li>
 					</ul>
 				</div>
 			</div>
