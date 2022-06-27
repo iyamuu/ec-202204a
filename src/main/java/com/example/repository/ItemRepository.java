@@ -3,7 +3,9 @@ package com.example.repository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -82,7 +84,45 @@ public class ItemRepository {
 		Item item = template.queryForObject(sql, param, ITEM_ROW_MAPPER);
 
 		return item;
-
+	}
+	
+	/*
+	 * 商品テーブルの中で一番大きいID + 1(プライマリーキー=主キー)を取得する.
+	 * 
+	 * @return テーブル内で一番値が大きいID + 1.データがない場合は1
+	 */
+	private Integer getPrimaryId() {
+		try {
+			Integer maxId = template.queryForObject("SELECT MAX(id) FROM items;", new MapSqlParameterSource(),
+					Integer.class);
+			return maxId + 1;
+		} catch (DataAccessException e) {
+			// データが存在しない場合
+			return 1;
+		}
+	}
+	
+	/**
+	 * 商品を追加します.
+	 * 
+	 * @param item 商品情報
+	 */
+	public void insert(Item item) {
+		item.setId(getPrimaryId());
+		
+		String sql = "insert into items (id, name, description, price_m, price_l, image_path) values (:id, :name, :description, :priceM, :priceL, :imagePath)";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(item);
+		template.update(sql, param);
 	}
 
+	/**
+	 * 商品の値段を変更します
+	 * 
+	 * @param item
+	 */
+	public void updatePrice(Item item) {
+		String sql = "update items set price_m = :priceM, price_l = :priceL where id = :id";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(item);
+		template.update(sql, param);
+	}
 }

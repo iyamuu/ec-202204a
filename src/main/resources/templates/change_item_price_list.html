@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- Font Awesome -->
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -18,18 +17,20 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
 	rel="stylesheet" />
-<!-- Custom CSS -->
-<link rel="stylesheet" th:href="@{/css/order_confirm.css}">
-
+<link rel="stylesheet" href="../static/css/item_list.css"
+	th:href="@{/css/item_list.css}" />
+<link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
 <title>らくらくアロハ</title>
 </head>
 
 <body>
+
 	<header th:replace="header::frag_header"></header>
 
 	<main>
 		<section>
 			<div class="container">
+				<br>
 				<h3>管理者画面</h3>
 				<br>
 				<div class="dropdown">
@@ -45,30 +46,36 @@
 							th:href="@{/admin/toChangeItemPriceList}">商品の値段変更</a></li>
 					</ul>
 				</div>
-
 				<hr>
 				<br>
 				<div style="text-align: center">
-					<h4>商品購入数ランキング</h4>
+					<h4>商品の値段変更</h4>
 				</div>
-				<table class="table">
-					<thead>
-						<tr>
-							<th scope="col">商品名</th>
-							<th scope="col">購入数（個）</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr 　th:each="purchasedData : ${purchasedMap}">
-							<th scope="row" th:text="${purchasedData.key}">商品1</th>
-							<td th:text="${purchasedData.value}">4</td>
-						</tr>
-					</tbody>
-				</table>
+				<br>
+			</div>
+			<div class="container">
+
+				<div class="row row-cols-1 row-cols-md-3 g-4 item-content">
+					<div class="col-3 mx-auto" style="width: 18rem"
+						th:each="item : ${itemList}">
+						<div class="card text-center" style="width: 18rem">
+							<img src="../static/img_aloha_resize/10.jpg" class="card-img-top"
+								alt="..." th:src="@{'/img_aloha_resize/'}+${item.imagePath}" />
+							<div class="card-body">
+								<h5 class="card-title" th:text="${item.name}">
+									Hawaiianパラダイス</h5>
+								<p class="card-text"
+									th:text="'M:'+${#numbers.formatInteger(item.priceM, 3, 'COMMA')}+'円, L:'+ ${#numbers.formatInteger(item.priceL, 3, 'COMMA')}+'円'">
+									M:2160円, L:3380円</p>
+								<a th:href="@{'/admin/toChangeItemPriceDetail?id='}+${item.id}"
+									class="btn btn-light">値段を変更</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 	</main>
-
 	<!-- Footer -->
 
 	<footer th:replace="footer::frag_footer"></footer>
@@ -84,8 +91,11 @@
 		crossorigin="anonymous">
 		
 	</script>
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script type="text/javascript" th:src="@{/js/get_login_info.js}"></script>
+	<!-- paginathing  -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script th:src="@{/js/script.js}"></script>
+	<script th:src="@{/js/paginathing.min.js}"></script>
+	<script th:src="@{/js/carousel.js}"></script>
 </body>
-
 </html>
