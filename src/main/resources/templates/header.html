@@ -36,7 +36,7 @@
 							</datalist>
 							<span class="input-group-text border-0" id="search-addon">
 								<button style="border: none" class="bg-info">
-									<i class="fas fa-search"></i>
+									<i class="fas fa-search text-light"></i>
 								</button>
 							</span>
 						</form>
@@ -50,17 +50,17 @@
 				<!-- Icon -->
 				<a class="text-reset me-3" th:href="@{/cart/show}"
 					id="navbarDropdownMenuLink" role="button" aria-expanded="false">
-					<i class="fas fa-shopping-cart"></i> <span
+					<img th:src="@{/img_aloha_resize/shopping_cart_white_24dp.svg}"> <span
 					class="badge rounded-pill badge-notification bg-danger"
 					th:if="${session.itemCount > 0}" th:text="${session.itemCount}"></span>
 				</a>
 				<!-- Avatar -->
 				<div class="dropdown">
-					<a class="dropdown-toggle d-flex align-items-center hidden-arrow"
+					<a class="dropdown-toggle d-flex align-items-center hidden-arrow text-light fw-light"
 						href="#" id="navbarDropdownMenuAvatar" role="button"
 						data-mdb-toggle="dropdown" aria-expanded="false"> 
-						<i class="fa-solid fa-circle-user text-right" sec:authorize="!isAuthenticated()"> ゲスト</i>
-						<i class="fa-solid fa-circle-user text-right" sec:authorize="isAuthenticated()" sec:authentication="principal.user.name"></i>さん
+						<i class="fa-solid fa-circle-user text-right text-light fw-light" sec:authorize="!isAuthenticated()"> ゲスト</i>
+						<i class="fa-solid fa-circle-user text-right text-light fw-light" > <span sec:authorize="isAuthenticated()" sec:authentication="principal.user.name"></span> </i>さん
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="navbarDropdownMenuAvatar">
@@ -119,17 +119,17 @@
 				<!-- Icon -->
 				<a class="text-reset me-3" th:href="@{/cart/show}"
 					id="navbarDropdownMenuLink" role="button" aria-expanded="false">
-					<i class="fas fa-shopping-cart"></i> <span
+					<img th:src="@{/img_aloha_resize/shopping_cart_white_24dp.svg}"> <span
 					class="badge rounded-pill badge-notification bg-danger"
 					th:if="${session.itemCount > 0}" th:text="${session.itemCount}"></span>
 				</a>
 				<!-- Avatar -->
 				<div class="dropdown">
-					<a class="dropdown-toggle d-flex align-items-center hidden-arrow"
+					<a class="dropdown-toggle d-flex align-items-center hidden-arrow text-light fw-light"
 						href="#" id="navbarDropdownMenuAvatar" role="button"
 						data-mdb-toggle="dropdown" aria-expanded="false">
-						<i class="fa-solid fa-circle-user text-right" sec:authorize="!isAuthenticated()"> ゲスト</i>
-						<i class="fa-solid fa-circle-user text-right" sec:authorize="isAuthenticated()" sec:authentication="principal.user.name"></i>さん
+						<i class="fa-solid fa-circle-user text-right text-light fw-light" sec:authorize="!isAuthenticated()"> ゲスト</i>
+						<i class="fa-solid fa-circle-user text-right text-light fw-light" > <span sec:authorize="isAuthenticated()" sec:authentication="principal.user.name"></span> </i>さん
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="navbarDropdownMenuAvatar">
