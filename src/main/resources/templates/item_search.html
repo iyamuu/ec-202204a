@@ -45,11 +45,12 @@
 		<br />
 		<section>
 			<div class="container">
-				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+				<div class="d-grid gap-2 d-md-flex justify-content-end">
+					<div>
 					<a class="btn btn-outline-dark mb-4"
 						th:href="@{/search?search_name=} + ${search_name}">値段の安い順</a> <a
-						class="btn btn-outline-dark mb-4"
-						th:href="@{/search?search_name=} + ${search_name} + '&sort=DESC'">値段の高い順</a>
+						class="btn btn-outline-dark mb-4" th:href="@{/search?search_name=} + ${search_name} + '&sort=DESC'">値段の高い順</a>
+					</div>
 				</div>
 				<div class="row row-cols-1 row-cols-md-3 g-4 item-content d-flex justify-content-center">
 					<div class="col mx-2" style="width: 18rem"
