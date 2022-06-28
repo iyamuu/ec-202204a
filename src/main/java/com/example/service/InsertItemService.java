@@ -26,33 +26,33 @@ public class InsertItemService {
 
 	@Autowired
 	private ItemRepository itemRepository;
-	
+
 	/**
 	 * 商品の追加を行います.
 	 * 
 	 * @param item 商品情報
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	public void insert(Item item, MultipartFile itemImage){
+	public void insert(Item item, MultipartFile itemImage) {
 		// 画像の保存先のパスを作成
 		// ファイルの名前：LocalDateTime＋選択されたファイルの名前（ファイルの名前がかぶらないようLocalDateTimeをつけています）
 		File imageDir = new File("src\\main\\resources\\static\\img_aloha_resize");
 		imageDir = imageDir.getAbsoluteFile();
 		String imageName = LocalDateTime.now().getNano() + itemImage.getOriginalFilename();
-        Path imagePath = Paths.get(imageDir.toString() + "\\" + imageName);
+		Path imagePath = Paths.get(imageDir.toString() + "\\" + imageName);
 
-			// アップロードファイルをバイト値に変換
-			byte[] bytes;
-			try {
-				bytes = itemImage.getBytes();
-				// バイト値を書き込む為のファイルを作成して指定したパスに格納
-				OutputStream stream = Files.newOutputStream(imagePath);
-				// ファイルに書き込み
-				stream.write(bytes);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
+		// アップロードファイルをバイト値に変換
+		byte[] bytes;
+		try {
+			bytes = itemImage.getBytes();
+			// バイト値を書き込む為のファイルを作成して指定したパスに格納
+			OutputStream stream = Files.newOutputStream(imagePath);
+			// ファイルに書き込み
+			stream.write(bytes);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		item.setImagePath(imageName);
 		itemRepository.insert(item);
 	}
